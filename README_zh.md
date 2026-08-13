@@ -84,7 +84,7 @@ npm install
 npm run dev        # 开发服务器 → localhost:3000
 npm run build      # 静态导出 → out/
 npm run lint       # ESLint
-npm test           # Vitest（50 个测试用例）
+npm test           # Vitest（38 个测试用例）
 ```
 
 ### 技术栈
@@ -211,10 +211,9 @@ src/
 │   ├── analytics.test.ts       # trackEvent 单元测试
 │   ├── schema.test.ts          # Organization + BreadcrumbList Schema 测试
 │   ├── sitemap.test.ts         # Sitemap lastModified 差异化测试
-│   ├── localeRouting.test.ts   # URL 路由辅助函数（69 个测试用例）
+│   ├── localeRouting.test.ts   # URL 路由辅助函数（13 个测试用例）
 │   ├── DataContext.test.tsx    # loadFiles 错误处理测试
-│   ├── DropZone.test.tsx       # 上传错误展示测试
-│   └── BlogIndex.test.tsx      # 博客索引渲染测试
+│   └── DropZone.test.tsx       # 上传错误展示测试
 ```
 
 ## 设计系统

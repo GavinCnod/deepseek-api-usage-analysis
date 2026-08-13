@@ -84,7 +84,7 @@ npm install
 npm run dev        # Dev server at localhost:3000
 npm run build      # Static export → out/
 npm run lint       # ESLint
-npm test           # Vitest (50 tests)
+npm test           # Vitest (38 tests)
 ```
 
 ### Tech Stack
@@ -211,10 +211,9 @@ src/
 │   ├── analytics.test.ts       # trackEvent unit tests
 │   ├── schema.test.ts          # Organization + BreadcrumbList schema tests
 │   ├── sitemap.test.ts         # Sitemap lastModified differentiation tests
-│   ├── localeRouting.test.ts   # URL routing helpers (69 tests)
+│   ├── localeRouting.test.ts   # URL routing helpers (13 tests)
 │   ├── DataContext.test.tsx    # loadFiles error handling tests
-│   ├── DropZone.test.tsx       # Upload error display tests
-│   └── BlogIndex.test.tsx      # Blog index rendering tests
+│   └── DropZone.test.tsx       # Upload error display tests
 ```
 
 ## Design System
