@@ -53,3 +53,5 @@ next-env.d.ts
 /localFilesDev/
 /docs/
 .gstack/
+.trae/
+.vscode/
