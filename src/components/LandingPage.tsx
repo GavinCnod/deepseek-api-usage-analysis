@@ -9,7 +9,7 @@ import FooterBar from "./FooterBar";
 import DropZone from "./DropZone";
 import ErrorDisplay from "./ErrorDisplay";
 import LandingContent from "./LandingContent";
-import { agnesProject } from "@/lib/sisterProjects";
+import AffiliateWall from "./AffiliateWall";
 import { buildLocalePath } from "@/lib/localeRouting";
 
 /**
@@ -287,6 +287,35 @@ export default function LandingPage() {
         </section>
 
         {/* ============================================================ */}
+        {/* 推荐工具（商业化模块）                                          */}
+        {/* ============================================================ */}
+        <hr className="reveal-section" style={{ borderColor: "var(--border)" }} />
+        <section
+          className="pt-10 pb-16 reveal-section"
+          style={{ contentVisibility: "auto" }}
+          ref={(el) => {
+            sectionRefs.current[3] = el;
+          }}
+        >
+          <h2
+            className="text-sm font-semibold mb-3 text-center"
+            style={{
+              color: "var(--text-primary)",
+              letterSpacing: "-0.01em",
+            }}
+          >
+            {t.costTracker.recommendedUsingTools}
+          </h2>
+          <p
+            className="text-xs leading-relaxed text-pretty mb-4 text-center"
+            style={{ color: "var(--text-tertiary)" }}
+          >
+            {t.costTracker.recommendedUsingDes}
+          </p>
+          <AffiliateWall ids={["opencode-go","vultr", "railway", "tencent-cloud", "silicon-flow", "warp"]} />
+        </section>
+
+        {/* ============================================================ */}
         {/* 常见问题（手风琴）                                                */}
         {/* ============================================================ */}
         <hr className="reveal-section" style={{ borderColor: "var(--border)" }} />
@@ -295,7 +324,7 @@ export default function LandingPage() {
           className="pt-10 pb-12 reveal-section"
           style={{ contentVisibility: "auto" }}
           ref={(el) => {
-            sectionRefs.current[3] = el;
+            sectionRefs.current[4] = el;
           }}
         >
           <h2
@@ -384,7 +413,7 @@ export default function LandingPage() {
           className="pt-10 pb-16 reveal-section"
           style={{ contentVisibility: "auto" }}
           ref={(el) => {
-            sectionRefs.current[4] = el;
+            sectionRefs.current[5] = el;
           }}
         >
           <h2
@@ -650,56 +679,6 @@ export default function LandingPage() {
                 </svg>
                 {t.changelog.viewChangelog}
               </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* ============================================================ */}
-        {/* 姐妹项目                                                       */}
-        {/* ============================================================ */}
-        <hr className="reveal-section" style={{ borderColor: "var(--border)" }} />
-        <section
-          className="pt-10 pb-16 reveal-section"
-          style={{ contentVisibility: "auto" }}
-          ref={(el) => {
-            sectionRefs.current[5] = el;
-          }}
-        >
-          <h2
-            className="text-[11px] font-semibold uppercase tracking-widest mb-8 text-center text-pretty"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            {t.landing.sisterBadge}
-          </h2>
-
-          <div className="max-w-2xl mx-auto text-center">
-            <h3
-              className="text-sm font-semibold mb-3 text-pretty"
-              style={{ color: "var(--text-primary)" }}
-            >
-              {t.landing.sisterTitle}
-            </h3>
-            <p
-              className="text-sm leading-relaxed text-pretty"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {t.landing.sisterDesc}
-            </p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href={agnesProject.trackedSiteUrls.landing}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm transition-colors duration-200
-                           rounded-subtle px-3 py-1.5 hover:bg-[var(--bg-surface-hover)]"
-                style={{
-                  color: "var(--text-secondary)",
-                  border: "1px solid var(--border)",
-                }}
-              >
-                {t.landing.sisterVisit}
-                <span aria-hidden="true">→</span>
-              </a>
             </div>
           </div>
         </section>

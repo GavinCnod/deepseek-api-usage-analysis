@@ -444,6 +444,33 @@ export function buildArticleToolsMetadata(locale: Locale): Metadata {
 }
 
 /**
+ * 构建文章《DeepSeek V4 Flash on OpenCode Go》的 metadata。
+ */
+export function buildArticleOpencodeGoMetadata(locale: Locale): Metadata {
+  const article = getBlogArticleLocaleMeta("opencode-go-cheapest-deepseek-v4-flash", locale);
+  const enArticle = getBlogArticleLocaleMeta("opencode-go-cheapest-deepseek-v4-flash", "en");
+  const zhArticle = getBlogArticleLocaleMeta("opencode-go-cheapest-deepseek-v4-flash", "zh");
+
+  return buildBlogArticleMetadata(locale, {
+    pathname: article.pathname,
+    title: {
+      en: enArticle.title,
+      zh: zhArticle.title,
+    },
+    description: {
+      en: enArticle.description,
+      zh: zhArticle.description,
+    },
+    keywords: {
+      en: enArticle.keywords,
+      zh: zhArticle.keywords,
+    },
+    publishedTime: article.publishedTime,
+    modifiedTime: article.modifiedTime,
+  });
+}
+
+/**
  * 构建文章《OpenAI vs DeepSeek Cost Comparison》的 metadata。
  */
 export function buildArticleOpenAiMetadata(locale: Locale): Metadata {

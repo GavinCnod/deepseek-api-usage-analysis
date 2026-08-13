@@ -47,4 +47,5 @@ Client-only analytics dashboard for DeepSeek platform CSV/ZIP exports. Apple-min
 - GA4 is opt-in via `NEXT_PUBLIC_GA_ID`; when set, gtag is injected at build time in `AppRootLayout.tsx`. Leave unset locally.
 - `vercel.json` owns security headers + static-asset cache rules; deploy-compatible with any static host.
 - `localFilesDev/` and `docs/` are local dev scratch / promotion notes — not build inputs. Ignore them when working.
+- The AffiliateWall "Recommended Tools We ARE USING" commercial block (`affiliates.ts`-driven) renders on the homepage (above the FAQ section), at the bottom of every blog post (`BlogPostLayout`), and on `AuthorPage` / `CostTrackerPage`. `BlogIndex` sorts posts by `publishedTime` newest-first.
 - Respect `prefers-reduced-motion`; scroll-reveal uses `.reveal-section` + IntersectionObserver.

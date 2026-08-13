@@ -17,12 +17,13 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/lib/localeRouting.ts` | URL-level i18n routing helpers (`/zh` prefix logic) |
 | `src/lib/site.ts` | Site constants (`SITE_URL`, `SITE_NAME`, image URLs) |
 | `src/lib/pageMetadata.ts` | `buildLocalizedPageMetadata()` — canonical, alternates, OG, Twitter, keywords, author |
-| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 3 articles) |
+| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 4 articles) |
 | `src/lib/blogArticles.ts` | Blog article definitions (slug, pathname, titleKey, descriptionKey, keywords, publishedTime) |
 | `src/lib/content.ts` | Article content type definitions (`ArticleSection[]`, `ContentBlock`, `PricingRow`) |
 | `src/lib/content/articleCaching.ts` | Article 1 content (context caching guide) |
 | `src/lib/content/articleTools.ts` | Article 2 content (cost optimization tools) |
 | `src/lib/content/articleOpenai.ts` | Article 3 content (OpenAI vs Claude vs DeepSeek comparison) |
+| `src/lib/content/articleOpencodeGo.ts` | Article 4 content (OpenCode Go — cheapest DeepSeek V4 Flash) |
 | `src/components/JsonLd.tsx` | Reusable JSON-LD `<script>` renderer |
 | `src/components/AffiliateWall.tsx` | Commercial recommendation module for affiliate links |
 | `src/components/CostTrackerContent.tsx` | `<noscript>` fallback for cost tracker SEO |

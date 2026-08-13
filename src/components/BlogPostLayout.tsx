@@ -4,7 +4,6 @@
 import Link from "next/link";
 import { ReactNode } from "react";
 import { useTranslation } from "@/i18n";
-import { trackEvent } from "@/lib/analytics";
 import { buildLocalePath } from "@/lib/localeRouting";
 import {
   AUTHOR_PAGE_PATH,
@@ -12,6 +11,7 @@ import {
 } from "@/lib/authors";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import AffiliateWall from "./AffiliateWall";
 
 /**
  * Blog 文章统一排版模板
@@ -59,7 +59,6 @@ export default function BlogPostLayout({
     `${AUTHOR_PAGE_PATH}#${TEAM_MEMBERS_SECTION_ID}`,
     locale
   );
-  const ctaHref = buildLocalePath(`/?utm_source=deepseek-usage.xyz&utm_medium=referral&utm_campaign=blog_${meta.slug}`, locale);
 
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
@@ -135,36 +134,25 @@ export default function BlogPostLayout({
           {children}
         </div>
 
-        {/* 底部 CTA 横幅 */}
-        <div
-          className="mt-16 p-6 rounded-subtle text-center"
-          style={{ border: "1px solid var(--border)" }}
-        >
-          <p
-            className="text-sm font-semibold mb-2"
-            style={{ color: "var(--text-primary)" }}
-          >
-            {t.blog.ctaTitle}
-          </p>
-          <p
-            className="text-xs mb-4"
-            style={{ color: "var(--text-tertiary)" }}
-          >
-            {t.blog.ctaDesc}
-          </p>
-          <Link
-            href={ctaHref}
-            onClick={() => trackEvent("blog_cta_click", { blog_slug: meta.slug, event_category: "conversion" })}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 hover:opacity-90"
+        {/* 底部推荐工具（商业化模块） */}
+        <section className="mt-16 mb-4">
+          <h2
+            className="text-sm font-semibold mb-3"
             style={{
-              background: "var(--text-primary)",
-              color: "var(--accent-inverse)",
+              color: "var(--text-primary)",
+              letterSpacing: "-0.01em",
             }}
           >
-            {t.blog.ctaButton}
-            <span aria-hidden="true">→</span>
-          </Link>
-        </div>
+            {t.costTracker.recommendedUsingTools}
+          </h2>
+          <p
+            className="text-xs leading-relaxed text-pretty mb-4"
+            style={{ color: "var(--text-tertiary)" }}
+          >
+            {t.costTracker.recommendedUsingDes}
+          </p>
+          <AffiliateWall ids={["opencode-go","vultr", "railway", "tencent-cloud", "silicon-flow", "warp"]} />
+        </section>
 
         {/* 交叉链接 */}
         {(prevPost || nextPost) && (

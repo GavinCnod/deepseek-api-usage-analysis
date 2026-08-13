@@ -37,6 +37,21 @@ export interface AffiliateItem {
 
 export const affiliatesRegistry: AffiliateItem[] = [
   {
+    id: "opencode-go",
+    name: "Opencode Go",
+    url: "https://opencode.ai/go?ref=NS60V8HH6Q",
+    commission: {
+      en: "You will receive $5 when subscribed, which directly offsets the 1st month's Go fee.",
+      zh: "订阅时，您可获得 $5，直接抵消首月 go 费用。",
+    },
+    condition: {
+      en: "Cheapest option in the world, 150,000+ calls to the DeepSeek V4 Flash model.",
+      zh: "全球最便宜，月用量约等于15万次 deepseek v4 flash 模型调用。",
+    },
+    isActive: true,
+    rel: "sponsored nofollow",
+  },
+  {
     id: "aliyun-bailian",
     name: "阿里云百炼",
     url: "https://www.aliyun.com/minisite/goods?userCode=9yd8ilcf",
@@ -66,7 +81,7 @@ export const affiliatesRegistry: AffiliateItem[] = [
     isActive: true,
     rel: "sponsored nofollow",
   },
-    {
+  {
     id: "tencent-cloud-global",
     name: "腾讯云国际站 Tencent Cloud Global",
     url: "https://curl.qcloud.com/yWOyshuD",

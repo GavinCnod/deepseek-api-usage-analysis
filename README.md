@@ -42,9 +42,9 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **100% private** — All CSV parsing (Papa Parse), ZIP extraction (JSZip), and cost computation runs client-side; project configuration stored in your browser's localStorage only
 - **SEO optimized** — Server-rendered metadata (canonical URLs, OpenGraph with `alternateLocale` en/zh, Twitter cards), JSON-LD structured data (`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`, bilingual, rendered via reusable `<JsonLd />` component), robots.txt + sitemap.xml (bilingual en/zh entries per route), `<noscript>` crawler fallback content, anchor-linkable landing page sections, `llms.txt` for LLM-friendly site description
 - **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the TitleBar (pill button), LandingPage (dedicated section), FooterBar ("Related Tools" row), and Organization JSON-LD schema.
-- **Landing page** — Complete pre-upload landing with theme-aware background images, Sister Project section (Agnes AI cross-link with tracked UTM URLs), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
+- **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.6.6) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.7.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
 - **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, expanded `BreadcrumbList` with all sub-pages, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
@@ -125,10 +125,11 @@ src/
 │   │   ├── deepseek-api-pricing-calculator/
 │   │   │   └── page.tsx        # SEO landing: DeepSeek API Pricing Calculator
 │   │   ├── blog/
-│   │   │   ├── page.tsx                    # /blog article index: 3-card grid
+│   │   │   ├── page.tsx                    # /blog article index: newest-first post list
 │   │   │   ├── deepseek-context-caching-guide/page.tsx    # Blog article 1
 │   │   │   ├── deepseek-cost-optimization-tools/page.tsx  # Blog article 2
-│   │   │   └── openai-claude-vs-deepseek-cost-comparison/page.tsx # Blog article 3
+│   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # Blog article 3
+│   │   │   └── opencode-go-cheapest-deepseek-v4-flash/page.tsx # Blog article 4
 │   │   └── author/
 │   │       └── page.tsx          # /author route with independent SEO metadata
 │   ├── zh/               # Chinese root layout group (mirrors all (site)/ routes)
@@ -143,12 +144,12 @@ src/
 ├── components/
 │   ├── TitleBar.tsx         # Shared top nav bar (logo + app name + Agnes pill + GitHub + blog pen + guideline compass + changelog clock + language + theme; responsive popover on mobile)
 │   ├── FooterBar.tsx        # Shared footer ("Related Tools" row + copyright + nav links + version, optional animate/reveal)
-│   ├── LandingPage.tsx      # Landing page (Hero + Sister Project + Upload + HowItWorks + FAQ accordion + About, scroll-reveal)
+│   ├── LandingPage.tsx      # Landing page (Hero + Recommended Tools + Upload + HowItWorks + FAQ accordion + About, scroll-reveal)
 │   ├── LandingContent.tsx   # Server-rendered <noscript> fallback for SEO crawlers
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.6.6, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.7.0, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
@@ -160,7 +161,7 @@ src/
 │   ├── BlogPostLayout.tsx     # Reusable blog post template (Apple-minimalist, metadata row, cross-links, CTA)
 │   ├── BlogArticlePage.tsx    # Generic blog article wrapper (locale-aware content loading)
 │   ├── ArticleRenderer.tsx    # Structured content renderer (h2/h3/p/ul/ol/code/table from ArticleSection[])
-│   ├── BlogIndex.tsx          # Blog index page (3-card grid, bilingual titles/descriptions/tags)
+│   ├── BlogIndex.tsx          # Blog index page (newest-first post list, bilingual titles/descriptions/tags)
 │   ├── PrivacyContent.tsx     # <noscript> SEO fallback: bilingual privacy policy for crawlers
 │   ├── TermsContent.tsx       # <noscript> SEO fallback: bilingual terms of use for crawlers
 │   ├── ChangelogContent.tsx   # <noscript> SEO fallback: bilingual changelog version summary for crawlers
@@ -260,6 +261,19 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.7.0
+
+**Added:**
+
+- 4th blog article published — "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go" (`/blog/opencode-go-cheapest-deepseek-v4-flash`) with bilingual EN/ZH content, a pricing comparison table (V4 Flash vs V4 Pro vs GPT-5.6 Luna), full SEO metadata, sitemap entry, and prev/next cross-links wired into the blog chain.
+- Opencode Go affiliate added to `affiliates.ts` registry — referral link (`opencode.ai/go?ref=NS60V8HH6Q`) surfaced through the AffiliateWall "Recommended Tools We ARE USING" module on the homepage, every blog post, AuthorPage, and CostTrackerPage.
+
+**Improved:**
+
+- Blog index now sorts articles newest-first — the post list is ordered by each article's `publishedTime` from `blogArticles.ts` instead of a hardcoded sequence, so new posts automatically surface at the top.
+- Homepage sister-project section replaced with the "Recommended Tools We ARE USING" AffiliateWall commercial module — the block now sits above the FAQ section with centered title and subtitle.
+- Blog post bottom CTA banner ("Try our free dashboard") replaced with the same AffiliateWall Recommended Tools module, turning every article's footer into a revenue-bearing commercial section.
 
 ### v0.6.6
 

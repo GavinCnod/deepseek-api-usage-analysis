@@ -20,6 +20,7 @@ const zh = translations.zh.changelog;
  * 此处提供版本概览供爬虫抓取，展示项目持续维护的活跃度。
  */
 const VERSION_SUMMARY = [
+  { version: "v0.7.0", date: "2026-08-13" },
   { version: "v0.6.6", date: "2026-07-19" },
   { version: "v0.6.5", date: "2026-07-12" },
   { version: "v0.6.4", date: "2026-07-10" },
@@ -49,6 +50,7 @@ const VERSION_SUMMARY = [
  * 爬虫可通过此数据了解每次发布的范围和规模。
  */
 const VERSION_STATS_EN = [
+  { version: "v0.7.0", added: 2, improved: 3 },
   { version: "v0.6.6", improved: 3 },
   { version: "v0.6.5", added: 1, improved: 4 },
   { version: "v0.6.4", added: 3, improved: 3, fixed: 1 },

@@ -319,6 +319,11 @@ const translations = {
       article3Desc:
         "Hard numbers on API pricing differences — input costs can differ by 270×. We break down when each model makes economic sense and how to migrate smoothly.",
       article3Tags: "Comparison, Pricing, OpenAI, Claude, GPT, Anthropic",
+      article4Title:
+        "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go",
+      article4Desc:
+        "The cheapest frontier reasoning model is on OpenCode Go: $0.14 in / $0.28 out per 1M tokens, bundled with ~$60 of monthly usage for just $10. Plus why DeepSeek's announced price hike makes now the time to subscribe.",
+      article4Tags: "OpenCode Go, DeepSeek V4 Flash, Pricing, Cost Optimization, Subscription",
     },
     costTracker: {
       pageTitle: "DeepSeek API Cost Tracker",
@@ -894,6 +899,11 @@ const translations = {
       article3Desc:
         "硬核 API 定价数据对比——输入成本差距可达 270 倍。分析各模型的经济适用场景，以及如何平滑迁移。",
       article3Tags: "对比, 定价, OpenAI, Claude, GPT, Anthropic",
+      article4Title:
+        "全球最便宜的 DeepSeek V4 Flash，就在 OpenCode Go（每月 $10）",
+      article4Desc:
+        "最便宜的前沿推理模型就在 OpenCode Go：输入 $0.14 / 输出 $0.28 每百万 Token，每月 $10 即含约 $60 用量。附上为何 DeepSeek 官宣涨价让现在订阅更值得。",
+      article4Tags: "OpenCode Go, DeepSeek V4 Flash, 定价, 成本优化, 订阅",
     },
     costTracker: {
       pageTitle: "DeepSeek API 费用追踪器",

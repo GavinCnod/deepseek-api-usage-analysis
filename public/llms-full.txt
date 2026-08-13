@@ -1,6 +1,6 @@
 # DeepSeek API Usage Analytics Dashboard — Full Content
 
-> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.6.6.
+> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.7.0.
 
 ---
 
@@ -266,6 +266,17 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.7.0** (2026-08-13)
+
+*Added*
+- 4th blog article published — "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go" with bilingual EN/ZH content, pricing comparison table (V4 Flash vs V4 Pro vs GPT-5.6 Luna), full SEO metadata, sitemap entry, and prev/next cross-links.
+- Opencode Go affiliate added to `affiliates.ts` registry — referral link surfaced through the AffiliateWall "Recommended Tools We ARE USING" module on the homepage, every blog post, AuthorPage, and CostTrackerPage.
+
+*Improved*
+- Blog index now sorts articles newest-first by `publishedTime`.
+- Homepage sister-project section replaced with the AffiliateWall Recommended Tools module (above the FAQ, centered title/subtitle).
+- Blog post bottom CTA banner replaced with the same AffiliateWall module on every article.
+
 **v0.6.6** (2026-07-19)
 
 *Improved*
@@ -429,6 +440,17 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.7.0**（2026-08-13）
+
+*新增*
+- 发布第 4 篇博客文章 —《全球最便宜的 DeepSeek V4 Flash，就在 OpenCode Go（每月 $10）》，含中英双语内容、定价对比表（V4 Flash vs V4 Pro vs GPT-5.6 Luna）、完整 SEO 元数据、sitemap 条目与交叉链接。
+- 在 `affiliates.ts` 注册表中新增 Opencode Go 联盟推广 — 推荐链接通过 AffiliateWall「我们正在使用的好工具」模块展示在首页、每篇博客文章、AuthorPage 与 CostTrackerPage。
+
+*改进*
+- 博客首页改为按 `publishedTime` 最新优先排序。
+- 首页姊妹项目区段替换为 AffiliateWall 推荐工具模块（位于常见问题之前，标题与副标题居中）。
+- 博客文章底部 CTA 横幅替换为相同的 AffiliateWall 模块。
 
 **v0.6.6**（2026-07-19）
 
@@ -606,6 +628,7 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 - [Blog: Context Caching Guide](https://deepseek-usage.xyz/blog/deepseek-context-caching-guide) — Deep dive into DeepSeek prefix-matching disk caching
 - [Blog: Cost Optimization Tools](https://deepseek-usage.xyz/blog/deepseek-cost-optimization-tools) — Top 5 DeepSeek API cost optimization & observability tools
 - [Blog: OpenAI vs DeepSeek](https://deepseek-usage.xyz/blog/openai-claude-vs-deepseek-cost-comparison) — OpenAI GPT vs Claude vs DeepSeek V4 Pro cost-benefit analysis
+- [Blog: DeepSeek V4 Flash on OpenCode Go](https://deepseek-usage.xyz/blog/opencode-go-cheapest-deepseek-v4-flash) — The world's cheapest DeepSeek V4 Flash via OpenCode Go subscription ($10/month, ~$60 of usage)
 - [User Guide / 用户操作手册](https://deepseek-usage.xyz/guideline) — Bilingual step-by-step documentation with screenshots
 - [Changelog / 更新日志](https://deepseek-usage.xyz/changelog) — Complete version history
 - [Privacy Policy / 隐私政策](https://deepseek-usage.xyz/privacy) — Bilingual legal text

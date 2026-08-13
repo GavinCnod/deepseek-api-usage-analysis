@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useTranslation } from "@/i18n";
 import { buildLocalePath } from "@/lib/localeRouting";
+import { getBlogArticleDefinition } from "@/lib/blogArticles";
 import TitleBar from "@/components/TitleBar";
 import FooterBar from "@/components/FooterBar";
 
@@ -14,22 +15,32 @@ export default function BlogIndex() {
     {
       title: t.blogIndex.article1Title,
       description: t.blogIndex.article1Desc,
-      slug: "deepseek-context-caching-guide",
+      slug: "deepseek-context-caching-guide" as const,
       tags: t.blogIndex.article1Tags.split(", "),
     },
     {
       title: t.blogIndex.article2Title,
       description: t.blogIndex.article2Desc,
-      slug: "deepseek-cost-optimization-tools",
+      slug: "deepseek-cost-optimization-tools" as const,
       tags: t.blogIndex.article2Tags.split(", "),
     },
     {
       title: t.blogIndex.article3Title,
       description: t.blogIndex.article3Desc,
-      slug: "openai-claude-vs-deepseek-cost-comparison",
+      slug: "openai-claude-vs-deepseek-cost-comparison" as const,
       tags: t.blogIndex.article3Tags.split(", "),
     },
-  ];
+    {
+      title: t.blogIndex.article4Title,
+      description: t.blogIndex.article4Desc,
+      slug: "opencode-go-cheapest-deepseek-v4-flash" as const,
+      tags: t.blogIndex.article4Tags.split(", "),
+    },
+  ].sort((a, b) =>
+    getBlogArticleDefinition(b.slug).publishedTime.localeCompare(
+      getBlogArticleDefinition(a.slug).publishedTime
+    )
+  );
 
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>

@@ -50,6 +50,34 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.7.0",
+    date: "2026-08-13",
+    added: [
+      {
+        en: "4th blog article published — \"DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go\" (`/blog/opencode-go-cheapest-deepseek-v4-flash`) with bilingual EN/ZH content, a pricing comparison table (V4 Flash vs V4 Pro vs GPT-5.6 Luna), full SEO metadata, sitemap entry, and prev/next cross-links wired into the blog chain.",
+        zh: "发布第 4 篇博客文章 —《全球最便宜的 DeepSeek V4 Flash，就在 OpenCode Go（每月 $10）》（`/zh/blog/opencode-go-cheapest-deepseek-v4-flash`），含中英双语内容、定价对比表（V4 Flash vs V4 Pro vs GPT-5.6 Luna）、完整 SEO 元数据、sitemap 条目，并已接入博客链路的上一篇/下一篇交叉链接。",
+      },
+      {
+        en: "Opencode Go affiliate added to `affiliates.ts` registry — referral link (`opencode.ai/go?ref=NS60V8HH6Q`) surfaced through the AffiliateWall \"Recommended Tools We ARE USING\" module on the homepage, every blog post, AuthorPage, and CostTrackerPage.",
+        zh: "在 `affiliates.ts` 注册表中新增 Opencode Go 联盟推广 — 推荐链接（`opencode.ai/go?ref=NS60V8HH6Q`）通过 AffiliateWall「我们正在使用的好工具」模块展示在首页、每篇博客文章、AuthorPage 与 CostTrackerPage。",
+      },
+    ],
+    improved: [
+      {
+        en: "Blog index now sorts articles newest-first — the post list is ordered by each article's `publishedTime` from `blogArticles.ts` instead of a hardcoded sequence, so new posts automatically surface at the top.",
+        zh: "博客首页改为按最新优先排序 — 文章列表依据 `blogArticles.ts` 中各文章的 `publishedTime` 排序，取代原先的硬编码顺序，新文章会自动置顶。",
+      },
+      {
+        en: "Homepage sister-project section replaced with the \"Recommended Tools We ARE USING\" AffiliateWall commercial module — the block now sits above the FAQ section with centered title and subtitle.",
+        zh: "首页姊妹项目区段替换为 AffiliateWall「我们正在使用的好工具」商业化模块 — 该模块现位于常见问题区段之前，标题与副标题居中展示。",
+      },
+      {
+        en: "Blog post bottom CTA banner (\"Try our free dashboard\") replaced with the same AffiliateWall Recommended Tools module, turning every article's footer into a revenue-bearing commercial section.",
+        zh: "博客文章底部 CTA 横幅（「试试我们的免费仪表盘」）替换为相同的 AffiliateWall 推荐工具模块，让每篇文章的底部都成为可承载商业变现的区段。",
+      },
+    ],
+  },
+  {
     version: "v0.6.6",
     date: "2026-07-19",
     improved: [

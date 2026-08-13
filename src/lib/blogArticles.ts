@@ -11,10 +11,19 @@ import translations, { type Locale } from "@/i18n/translations";
 export type BlogArticleSlug =
   | "deepseek-context-caching-guide"
   | "deepseek-cost-optimization-tools"
-  | "openai-claude-vs-deepseek-cost-comparison";
+  | "openai-claude-vs-deepseek-cost-comparison"
+  | "opencode-go-cheapest-deepseek-v4-flash";
 
-type BlogTitleKey = "article1Title" | "article2Title" | "article3Title";
-type BlogDescriptionKey = "article1Desc" | "article2Desc" | "article3Desc";
+type BlogTitleKey =
+  | "article1Title"
+  | "article2Title"
+  | "article3Title"
+  | "article4Title";
+type BlogDescriptionKey =
+  | "article1Desc"
+  | "article2Desc"
+  | "article3Desc"
+  | "article4Desc";
 
 interface BlogArticleDefinition {
   slug: BlogArticleSlug;
@@ -131,6 +140,39 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "DeepSeek V4 Pro",
         "大模型成本对比",
         "AI 定价 2026",
+      ],
+    },
+  },
+  "opencode-go-cheapest-deepseek-v4-flash": {
+    slug: "opencode-go-cheapest-deepseek-v4-flash",
+    pathname: "/blog/opencode-go-cheapest-deepseek-v4-flash",
+    titleKey: "article4Title",
+    descriptionKey: "article4Desc",
+    author: "Gavin Chen",
+    publishedTime: "2026-08-13T00:00:00.000Z",
+    modifiedTime: "2026-08-13T00:00:00.000Z",
+    dateLabel: {
+      en: "August 13, 2026",
+      zh: "2026 年 8 月 13 日",
+    },
+    keywords: {
+      en: [
+        "DeepSeek V4 Flash",
+        "OpenCode Go",
+        "cheap DeepSeek",
+        "DeepSeek pricing",
+        "AI coding subscription",
+        "DeepSeek V4 Flash price",
+        "cheapest LLM",
+      ],
+      zh: [
+        "DeepSeek V4 Flash",
+        "OpenCode Go",
+        "便宜的 DeepSeek",
+        "DeepSeek 定价",
+        "AI 编程订阅",
+        "DeepSeek V4 Flash 价格",
+        "最便宜的大模型",
       ],
     },
   },

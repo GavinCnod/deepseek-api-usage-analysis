@@ -42,9 +42,9 @@
 - **100% 隐私** — 所有 CSV 解析（Papa Parse）、ZIP 解压（JSZip）和费用计算均在浏览器客户端完成；项目配置仅存储于浏览器的 localStorage 中
 - **SEO 优化** — 服务端渲染元数据（规范 URL、OpenGraph 含 `alternateLocale` en/zh、Twitter 卡片）、JSON-LD 结构化数据（`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`，双语，通过可复用 `<JsonLd />` 组件渲染）、robots.txt + sitemap.xml（每路由 en + zh 双语条目）、`<noscript>` 爬虫回退内容、支持锚点链接的落地页板块、`llms.txt` 面向 LLM 的站点描述
 - **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 TitleBar（胶囊按钮）、LandingPage（专属区段）、FooterBar（「姊妹工具」行）以及 Organization JSON-LD Schema 中。
-- **落地页** — 完整的上传前落地页，包含主题感知背景图片、姊妹项目区段（Agnes AI 交叉链接，含 UTM 追踪 URL）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
+- **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.6.6 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.7.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
 - **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、包含所有子页面的扩展 `BreadcrumbList`、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
@@ -125,10 +125,11 @@ src/
 │   │   ├── deepseek-api-pricing-calculator/
 │   │   │   └── page.tsx        # SEO 落地页：DeepSeek API 价格计算器
 │   │   ├── blog/
-│   │   │   ├── page.tsx                    # /blog 文章索引：3 卡片网格
+│   │   │   ├── page.tsx                    # /blog 文章索引：最新优先的文章列表
 │   │   │   ├── deepseek-context-caching-guide/page.tsx    # 博客文章 1
 │   │   │   ├── deepseek-cost-optimization-tools/page.tsx  # 博客文章 2
-│   │   │   └── openai-claude-vs-deepseek-cost-comparison/page.tsx # 博客文章 3
+│   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # 博客文章 3
+│   │   │   └── opencode-go-cheapest-deepseek-v4-flash/page.tsx # 博客文章 4
 │   │   └── author/
 │   │       └── page.tsx          # /author 路由，包含独立 SEO 元数据
 │   ├── zh/               # 中文根布局路由组（镜像所有 (site)/ 路由）
@@ -143,12 +144,12 @@ src/
 ├── components/
 │   ├── TitleBar.tsx         # 共享顶部导航栏（Logo + 应用名 + Agnes 胶囊按钮 + GitHub + 博客笔图标 + 指南针图标 + 更新日志时钟 + 语言 + 主题；移动端响应式弹出菜单）
 │   ├── FooterBar.tsx        # 共享页脚（「姊妹工具」行 + 版权 + 导航链接 + 版本号，可选渐显动画）
-│   ├── LandingPage.tsx      # 落地页（Hero + 姊妹项目区段 + 上传 + 使用说明 + FAQ 手风琴 + 关于，滚动渐显）
+│   ├── LandingPage.tsx      # 落地页（Hero + 推荐工具模块 + 上传 + 使用说明 + FAQ 手风琴 + 关于，滚动渐显）
 │   ├── LandingContent.tsx   # 服务端渲染 <noscript> 回退内容，供搜索引擎爬虫抓取
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.6.6 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.7.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
@@ -160,7 +161,7 @@ src/
 │   ├── BlogPostLayout.tsx     # 可复用博客文章模板（Apple 极简风格，元数据行，交叉链接，CTA）
 │   ├── BlogArticlePage.tsx    # 通用博客文章包装器（根据语言加载内容）
 │   ├── ArticleRenderer.tsx    # 结构化内容渲染器（从 ArticleSection[] 渲染 h2/h3/p/ul/ol/code/table）
-│   ├── BlogIndex.tsx          # 博客首页（3 卡片网格，双语标题/描述/标签）
+│   ├── BlogIndex.tsx          # 博客首页（最新优先文章列表，双语标题/描述/标签）
 │   ├── PrivacyContent.tsx     # <noscript> SEO 回退：双语隐私政策内容供爬虫抓取
 │   ├── TermsContent.tsx       # <noscript> SEO 回退：双语使用条款内容供爬虫抓取
 │   ├── ChangelogContent.tsx   # <noscript> SEO 回退：双语更新日志版本摘要供爬虫抓取
@@ -260,6 +261,19 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.7.0
+
+**新增：**
+
+- 发布第 4 篇博客文章 —《全球最便宜的 DeepSeek V4 Flash，就在 OpenCode Go（每月 $10）》（`/zh/blog/opencode-go-cheapest-deepseek-v4-flash`），含中英双语内容、定价对比表（V4 Flash vs V4 Pro vs GPT-5.6 Luna）、完整 SEO 元数据、sitemap 条目，并已接入博客链路的上一篇/下一篇交叉链接。
+- 在 `affiliates.ts` 注册表中新增 Opencode Go 联盟推广 — 推荐链接（`opencode.ai/go?ref=NS60V8HH6Q`）通过 AffiliateWall「我们正在使用的好工具」模块展示在首页、每篇博客文章、AuthorPage 与 CostTrackerPage。
+
+**改进：**
+
+- 博客首页改为按最新优先排序 — 文章列表依据 `blogArticles.ts` 中各文章的 `publishedTime` 排序，取代原先的硬编码顺序，新文章会自动置顶。
+- 首页姊妹项目区段替换为 AffiliateWall「我们正在使用的好工具」商业化模块 — 该模块现位于常见问题区段之前，标题与副标题居中展示。
+- 博客文章底部 CTA 横幅（「试试我们的免费仪表盘」）替换为相同的 AffiliateWall 推荐工具模块，让每篇文章的底部都成为可承载商业变现的区段。
 
 ### v0.6.6
 

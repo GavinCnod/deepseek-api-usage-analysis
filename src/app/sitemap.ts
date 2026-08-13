@@ -106,6 +106,12 @@ const ROUTES: SitemapRouteConfig[] = [
     changeFrequency: "monthly",
     priority: 0.6,
   },
+  {
+    pathname: "/blog/opencode-go-cheapest-deepseek-v4-flash",
+    lastModified: buildDate,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  },
 ];
 
 /**

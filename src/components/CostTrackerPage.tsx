@@ -379,7 +379,7 @@ export function CostTrackerPage() {
           >
             {t.costTracker.recommendedUsingDes}
           </p>
-          <AffiliateWall ids={["vultr", "railway", "tencent-cloud", "silicon-flow", "warp"]} />
+          <AffiliateWall ids={["opencode-go","vultr", "railway", "tencent-cloud", "silicon-flow", "warp"]} />
         </section>
       </div>
 
