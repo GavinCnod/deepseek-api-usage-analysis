@@ -41,10 +41,10 @@
 - **Apple 极简设计** — 冷灰纸质感底、大量留白、「无卡片」通栏模块布局、细横线分割、5rem Hero 大数字、弥散阴影
 - **100% 隐私** — 所有 CSV 解析（Papa Parse）、ZIP 解压（JSZip）和费用计算均在浏览器客户端完成；项目配置仅存储于浏览器的 localStorage 中
 - **SEO 优化** — 服务端渲染元数据（规范 URL、OpenGraph 含 `alternateLocale` en/zh、Twitter 卡片）、JSON-LD 结构化数据（`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`，双语，通过可复用 `<JsonLd />` 组件渲染）、robots.txt + sitemap.xml（每路由 en + zh 双语条目）、`<noscript>` 爬虫回退内容、支持锚点链接的落地页板块、`llms.txt` 面向 LLM 的站点描述
-- **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 TitleBar（胶囊按钮）、LandingPage（专属区段）、FooterBar（「姊妹工具」行）以及 Organization JSON-LD Schema 中。
+- **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 FooterBar（「姊妹工具」行）、LandingPage（专属区段）以及 Organization JSON-LD Schema 中。
 - **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.9.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.9.1 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
 - **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、包含所有子页面的扩展 `BreadcrumbList`、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
@@ -133,7 +133,8 @@ src/
 │   │   │   ├── deepseek-cost-optimization-tools/page.tsx  # 博客文章 2
 │   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # 博客文章 3
 │   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # 博客文章 4
-│   │   │   └── deepseek-csv-export-format-changed-aug-2026/page.tsx # 博客文章 5
+│   │   │   ├── deepseek-csv-export-format-changed-aug-2026/page.tsx # 博客文章 5
+│   │   │   └── gpt-5.6-luna-vs-deepseek-v4-flash-value-champions/page.tsx # 博客文章 6
 │   │   └── author/
 │   │       └── page.tsx          # /author 路由，包含独立 SEO 元数据
 │   ├── zh/               # 中文根布局路由组（镜像所有 (site)/ 路由）
@@ -146,19 +147,19 @@ src/
 │   ├── robots.ts           # 构建时 robots.txt 生成
 │   └── sitemap.ts          # 构建时 sitemap.xml（每路由 en + zh 双语条目）
 ├── components/
-│   ├── TitleBar.tsx         # 共享顶部导航栏（Logo + 应用名 + Agnes 胶囊按钮 + GitHub + 博客笔图标 + 指南针图标 + 更新日志时钟 + 语言 + 主题；移动端响应式弹出菜单）
+│   ├── TitleBar.tsx         # 共享顶部导航栏（Logo + 应用名 + 语言 + 主题 + 统一「⋯」菜单：操作手册/隐私/条款/博客/作者/更新日志/GitHub）
 │   ├── FooterBar.tsx        # 共享页脚（「姊妹工具」行 + 版权 + 导航链接 + 版本号，可选渐显动画）
 │   ├── LandingPage.tsx      # 落地页（Hero + 推荐工具模块 + 上传 + 使用说明 + FAQ 手风琴 + 关于，滚动渐显）
 │   ├── LandingContent.tsx   # 服务端渲染 <noscript> 回退内容，供搜索引擎爬虫抓取
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.9.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.9.1 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
 │   ├── CacheAnalyzerContent.tsx # <noscript> SEO 回退：双语缓存分析器内容供爬虫抓取
-│   ├── PricingCalculatorPage.tsx # SEO 落地页：DeepSeek API 价格计算器（交互式滑块 + 竞品对比表 + Vultr CTA）
+│   ├── PricingCalculatorPage.tsx # SEO 落地页：DeepSeek API 价格计算器（交互式滑块 + 竞品对比表 + 推荐墙）
 │   ├── PricingCalculatorContent.tsx # <noscript> SEO 回退：双语价格计算器内容供爬虫抓取
 │   ├── AuthorPage.tsx         # 作者个人资料页（双语简介、技能、社交链接、JSON-LD Person Schema）
 │   ├── AuthorContent.tsx      # <noscript> SEO 回退：双语作者简介供爬虫抓取
@@ -174,6 +175,7 @@ src/
 │   ├── ShareCard.tsx          # 1200×630 社交媒体信息图卡片（各标签页 KPI + 迷你图表 + QR 码 + 水印）
 │   ├── ShareModal.tsx         # 分享弹窗（实时预览、输入表单、复制到剪贴板、PNG 下载）
 │   ├── AffiliateWall.tsx      # 商业化推荐模块：卡片式布局展示联盟工具，含双语描述和佣金信息
+│   ├── RecommendedToolsSection.tsx # 共享全站「我们正在使用的好工具」推荐墙（标题 + AffiliateWall），在每个页面 FooterBar 前渲染
 │   ├── Dashboard.tsx          # 路由：落地页 / 5 标签页仪表盘视图切换（语义化隐藏 H1）
 │   ├── DropZone.tsx           # 拖拽或点击上传 CSV/ZIP（多文件，50MB 限制）
 │   ├── ProjectView.tsx        # 按项目标签页：拖拽自定义项目分组，按项目汇总费用/Token/缓存表格
@@ -210,6 +212,7 @@ src/
     ├── content/articleOpenai.ts    # 文章 3 内容：OpenAI GPT vs Claude vs DeepSeek V4 Pro 成本对比（双语 + 定价表）
     ├── content/articleOpencodeGo.ts # 文章 4 内容：OpenCode Go 上的 DeepSeek V4 Flash（双语 + 定价表）
     ├── content/articleCsvFormatChange.ts # 文章 5 内容：DeepSeek 用量导出 CSV 格式变更（双语）
+    ├── content/articleValueChampions.ts # 文章 6 内容：2026 年性价比之王（GPT-5.6 Luna vs DeepSeek V4 Flash）（双语 + 定价表）
     ├── localeRouting.ts      # URL 级语言路由：DEFAULT_LOCALE、ZH_LOCALE_PREFIX、isZhPathname()、buildLocalePath()、switchLocalePath()
     ├── site.ts               # 站点级公开常量：SITE_URL、SITE_NAME、OG_IMAGE_URL、LOGO_IMAGE_URL
     ├── pageMetadata.ts       # 页面级 SEO 元数据构建器：buildLocalizedPageMetadata()（规范 URL、alternates、OG、Twitter、关键词、作者）
@@ -267,6 +270,16 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.9.1
+
+**新增：**
+
+- 全站推荐工具墙 — 新增共享 `RecommendedToolsSection` 组件，将 AffiliateWall「我们正在使用的好工具」商业化模块渲染到每个页面底部（仪表盘、工具落地页、博客首页、每篇博客文章、操作手册、隐私/条款/更新日志/作者等页面），宽度自动对齐各页面正文容器。定价计算器原本单独的 Vultr CTA 已替换为完整推荐墙。
+
+**改进：**
+
+- TitleBar 重构为统一导航菜单 — 所有入口（用户操作手册、隐私政策、使用条款、博客、作者团队、更新日志、GitHub）统一收纳进桌面端与移动端共用的 Apple 风格「⋯」弹出菜单，取代原先分散的图标按钮。标题栏中的 Agnes 姊妹项目按钮已移除（页脚仍保留链接）。
 
 ### v0.9.0
 

@@ -47,5 +47,6 @@ Client-only analytics dashboard for DeepSeek platform CSV/ZIP exports. Apple-min
 - GA4 is opt-in via `NEXT_PUBLIC_GA_ID`; when set, gtag is injected at build time in `AppRootLayout.tsx`. Leave unset locally.
 - `vercel.json` owns security headers + static-asset cache rules; deploy-compatible with any static host.
 - `localFilesDev/` and `docs/` are local dev scratch / promotion notes — not build inputs. Ignore them when working.
-- The AffiliateWall "Recommended Tools We ARE USING" commercial block (`affiliates.ts`-driven) renders on the homepage (above the FAQ section), at the bottom of every blog post (`BlogPostLayout`), and on `AuthorPage` / `CostTrackerPage`. `BlogIndex` sorts posts by `publishedTime` newest-first.
+- The AffiliateWall "Recommended Tools We ARE USING" commercial block (`affiliates.ts`-driven) renders site-wide via `RecommendedToolsSection` at the bottom of every page (homepage above the FAQ section, every blog post via `BlogPostLayout`, dashboard, tool landing pages, blog index, guide/privacy/terms/changelog/author pages). `BlogIndex` sorts posts by `publishedTime` newest-first.
+- `TitleBar.tsx` hosts a single unified "⋯" navigation menu (guideline / privacy / terms / blog / author / changelog / GitHub). When adding an internal page, wire it into `TitleBar.tsx` `navItems`, `FooterBar.tsx`, and `sitemap.ts`. The Agnes sister-project button lives only in `FooterBar.tsx` now, not the title bar.
 - Respect `prefers-reduced-motion`; scroll-reveal uses `.reveal-section` + IntersectionObserver.

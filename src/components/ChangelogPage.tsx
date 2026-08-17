@@ -51,6 +51,22 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.9.1",
+    date: "2026-08-17",
+    added: [
+      {
+        en: "Site-wide \"Recommended Tools We ARE USING\" wall — a shared `RecommendedToolsSection` component now renders the AffiliateWall commercial block at the bottom of every page (dashboard, tools landing pages, blog index, every blog post, user guide, privacy/terms/changelog/author pages), aligned to each page's content container width. The Pricing Calculator's single Vultr CTA was replaced by the full recommendation wall.",
+        zh: "全站推荐工具墙 — 新增共享 `RecommendedToolsSection` 组件，将 AffiliateWall「我们正在使用的好工具」商业化模块渲染到每个页面底部（仪表盘、工具落地页、博客首页、每篇博客文章、操作手册、隐私/条款/更新日志/作者等页面），宽度自动对齐各页面正文容器。定价计算器原本单独的 Vultr CTA 已替换为完整推荐墙。",
+      },
+    ],
+    improved: [
+      {
+        en: "TitleBar redesigned into a unified navigation menu — all entry points (User Guide, Privacy Policy, Terms of Use, Blog, Author Team, Changelog, GitHub) are now grouped in a single Apple-style \"⋯\" popover menu on both desktop and mobile, replacing the scattered icon buttons. The Agnes sister-project button was removed from the title bar (the link remains in the footer).",
+        zh: "TitleBar 重构为统一导航菜单 — 所有入口（用户操作手册、隐私政策、使用条款、博客、作者团队、更新日志、GitHub）统一收纳进桌面端与移动端共用的 Apple 风格「⋯」弹出菜单，取代原先分散的图标按钮。标题栏中的 Agnes 姊妹项目按钮已移除（页脚仍保留链接）。",
+      },
+    ],
+  },
+  {
     version: "v0.9.0",
     date: "2026-08-17",
     added: [

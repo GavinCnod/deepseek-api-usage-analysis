@@ -41,10 +41,10 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **Apple-minimalist design** — Cold gray paper-texture background, generous whitespace, "no-card" full-width modules, thin horizontal dividers, 5rem hero numbers, diffuse shadows
 - **100% private** — All CSV parsing (Papa Parse), ZIP extraction (JSZip), and cost computation runs client-side; project configuration stored in your browser's localStorage only
 - **SEO optimized** — Server-rendered metadata (canonical URLs, OpenGraph with `alternateLocale` en/zh, Twitter cards), JSON-LD structured data (`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`, bilingual, rendered via reusable `<JsonLd />` component), robots.txt + sitemap.xml (bilingual en/zh entries per route), `<noscript>` crawler fallback content, anchor-linkable landing page sections, `llms.txt` for LLM-friendly site description
-- **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the TitleBar (pill button), LandingPage (dedicated section), FooterBar ("Related Tools" row), and Organization JSON-LD schema.
+- **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the FooterBar ("Related Tools" row), LandingPage (dedicated section), and Organization JSON-LD schema.
 - **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.9.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.9.1) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
 - **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, expanded `BreadcrumbList` with all sub-pages, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
@@ -133,7 +133,8 @@ src/
 │   │   │   ├── deepseek-cost-optimization-tools/page.tsx  # Blog article 2
 │   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # Blog article 3
 │   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # Blog article 4
-│   │   │   └── deepseek-csv-export-format-changed-aug-2026/page.tsx # Blog article 5
+│   │   │   ├── deepseek-csv-export-format-changed-aug-2026/page.tsx # Blog article 5
+│   │   │   └── gpt-5.6-luna-vs-deepseek-v4-flash-value-champions/page.tsx # Blog article 6
 │   │   └── author/
 │   │       └── page.tsx          # /author route with independent SEO metadata
 │   ├── zh/               # Chinese root layout group (mirrors all (site)/ routes)
@@ -146,19 +147,19 @@ src/
 │   ├── robots.ts           # Build-time robots.txt generation
 │   └── sitemap.ts          # Build-time sitemap.xml (en + zh bilingual entries per route)
 ├── components/
-│   ├── TitleBar.tsx         # Shared top nav bar (logo + app name + Agnes pill + GitHub + blog pen + guideline compass + changelog clock + language + theme; responsive popover on mobile)
+│   ├── TitleBar.tsx         # Shared top nav bar (logo + app name + language + theme + unified "⋯" menu: guideline/privacy/terms/blog/author/changelog/GitHub)
 │   ├── FooterBar.tsx        # Shared footer ("Related Tools" row + copyright + nav links + version, optional animate/reveal)
 │   ├── LandingPage.tsx      # Landing page (Hero + Recommended Tools + Upload + HowItWorks + FAQ accordion + About, scroll-reveal)
 │   ├── LandingContent.tsx   # Server-rendered <noscript> fallback for SEO crawlers
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.9.0, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.9.1, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
 │   ├── CacheAnalyzerContent.tsx # <noscript> SEO fallback: bilingual cache analyzer content for crawlers
-│   ├── PricingCalculatorPage.tsx # SEO landing: DeepSeek API Pricing Calculator (interactive slider + competitor table + Vultr CTA)
+│   ├── PricingCalculatorPage.tsx # SEO landing: DeepSeek API Pricing Calculator (interactive slider + competitor table + recommendation wall)
 │   ├── PricingCalculatorContent.tsx # <noscript> SEO fallback: bilingual pricing calculator content for crawlers
 │   ├── AuthorPage.tsx         # Author profile page (bilingual bio, skills, social links, JSON-LD Person schema)
 │   ├── AuthorContent.tsx      # <noscript> SEO fallback: bilingual author bio for crawlers
@@ -174,6 +175,7 @@ src/
 │   ├── ShareCard.tsx          # 1200×630 social media infographic card (per-tab KPI + mini-chart + QR + watermark)
 │   ├── ShareModal.tsx         # Share dialog (live preview, inputs, copy to clipboard, PNG download)
 │   ├── AffiliateWall.tsx      # Commercial recommendation module: card-based layout for affiliate tools
+│   ├── RecommendedToolsSection.tsx # Shared site-wide "Recommended Tools We ARE USING" wall (heading + AffiliateWall), rendered before FooterBar on every page
 │   ├── Dashboard.tsx          # Routes between LandingPage and 5-tab dashboard view (semantic hidden H1)
 │   ├── DropZone.tsx           # Drag-and-drop or click-to-upload CSV/ZIP (multi-file, 50MB limit)
 │   ├── ProjectView.tsx        # By Project tab: drag-and-drop custom project groups, per-project stats table
@@ -210,6 +212,7 @@ src/
     ├── content/articleOpenai.ts    # Article 3 content: OpenAI GPT vs Claude vs DeepSeek V4 Pro cost comparison (bilingual + pricingTable)
     ├── content/articleOpencodeGo.ts # Article 4 content: DeepSeek V4 Flash on OpenCode Go (bilingual + pricingTable)
     ├── content/articleCsvFormatChange.ts # Article 5 content: DeepSeek usage CSV export format change (bilingual)
+    ├── content/articleValueChampions.ts # Article 6 content: 2026 value champions (GPT-5.6 Luna vs DeepSeek V4 Flash) (bilingual + pricingTable)
     ├── localeRouting.ts      # URL-level language routing: DEFAULT_LOCALE, ZH_LOCALE_PREFIX, isZhPathname(), buildLocalePath(), switchLocalePath()
     ├── site.ts               # Site-level public constants: SITE_URL, SITE_NAME, OG_IMAGE_URL, LOGO_IMAGE_URL
     ├── pageMetadata.ts       # Page-level SEO metadata builder: buildLocalizedPageMetadata() (canonical, alternates, OG, Twitter, keywords, author)
@@ -267,6 +270,16 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.9.1
+
+**Added:**
+
+- Site-wide "Recommended Tools We ARE USING" wall — a shared `RecommendedToolsSection` component now renders the AffiliateWall commercial block at the bottom of every page (dashboard, tools landing pages, blog index, every blog post, user guide, privacy/terms/changelog/author pages), aligned to each page's content container width. The Pricing Calculator's single Vultr CTA was replaced by the full recommendation wall.
+
+**Improved:**
+
+- TitleBar redesigned into a unified navigation menu — all entry points (User Guide, Privacy Policy, Terms of Use, Blog, Author Team, Changelog, GitHub) are now grouped in a single Apple-style "⋯" popover menu on both desktop and mobile, replacing the scattered icon buttons. The Agnes sister-project button was removed from the title bar (the link remains in the footer).
 
 ### v0.9.0
 

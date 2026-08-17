@@ -17,15 +17,18 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/lib/localeRouting.ts` | URL-level i18n routing helpers (`/zh` prefix logic) |
 | `src/lib/site.ts` | Site constants (`SITE_URL`, `SITE_NAME`, image URLs) |
 | `src/lib/pageMetadata.ts` | `buildLocalizedPageMetadata()` — canonical, alternates, OG, Twitter, keywords, author |
-| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 4 articles) |
+| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 6 articles) |
 | `src/lib/blogArticles.ts` | Blog article definitions (slug, pathname, titleKey, descriptionKey, keywords, publishedTime) |
 | `src/lib/content.ts` | Article content type definitions (`ArticleSection[]`, `ContentBlock`, `PricingRow`) |
 | `src/lib/content/articleCaching.ts` | Article 1 content (context caching guide) |
 | `src/lib/content/articleTools.ts` | Article 2 content (cost optimization tools) |
 | `src/lib/content/articleOpenai.ts` | Article 3 content (OpenAI vs Claude vs DeepSeek comparison) |
 | `src/lib/content/articleOpencodeGo.ts` | Article 4 content (OpenCode Go — cheapest DeepSeek V4 Flash) |
+| `src/lib/content/articleCsvFormatChange.ts` | Article 5 content (DeepSeek CSV export format change) |
+| `src/lib/content/articleValueChampions.ts` | Article 6 content (2026 value champions: GPT-5.6 Luna vs DeepSeek V4 Flash) |
 | `src/components/JsonLd.tsx` | Reusable JSON-LD `<script>` renderer |
 | `src/components/AffiliateWall.tsx` | Commercial recommendation module for affiliate links |
+| `src/components/RecommendedToolsSection.tsx` | Shared site-wide "Recommended Tools We ARE USING" wall (AffiliateWall + heading), rendered before FooterBar on every page |
 | `src/components/CostTrackerContent.tsx` | `<noscript>` fallback for cost tracker SEO |
 | `src/components/CacheAnalyzerContent.tsx` | `<noscript>` fallback for cache analyzer SEO |
 | `src/components/PricingCalculatorContent.tsx` | `<noscript>` fallback for pricing calculator SEO |
@@ -37,7 +40,7 @@ This project is part of the "API Usage Analyzer Series" — a product family wit
 - **DeepSeek Usage Analyzer** (this repo): `https://github.com/GavinCnod/deepseek-api-usage-analysis` → `https://deepseek-usage.xyz`
 - **Agnes AI Usage Analyzer** (sister): `https://github.com/GavinCnod/agnes-api-usage-analysis` → `https://agnes-usage.xyz`
 
-All cross-site links are centralized in `src/lib/sisterProjects.ts`. When adding a new cross-link entry point, use `buildTrackedSisterUrl(baseUrl, campaign)` to append UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, `utm_campaign=...`). The module exports `deepseekProject`, `agnesProject`, and `TOOL_SERIES_NAME`.
+All cross-site links are centralized in `src/lib/sisterProjects.ts`. When adding a new cross-link entry point, use `buildTrackedSisterUrl(baseUrl, campaign)` to append UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, `utm_campaign=...`). The module exports `deepseekProject`, `agnesProject`, and `TOOL_SERIES_NAME`. The Agnes link appears in `FooterBar.tsx` ("Related Tools" row) and `LandingPage.tsx`; it was removed from `TitleBar.tsx` (v0.9.1) in favor of the unified "⋯" navigation menu.
 
 Environment variables:
 - `NEXT_PUBLIC_SITE_URL` — current site URL (default: `https://deepseek-usage.xyz`)

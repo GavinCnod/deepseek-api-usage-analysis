@@ -1,6 +1,6 @@
 # DeepSeek API Usage Analytics Dashboard — Full Content
 
-> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.8.0.
+> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.9.1.
 
 ---
 
@@ -266,6 +266,26 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.9.1** (2026-08-17)
+
+*Added*
+- Site-wide "Recommended Tools We ARE USING" wall — a shared `RecommendedToolsSection` component now renders the AffiliateWall commercial block at the bottom of every page (dashboard, tools landing pages, blog index, every blog post, user guide, privacy/terms/changelog/author pages), aligned to each page's content container width. The Pricing Calculator's single Vultr CTA was replaced by the full recommendation wall.
+
+*Improved*
+- TitleBar redesigned into a unified navigation menu — all entry points (User Guide, Privacy Policy, Terms of Use, Blog, Author Team, Changelog, GitHub) grouped in a single Apple-style "⋯" popover menu on both desktop and mobile, replacing the scattered icon buttons. The Agnes sister-project button was removed from the title bar (the link remains in the footer).
+
+**v0.9.0** (2026-08-17)
+
+*Added*
+- New blog article published — "The 2026 Value Champions: GPT-5.6 Luna & DeepSeek V4 Flash — and the Best Model for Every Budget" with bilingual EN/ZH content, an 8-model dual-currency pricing table (¥ / $, peak / off-peak), and a tier-by-tier best-value framework.
+- Blog comparison articles refreshed to August 2026 pricing — the OpenAI vs Claude vs DeepSeek, OpenCode Go, and context-caching articles now use the new DeepSeek peak / off-peak rates, the GPT-5.6 Sol / Terra / Luna lineup, and the Claude Opus 5 / Sonnet 5 / Haiku 4.5 lineup, with dual-currency (¥ / $) pricing cells.
+
+*Improved*
+- Pricing Calculator updated to DeepSeek's new peak / off-peak billing — DeepSeek V4 Flash and V4 Pro now use official per-million-token CNY prices (peak hours Beijing 09:00–12:00 / 14:00–18:00 at full price, off-peak at 50% off), with a new "Peak-Hour Share" slider and peak/off-peak prices in the comparison table. Competitor lineup refreshed to GPT-5.6 Sol / Terra / Luna and Claude Opus 5 / Sonnet 5 / Haiku 4.5.
+
+*Fixed*
+- DropZone stuck-spinner on parse failure — the busy state is now correctly released after concatenation, so a failed parse returns the user to the upload state instead of requiring a page reload.
+
 **v0.8.0** (2026-08-17)
 
 *Added*
@@ -448,6 +468,26 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.9.1**（2026-08-17）
+
+*新增*
+- 全站推荐工具墙 — 新增共享 `RecommendedToolsSection` 组件，将 AffiliateWall「我们正在使用的好工具」商业化模块渲染到每个页面底部（仪表盘、工具落地页、博客首页、每篇博客文章、操作手册、隐私/条款/更新日志/作者等页面），宽度自动对齐各页面正文容器。定价计算器原本单独的 Vultr CTA 已替换为完整推荐墙。
+
+*改进*
+- TitleBar 重构为统一导航菜单 — 所有入口（用户操作手册、隐私政策、使用条款、博客、作者团队、更新日志、GitHub）统一收纳进桌面端与移动端共用的 Apple 风格「⋯」弹出菜单，取代原先分散的图标按钮。标题栏中的 Agnes 姊妹项目按钮已移除（页脚仍保留链接）。
+
+**v0.9.0**（2026-08-17）
+
+*新增*
+- 发布新博客文章 —《2026 年性价比之王：GPT-5.6 Luna 与 DeepSeek V4 Flash——每个预算档位的最优模型选择》，含中英双语内容、8 模型双币种（¥ / $、高峰 / 闲时）对比表与分档最优选择框架。
+- 对比类博客文章更新至 2026 年 8 月定价 — OpenAI vs Claude vs DeepSeek、OpenCode Go 与上下文缓存指南三篇文章改用新的 DeepSeek 高峰/闲时价、GPT-5.6 Sol / Terra / Luna 阵容与 Claude Opus 5 / Sonnet 5 / Haiku 4.5 阵容，价格单元格支持双币种（¥ / $）。
+
+*改进*
+- 定价计算器更新为 DeepSeek 新的高峰 / 闲时计价 — DeepSeek V4 Flash 与 V4 Pro 现按官方每百万 Token 人民币价格计费（高峰时段北京 9:00–12:00 / 14:00–18:00 全价、闲时半价），新增「忙时占比」滑块，对比表同时展示高峰与闲时价格。竞品阵容更新为 GPT-5.6 Sol / Terra / Luna 与 Claude Opus 5 / Sonnet 5 / Haiku 4.5。
+
+*修复*
+- 修复 DropZone 解析失败后卡在「处理中」旋转状态 — 拼接完成后正确释放 busy 状态，解析失败会回到可重新上传的界面，无需刷新页面。
 
 **v0.8.0**（2026-08-17）
 
@@ -646,6 +686,7 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 - [Blog: OpenAI vs DeepSeek](https://deepseek-usage.xyz/blog/openai-claude-vs-deepseek-cost-comparison) — OpenAI GPT vs Claude vs DeepSeek V4 Pro cost-benefit analysis
 - [Blog: DeepSeek V4 Flash on OpenCode Go](https://deepseek-usage.xyz/blog/opencode-go-cheapest-deepseek-v4-flash) — The world's cheapest DeepSeek V4 Flash via OpenCode Go subscription ($10/month, ~$60 of usage)
 - [Blog: DeepSeek CSV Export Format Change](https://deepseek-usage.xyz/blog/deepseek-csv-export-format-changed-aug-2026) — DeepSeek changed its usage CSV export format (utc_date → start_time_iso/end_time_iso, date-range filenames); column-by-column breakdown and how to read it
+- [Blog: 2026 Value Champions](https://deepseek-usage.xyz/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions) — GPT-5.6 Luna & DeepSeek V4 Flash as the best-value LLMs of 2026; why price is no longer a proxy for quality, off-peak scheduling, and the best model for every budget
 - [User Guide / 用户操作手册](https://deepseek-usage.xyz/guideline) — Bilingual step-by-step documentation with screenshots
 - [Changelog / 更新日志](https://deepseek-usage.xyz/changelog) — Complete version history
 - [Privacy Policy / 隐私政策](https://deepseek-usage.xyz/privacy) — Bilingual legal text
