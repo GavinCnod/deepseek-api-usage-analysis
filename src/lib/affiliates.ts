@@ -45,8 +45,8 @@ export const affiliatesRegistry: AffiliateItem[] = [
       zh: "订阅时，您可获得 $5，直接抵消首月 go 费用。",
     },
     condition: {
-      en: "Cheapest option in the world, 150,000+ calls to the DeepSeek V4 Flash model.",
-      zh: "全球最便宜，月用量约等于15万次 deepseek v4 flash 模型调用。",
+      en: "Could be the cheapest option for calling DeepSeek V4 Flash model in the world.",
+      zh: "可能是全球最便宜的 deepseek v4 flash 模型调用。",
     },
     isActive: true,
     rel: "sponsored nofollow",
