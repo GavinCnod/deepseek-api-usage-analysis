@@ -50,6 +50,16 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.9.0",
+    date: "2026-08-17",
+    improved: [
+      {
+        en: "Pricing Calculator updated to DeepSeek's new peak / off-peak billing — DeepSeek V4 Flash and V4 Pro now use the official per-million-token prices in CNY with peak hours (Beijing time 09:00–12:00 and 14:00–18:00) billed at full price and off-peak hours at 50% off. A new \"Peak-Hour Share\" slider lets you model how much of your traffic falls in peak windows, and the comparison table shows both peak and off-peak prices for each DeepSeek model. Cache-hit pricing was also corrected to the new 1/30-of-input rate. Competitor lineup refreshed to GPT-5.6 Sol / Terra / Luna and Claude Opus 5 / Sonnet 5 / Haiku 4.5 with their latest August 2026 prices (including the July 30 GPT-5.6 price cuts and the 50% Batch API discount).",
+        zh: "定价计算器更新为 DeepSeek 新的高峰 / 闲时计价 — DeepSeek V4 Flash 与 V4 Pro 现按官方每百万 Token 人民币价格计费，高峰时段（北京时间 9:00–12:00、14:00–18:00）全价、闲时半价。新增「忙时占比」滑块，可模拟流量落在高峰窗口的比例；对比表为每个 DeepSeek 模型同时展示高峰与闲时价格。缓存命中计价同步修正为输入价的 1/30。竞品阵容更新为 GPT-5.6 Sol / Terra / Luna 与 Claude Opus 5 / Sonnet 5 / Haiku 4.5，采用 2026 年 8 月最新定价（含 7 月 30 日 GPT-5.6 降价与 Batch API 五折优惠）。",
+      },
+    ],
+  },
+  {
     version: "v0.8.0",
     date: "2026-08-17",
     added: [

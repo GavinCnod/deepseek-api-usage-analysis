@@ -474,19 +474,25 @@ const translations = {
       badge: "Free Tool",
       heroTitle: "Estimate Your DeepSeek API Costs Instantly",
       heroDesc:
-        "Compare DeepSeek V4 Flash, V4 Pro, and competitor model pricing. Adjust input/output token counts and cache hit rate assumptions to see real cost projections.",
+        "Compare DeepSeek V4 Flash, V4 Pro, and competitor model pricing. Adjust input/output token counts, cache hit rate, and peak-hour share to see real cost projections.",
       currencyCNY: "CNY",
       currencyUSD: "USD",
       inputTokensLabel: "Monthly Input Tokens",
       outputTokensLabel: "Monthly Output Tokens",
       cacheHitRateLabel: "Cache Hit Rate (%)",
-      cacheHitRateHint: "Higher hit rate = lower cost. DeepSeek caches at 12.5% of the original input price for hits.",
+      cacheHitRateHint: "Higher hit rate = lower cost. DeepSeek bills cached input at 1/30 of the uncached input price (peak and off-peak alike).",
+      peakShareLabel: "Peak-Hour Share (%)",
+      peakShareHint:
+        "Peak hours are Beijing time 09:00–12:00 and 14:00–18:00; all other times are off-peak and billed at 50% of the peak price. Nightly batch jobs mostly run off-peak, interactive traffic leans peak.",
+      peakShort: "Peak",
+      offpeakShort: "Off-peak",
+      peakWindowNote: "Peak: Beijing 09–12 & 14–18; off-peak 50% off",
       costEstimateTitle: "Estimated Monthly Cost",
       deepseekV4Flash: "DeepSeek V4 Flash",
       deepseekV4Pro: "DeepSeek V4 Pro",
       competitorComparison: "Competitor Pricing Comparison",
       comparisonNote:
-        "Based on published API pricing as of July 2026. Actual costs may vary based on usage patterns and caching efficiency.",
+        "Based on published API pricing as of August 2026 (USD / 1M tokens, standard tier). GPT-5.6 Luna was cut 80% and Terra 20% on July 30, 2026; OpenAI and Anthropic both offer a 50% Batch API discount for offline workloads. DeepSeek prices are per million tokens in CNY (peak / off-peak). Actual costs vary with usage patterns and caching efficiency.",
       compModelHeader: "Model",
       compInputPriceHeader: "Input / 1M tokens",
       compOutputPriceHeader: "Output / 1M tokens",
@@ -506,6 +512,9 @@ const translations = {
       estimateStep3Title: "3. Add a cache assumption",
       estimateStep3Desc:
         "If your system prompt and context are reused heavily, model a higher hit rate. If every request is unique, start closer to 0% and treat savings as upside.",
+      estimateStep4Title: "4. Estimate your peak-hour share",
+      estimateStep4Desc:
+        "Requests during Beijing peak windows (09:00–12:00, 14:00–18:00) are billed at full price; everything else is half price. Nightly batch jobs are mostly off-peak, interactive tools lean peak.",
       billingModelTitle: "How the Billing Model Works",
       billingModelInputTitle: "Uncached input tokens",
       billingModelInputDesc:
@@ -516,6 +525,9 @@ const translations = {
       billingModelOutputTitle: "Output tokens",
       billingModelOutputDesc:
         "Generated tokens are billed separately and can become the main cost driver in agentic or reasoning-heavy workflows.",
+      billingModelPeakTitle: "Peak vs. off-peak rates",
+      billingModelPeakDesc:
+        "DeepSeek charges full price during peak hours (Beijing time 09:00–12:00 and 14:00–18:00) and 50% off at all other times. If your traffic is mostly batch jobs or night cron runs, off-peak pricing cuts cost significantly.",
       resultGuideTitle: "How to Read the Result",
       resultGuide1Title: "Use Flash for high-volume routine work",
       resultGuide1Desc:
@@ -1059,19 +1071,25 @@ const translations = {
       badge: "免费工具",
       heroTitle: "即刻估算你的 DeepSeek API 成本",
       heroDesc:
-        "对比 DeepSeek V4 Flash、V4 Pro 及竞品模型价格。调整输入/输出 Token 数量和缓存命中率假设，查看真实的成本预估。",
+        "对比 DeepSeek V4 Flash、V4 Pro 及竞品模型价格。调整输入/输出 Token 数量、缓存命中率与忙时占比，查看真实的成本预估。",
       currencyCNY: "人民币 (CNY)",
       currencyUSD: "美元 (USD)",
       inputTokensLabel: "月输入 Token 量",
       outputTokensLabel: "月输出 Token 量",
       cacheHitRateLabel: "缓存命中率 (%)",
-      cacheHitRateHint: "命中率越高，成本越低。DeepSeek 缓存命中按原始输入价格的 12.5% 计费。",
+      cacheHitRateHint: "命中率越高，成本越低。DeepSeek 缓存命中的输入按未命中价格的 1/30 计费（高峰/闲时同比例）。",
+      peakShareLabel: "忙时占比 (%)",
+      peakShareHint:
+        "高峰时段为北京时间 9:00–12:00、14:00–18:00；其余均为空闲时段，价格为高峰时段的一半。夜间批量任务大多落在闲时，交互类流量更偏向忙时。",
+      peakShort: "高峰",
+      offpeakShort: "闲时",
+      peakWindowNote: "高峰：北京时间 9–12 点与 14–18 点；闲时半价",
       costEstimateTitle: "预估月度费用",
       deepseekV4Flash: "DeepSeek V4 Flash",
       deepseekV4Pro: "DeepSeek V4 Pro",
       competitorComparison: "竞品定价对比",
       comparisonNote:
-        "基于 2026 年 7 月公开发布的 API 定价。实际费用可能因使用模式和缓存效率而有所不同。",
+        "基于 2026 年 8 月公开发布的 API 定价（美元 / 百万 token，标准档）。GPT-5.6 Luna 于 2026 年 7 月 30 日降价 80%、Terra 降价 20%；OpenAI 与 Anthropic 的 Batch API 均为离线任务提供五折优惠。DeepSeek 价格为每百万 Token 人民币（高峰 / 闲时）。实际费用因使用模式和缓存效率而异。",
       compModelHeader: "模型",
       compInputPriceHeader: "输入 / 百万 Token",
       compOutputPriceHeader: "输出 / 百万 Token",
@@ -1091,6 +1109,9 @@ const translations = {
       estimateStep3Title: "3. 最后补上缓存假设",
       estimateStep3Desc:
         "如果系统提示词和上下文复用很高，就用更高的命中率建模；如果每次请求都很独特，就先按接近 0% 估算，把缓存收益当成上行空间。",
+      estimateStep4Title: "4. 最后估算忙时占比",
+      estimateStep4Desc:
+        "北京时间高峰窗口（9:00–12:00、14:00–18:00）内的请求按全价计费，其余时间半价。夜间批量任务大多在闲时，交互类工具更偏向忙时。",
       billingModelTitle: "计费模型怎么理解",
       billingModelInputTitle: "未命中的输入 Token",
       billingModelInputDesc:
@@ -1101,6 +1122,9 @@ const translations = {
       billingModelOutputTitle: "输出 Token",
       billingModelOutputDesc:
         "模型生成的输出会单独计费。在 Agent 或深度推理场景里，输出成本本身也可能成为主要开销。",
+      billingModelPeakTitle: "高峰与闲时计价",
+      billingModelPeakDesc:
+        "DeepSeek 在高峰时段（北京时间 9:00–12:00、14:00–18:00）按全价计费，其余时间按 50% 收费。如果流量主要是夜间批量任务或定时脚本，闲时半价能显著降低成本。",
       resultGuideTitle: "如何解读计算结果",
       resultGuide1Title: "高频常规任务优先看 Flash",
       resultGuide1Desc:

@@ -44,7 +44,7 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the TitleBar (pill button), LandingPage (dedicated section), FooterBar ("Related Tools" row), and Organization JSON-LD schema.
 - **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.8.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.9.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
 - **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, expanded `BreadcrumbList` with all sub-pages, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
@@ -153,7 +153,7 @@ src/
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.8.0, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.9.0, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
@@ -267,6 +267,12 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.9.0
+
+**Improved:**
+
+- Pricing Calculator updated to DeepSeek's new peak / off-peak billing — DeepSeek V4 Flash and V4 Pro now use the official per-million-token prices in CNY with peak hours (Beijing time 09:00–12:00 and 14:00–18:00) billed at full price and off-peak hours at 50% off. A new "Peak-Hour Share" slider lets you model how much of your traffic falls in peak windows, and the comparison table shows both peak and off-peak prices for each DeepSeek model. Cache-hit pricing was also corrected to the new 1/30-of-input rate. Competitor lineup refreshed to GPT-5.6 Sol / Terra / Luna and Claude Opus 5 / Sonnet 5 / Haiku 4.5 with their latest August 2026 prices (including the July 30 GPT-5.6 price cuts and the 50% Batch API discount).
 
 ### v0.8.0
 

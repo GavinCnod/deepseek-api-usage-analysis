@@ -14,24 +14,28 @@ const ESTIMATE_STEPS_EN = [
   { title: en.estimateStep1Title, desc: en.estimateStep1Desc },
   { title: en.estimateStep2Title, desc: en.estimateStep2Desc },
   { title: en.estimateStep3Title, desc: en.estimateStep3Desc },
+  { title: en.estimateStep4Title, desc: en.estimateStep4Desc },
 ];
 
 const ESTIMATE_STEPS_ZH = [
   { title: zh.estimateStep1Title, desc: zh.estimateStep1Desc },
   { title: zh.estimateStep2Title, desc: zh.estimateStep2Desc },
   { title: zh.estimateStep3Title, desc: zh.estimateStep3Desc },
+  { title: zh.estimateStep4Title, desc: zh.estimateStep4Desc },
 ];
 
 const BILLING_ITEMS_EN = [
   { title: en.billingModelInputTitle, desc: en.billingModelInputDesc },
   { title: en.billingModelCacheTitle, desc: en.billingModelCacheDesc },
   { title: en.billingModelOutputTitle, desc: en.billingModelOutputDesc },
+  { title: en.billingModelPeakTitle, desc: en.billingModelPeakDesc },
 ];
 
 const BILLING_ITEMS_ZH = [
   { title: zh.billingModelInputTitle, desc: zh.billingModelInputDesc },
   { title: zh.billingModelCacheTitle, desc: zh.billingModelCacheDesc },
   { title: zh.billingModelOutputTitle, desc: zh.billingModelOutputDesc },
+  { title: zh.billingModelPeakTitle, desc: zh.billingModelPeakDesc },
 ];
 
 const RESULT_GUIDES_EN = [
