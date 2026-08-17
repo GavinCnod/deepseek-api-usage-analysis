@@ -26,7 +26,7 @@ body:
     attributes:
       label: CSV data info
       description: Describe the CSV files you were using (file names, approximate size, number of months). Do NOT share your actual CSV data or API keys.
-      placeholder: "amount-2026-5.csv and cost-2026-5.csv, about 200KB each"
+      placeholder: "amount-2026-5.csv and cost-2026-5.csv (or date-range names like amount-2026-08-01_2026-08-17.csv), about 200KB each"
   - type: input
     id: browser
     attributes:

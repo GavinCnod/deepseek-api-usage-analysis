@@ -1,4 +1,4 @@
-/** Raw row from amount-{year}-{month}.csv */
+/** Raw row from amount CSV (amount-{year}-{month}.csv or date-range naming) */
 export interface AmountRow {
   user_id: string;
   /** Billing date (YYYY-MM-DD), derived from start_time_iso (Beijing local day) or legacy utc_date */

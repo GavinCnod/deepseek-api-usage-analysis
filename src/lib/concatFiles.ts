@@ -3,7 +3,7 @@
  *
  * 文件名格式：amount-{year}-{month}.csv / cost-{year}-{month}.csv（旧式）
  * 或日期区间式：amount-{start}-{end}.csv / cost-{start}-{end}.csv（新式，如 amount-2026-08-01_2026-08-17.csv）
- * 示例：amount-2026-5.csv + cost-2026-5.csv → 月份键 "2026-5"
+ * 示例：amount-2026-5.csv + cost-2026-5.csv → 月份键 "2026-05"
  *
  * 同时包含 ZIP 炸弹防护：单文件超过 50MB 将被拒绝处理。
  */

@@ -18,7 +18,7 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 ## How it works
 
 1. Go to [DeepSeek Platform](https://platform.deepseek.com) → Usage → Export monthly data
-2. Each month downloads as a ZIP archive containing `amount-{year}-{month}.csv` and `cost-{year}-{month}.csv`
+2. Each month downloads as a ZIP archive containing `amount-{year}-{month}.csv` and `cost-{year}-{month}.csv` (newer exports use date-range names like `amount-2026-08-01_2026-08-17.csv` — both are supported)
 3. Drag ZIP files (or extracted CSVs) onto the dashboard — multiple months auto-pair
 4. Charts render instantly — nothing leaves your browser
 
