@@ -7,7 +7,7 @@ import { useTranslation } from "@/i18n";
 import { useTheme } from "@/lib/ThemeContext";
 import { buildLocalePath } from "@/lib/localeRouting";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { agnesProject, deepseekProject } from "@/lib/sisterProjects";
+import { deepseekProject } from "@/lib/sisterProjects";
 
 /* ===== SVG 图标组件 ===== */
 
@@ -41,6 +41,34 @@ function PenIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M17 3a2.828 2.828 0 1 1 4 4L9 19l-5 1 1-5L17 3z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function UserIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
+      <path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+function DocumentIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7 3h7l4 4v14H7V3z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+      <path d="M14 3v4h4" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+      <path d="M9 13h6M9 16h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
     </svg>
   );
 }
@@ -87,11 +115,9 @@ function LanguageSwitcherFallback() {
 /**
  * 共享顶部导航栏
  *
- * Apple 极简风格，响应式双布局：
- * - 桌面端 (md+)：全部元素展开
- * - 移动端：Logo + 标题 + 语言切换 + ⋯ 菜单按钮
- *
- * 移动端菜单为 Apple 风格 popover，点击外部自动关闭。
+ * Apple 极简风格：左侧 Logo + 标题，右侧语言切换 + 主题切换 + ⋯ 菜单。
+ * 全部导航入口（操作手册 / 隐私 / 条款 / 博客 / 作者 / 更新日志 / GitHub）
+ * 统一收纳在 ⋯ 弹出的 popover 菜单中，点击外部自动关闭。
  */
 export default function TitleBar() {
   const { locale, t } = useTranslation();
@@ -101,7 +127,10 @@ export default function TitleBar() {
   const btnRef = useRef<HTMLButtonElement>(null);
   const homeHref = buildLocalePath("/", locale);
   const guidelineHref = buildLocalePath("/guideline", locale);
+  const privacyHref = buildLocalePath("/privacy", locale);
+  const termsHref = buildLocalePath("/terms", locale);
   const blogHref = buildLocalePath("/blog", locale);
+  const authorHref = buildLocalePath("/author", locale);
   const changelogHref = buildLocalePath("/changelog", locale);
 
   /** 点击菜单外部时关闭 */
@@ -125,6 +154,15 @@ export default function TitleBar() {
   function closeMenu() {
     setMenuOpen(false);
   }
+
+  const navItems = [
+    { href: guidelineHref, label: t.guideline.pageTitle, Icon: CompassIcon },
+    { href: privacyHref, label: t.privacy.pageTitle, Icon: ShieldIcon },
+    { href: termsHref, label: t.terms.pageTitle, Icon: DocumentIcon },
+    { href: blogHref, label: t.blog.pageTitle, Icon: PenIcon },
+    { href: authorHref, label: t.author.pageTitle, Icon: UserIcon },
+    { href: changelogHref, label: t.changelog.pageTitle, Icon: ClockIcon },
+  ];
 
   return (
     <header className="sticky top-0 z-50" style={{ background: "var(--bg)" }}>
@@ -151,66 +189,8 @@ export default function TitleBar() {
           </span>
         </Link>
 
-        {/* ====== 右侧：桌面版全量展开 ====== */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* Agnes AI 姊妹项目胶囊 */}
-          <a
-            href={agnesProject.trackedSiteUrls.header}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-200 hover:bg-[var(--bg-surface-hover)]"
-            style={{ color: "var(--text-secondary)", border: "1px solid var(--border)" }}
-            aria-label={t.header.sisterProjectTitle}
-            title={t.header.sisterProjectTitle}
-          >
-            {t.header.sisterProject}
-          </a>
-
-          {/* GitHub */}
-          <a
-            href={deepseekProject.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
-            style={{ color: "var(--text-secondary)" }}
-            aria-label="GitHub"
-          >
-            <GitHubIcon />
-          </a>
-
-          {/* Guideline */}
-          <Link
-            href={guidelineHref}
-            className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
-            style={{ color: "var(--text-secondary)" }}
-            aria-label={t.guideline.pageTitle}
-            title={t.guideline.pageTitle}
-          >
-            <CompassIcon />
-          </Link>
-
-          {/* Blog */}
-          <Link
-            href={blogHref}
-            className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
-            style={{ color: "var(--text-secondary)" }}
-            aria-label={t.blog.pageTitle}
-            title={t.blog.pageTitle}
-          >
-            <PenIcon />
-          </Link>
-
-          {/* Changelog */}
-          <Link
-            href={changelogHref}
-            className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
-            style={{ color: "var(--text-secondary)" }}
-            aria-label={t.changelog.pageTitle}
-            title={t.changelog.pageTitle}
-          >
-            <ClockIcon />
-          </Link>
-
+        {/* ====== 右侧：语言切换 + 主题切换 + ⋯ 菜单 ====== */}
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <Suspense fallback={<LanguageSwitcherFallback />}>
             <LanguageSwitcher />
           </Suspense>
@@ -218,119 +198,71 @@ export default function TitleBar() {
           {/* 主题切换 */}
           <button
             onClick={toggleTheme}
-            className="flex items-center justify-center w-8 h-8 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
+            className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
             style={{ color: "var(--text-secondary)" }}
             title={theme === "light" ? t.theme.switchToDark : t.theme.switchToLight}
             aria-label={theme === "light" ? t.theme.switchToDark : t.theme.switchToLight}
           >
             {theme === "light" ? <MoonIcon /> : <SunIcon />}
           </button>
-        </div>
 
-        {/* ====== 右侧：移动端 — 语言 + ⋯ ====== */}
-        <div className="flex md:hidden items-center gap-1.5">
-          <Suspense fallback={<LanguageSwitcherFallback />}>
-            <LanguageSwitcher />
-          </Suspense>
-
-          <button
-            ref={btnRef}
-            onClick={() => setMenuOpen((v) => !v)}
-            className="flex items-center justify-center w-9 h-9 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
-            style={{ color: "var(--text-secondary)" }}
-            aria-label="Menu"
-            aria-expanded={menuOpen}
-          >
-            <MoreIcon />
-          </button>
-
-          {/* Apple 风格 popover 菜单 */}
-          {menuOpen && (
-            <div
-              ref={menuRef}
-              className="absolute top-full right-3 mt-2 w-56 rounded-xl py-2 shadow-diffuse-md z-50"
-              style={{
-                background: "var(--bg)",
-                border: "1px solid var(--border)",
-              }}
+          {/* ⋯ 导航菜单 */}
+          <div className="relative">
+            <button
+              ref={btnRef}
+              onClick={() => setMenuOpen((v) => !v)}
+              className="flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 rounded-full transition-all duration-200 hover:bg-[var(--border)]"
+              style={{ color: "var(--text-secondary)" }}
+              aria-label="Menu"
+              aria-expanded={menuOpen}
             >
-              {/* Agnes AI */}
-              <a
-                href={agnesProject.trackedSiteUrls.header}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeMenu}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
-                style={{ color: "var(--text-primary)" }}
+              <MoreIcon />
+            </button>
+
+            {/* Apple 风格 popover 菜单 */}
+            {menuOpen && (
+              <div
+                ref={menuRef}
+                className="absolute top-full right-0 mt-2 w-60 rounded-xl py-2 shadow-diffuse-md z-50 max-h-[calc(100vh-5rem)] overflow-y-auto"
+                style={{
+                  background: "var(--bg)",
+                  border: "1px solid var(--border)",
+                }}
               >
-                <span className="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium" style={{ color: "var(--text-secondary)", border: "1px solid var(--border)" }}>
-                  {t.header.sisterProject}
-                </span>
-              </a>
+                {navItems.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    onClick={closeMenu}
+                    className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
+                    style={{ color: "var(--text-primary)" }}
+                  >
+                    <span className="flex items-center justify-center w-5 h-5">
+                      <item.Icon />
+                    </span>
+                    <span>{item.label}</span>
+                  </Link>
+                ))}
 
-              <div className="my-1 mx-3" style={{ borderTop: "1px solid var(--border)" }} />
+                <div className="my-1 mx-3" style={{ borderTop: "1px solid var(--border)" }} />
 
-              {/* GitHub */}
-              <a
-                href={deepseekProject.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={closeMenu}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
-                style={{ color: "var(--text-primary)" }}
-              >
-                <span className="flex items-center justify-center w-5 h-5"><GitHubIcon /></span>
-                <span>GitHub</span>
-              </a>
-
-              {/* Guideline */}
-              <Link
-                href={guidelineHref}
-                onClick={closeMenu}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
-                style={{ color: "var(--text-primary)" }}
-              >
-                <span className="flex items-center justify-center w-5 h-5"><CompassIcon /></span>
-                <span>{t.guideline.pageTitle}</span>
-              </Link>
-
-              {/* Blog */}
-              <Link
-                href={blogHref}
-                onClick={closeMenu}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
-                style={{ color: "var(--text-primary)" }}
-              >
-                <span className="flex items-center justify-center w-5 h-5"><PenIcon /></span>
-                <span>{t.blog.pageTitle}</span>
-              </Link>
-
-              {/* Changelog */}
-              <Link
-                href={changelogHref}
-                onClick={closeMenu}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
-                style={{ color: "var(--text-primary)" }}
-              >
-                <span className="flex items-center justify-center w-5 h-5"><ClockIcon /></span>
-                <span>{t.changelog.pageTitle}</span>
-              </Link>
-
-              <div className="my-1 mx-3" style={{ borderTop: "1px solid var(--border)" }} />
-
-              {/* 主题切换（内嵌） */}
-              <button
-                onClick={() => { toggleTheme(); closeMenu(); }}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm w-full text-left transition-colors duration-150 hover:bg-[var(--border)]"
-                style={{ color: "var(--text-primary)" }}
-              >
-                <span className="flex items-center justify-center w-5 h-5">
-                  {theme === "light" ? <MoonIcon /> : <SunIcon />}
-                </span>
-                <span>{theme === "light" ? t.theme.switchToDark : t.theme.switchToLight}</span>
-              </button>
-            </div>
-          )}
+                {/* GitHub（站外链接） */}
+                <a
+                  href={deepseekProject.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={closeMenu}
+                  className="flex items-center gap-3 px-4 py-2.5 text-sm transition-colors duration-150 hover:bg-[var(--border)]"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  <span className="flex items-center justify-center w-5 h-5">
+                    <GitHubIcon />
+                  </span>
+                  <span>GitHub</span>
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </header>
