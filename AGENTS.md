@@ -13,7 +13,7 @@ Client-only analytics dashboard for DeepSeek platform CSV/ZIP exports. Apple-min
 - `npm run dev` — dev server on :3000. The script passes `--webpack`: Next 16 defaults to Turbopack; this repo pins webpack, so keep the flag.
 - `npm run build` — static export to `out/` (`output: "export"` in `next.config.ts`) — also type-checks the app.
 - `npm run lint` — ESLint (flat config `eslint.config.mjs`, eslint-config-next).
-- `npm test` — Vitest. **38 tests across 6 files** in `src/__tests__/` (analytics, schema, sitemap, localeRouting, DataContext, DropZone). Older "50 tests"/"90 tests"/BlogIndex claims are stale — do not repeat them.
+- `npm test` — Vitest. **47 tests across 7 files** in `src/__tests__/` (analytics, schema, sitemap, localeRouting, DataContext, DropZone, parser). Older "50 tests"/"90 tests"/BlogIndex claims are stale — do not repeat them.
 - `npx vitest run src/__tests__/<file>` — single test file.
 - `npx tsc --noEmit` — standalone typecheck (no dedicated npm script).
 - `npm run start` does not serve the static build; preview `out/` with a static host (e.g. `npx serve out`).
@@ -30,7 +30,7 @@ Client-only analytics dashboard for DeepSeek platform CSV/ZIP exports. Apple-min
 
 ## Key flows
 
-- **Data pipeline**: `src/lib/parser.ts` (parse → pivot → join → `computeKeyStats`), types in `types.ts`. Amount CSV columns pivot on `type` (`request_count | output_tokens | input_cache_hit_tokens | input_cache_miss_tokens`); cost CSV costs are distributed proportionally across keys by token share per (date, model). Multi-month pairing + ZIP extraction in `concatFiles.ts` (filename pattern `amount-{year}-{month}.csv` / `cost-{year}-{month}.csv`; 50MB limit = ZIP-bomb guard).
+- **Data pipeline**: `src/lib/parser.ts` (parse → pivot → join → `computeKeyStats`), types in `types.ts`. Amount CSV columns pivot on `type` (`request_count | output_tokens | input_cache_hit_tokens | input_cache_miss_tokens`); cost CSV costs are distributed proportionally across keys by token share per (date, model). The billing date is derived from `start_time_iso`'s date part (Beijing-local day); legacy `utc_date` exports are still accepted. Multi-month pairing + ZIP extraction in `concatFiles.ts` (filename patterns `amount-{year}-{month}.csv` / `cost-{year}-{month}.csv` legacy, and date-range `amount-2026-08-01_2026-08-17.csv` / `cost-2026-08-01_2026-08-17.csv` new; 50MB limit = ZIP-bomb guard).
 - **SEO**: metadata builders centralized in `src/lib/routeMetadata.ts` → `pageMetadata.ts` (`buildLocalizedPageMetadata`); JSON-LD in `schema.ts`. SEO-critical pages need a `<noscript>` fallback component (`*Content.tsx`) rendered into the page for crawlers.
 - **Config modules** (single source of truth, edit these not the consumers): `sisterProjects.ts` (UTM-tracked cross-links), `affiliates.ts` (affiliate/referral links), `blogArticles.ts` + `src/lib/content/*` (blog articles), `authors.ts`, `site.ts` (site URLs, default `https://deepseek-usage.xyz` via `NEXT_PUBLIC_SITE_URL`).
 

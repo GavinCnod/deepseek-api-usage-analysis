@@ -755,7 +755,7 @@ function getManualContent(locale: string): string {
 function getManualContentZh(): string {
   return `# DeepSeek API 用量分析仪表盘 — 用户操作手册
 
-> 版本：v0.7.0 | 适用语言：中文 / English | 最后更新：2026-08-13
+> 版本：v0.8.0 | 适用语言：中文 / English | 最后更新：2026-08-17
 
 ---
 
@@ -783,8 +783,8 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 2. 进入「用量（Usage）」页面
 3. 选择需要分析的月份，点击「导出（Export）」
 4. 每个月会下载一个 **ZIP 压缩包**，内含两个 CSV 文件：
-   - \`amount-YYYY-M.csv\` — 用量明细文件（包含 Token 消耗、请求次数、缓存命中/未命中等数据）
-   - \`cost-YYYY-M.csv\` — 费用明细文件（包含按日的费用数据）
+   - \`amount-2026-08-01_2026-08-17.csv\`（或旧式 \`amount-YYYY-M.csv\`）— 用量明细文件（包含 Token 消耗、请求次数、缓存命中/未命中等数据）
+   - \`cost-2026-08-01_2026-08-17.csv\`（或旧式 \`cost-YYYY-M.csv\`）— 费用明细文件（包含按日的费用数据）
 
 > **请注意**：ZIP 可以直接拖入上传区域，无需手动解压。两个 CSV 文件缺一不可——如果缺少 cost 文件，费用相关的图表将无法生成。
 
@@ -798,7 +798,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 4. 上传区域会显示「正在处理 CSV…」的加载状态
 5. 处理完成后，页面将自动切换到仪表盘视图
 
-> **支持同时上传多个月份**：一次性拖入所有月份的 ZIP（或 CSV）文件，系统会自动解压 ZIP、按文件名配对（如 \`amount-2026-5.csv\` + \`cost-2026-5.csv\`）并进行合并。
+> **支持同时上传多个月份**：一次性拖入所有月份的 ZIP（或 CSV）文件，系统会自动解压 ZIP、按文件名配对（兼容日期区间式如 \`amount-2026-08-01_2026-08-17.csv\` + \`cost-2026-08-01_2026-08-17.csv\`，以及旧式 \`amount-2026-5.csv\` + \`cost-2026-5.csv\`）并进行合并。
 
 > **[截图占位 - 03]**
 
@@ -1151,7 +1151,8 @@ Apple 风格下划线标签，5 个标签页：
 
 | 列名 | 说明 |
 |------|------|
-| \`utc_date\` | UTC 日期 |
+| \`start_time_iso\` | 周期开始时间（ISO 8601）；账单日取其日期部分（北京时间当天） |
+| \`end_time_iso\` | 周期结束时间（ISO 8601） |
 | \`model\` | 模型名称 |
 | \`api_key_name\` | API Key 名称 |
 | \`api_key\` | API Key 值 |
@@ -1159,14 +1160,20 @@ Apple 风格下划线标签，5 个标签页：
 | \`price\` | 单价（request_count 类型为空） |
 | \`amount\` | 数量 |
 
+> 兼容旧式导出：若文件使用 \`utc_date\` 列（UTC 日期）且文件名为 \`amount-YYYY-M.csv\`，同样可以正常解析。
+
 ### cost CSV 格式
 
 | 列名 | 说明 |
 |------|------|
-| \`utc_date\` | UTC 日期 |
+| \`start_time_iso\` | 周期开始时间（ISO 8601） |
+| \`end_time_iso\` | 周期结束时间（ISO 8601） |
 | \`model\` | 模型名称 |
+| \`wallet_type\` | 钱包类型（如 Paid） |
 | \`cost\` | 费用（按日汇总） |
 | \`currency\` | 货币单位 |
+
+> 兼容旧式导出：若文件使用 \`utc_date\` 列且文件名为 \`cost-YYYY-M.csv\`，同样可以正常解析。
 
 ### 注意事项
 
@@ -1207,7 +1214,7 @@ Apple 风格下划线标签，5 个标签页：
 function getManualContentEn(): string {
   return `# DeepSeek API Usage Analytics Dashboard — User Guide
 
-> Version: v0.6.5 | Language: English / 中文 | Last Updated: 2026-07-12
+> Version: v0.8.0 | Language: English / 中文 | Last Updated: 2026-08-17
 
 ---
 
@@ -1235,8 +1242,8 @@ The DeepSeek API Usage Analytics Dashboard is a **purely browser-side** data vis
 2. Go to the "Usage" page
 3. Select the month you want to analyze, click "Export"
 4. Each month downloads a **ZIP archive** containing two CSV files:
-   - \`amount-YYYY-M.csv\` — Usage details (tokens consumed, request counts, cache hit/miss data)
-   - \`cost-YYYY-M.csv\` — Cost details (daily cost data)
+   - \`amount-2026-08-01_2026-08-17.csv\` (or legacy \`amount-YYYY-M.csv\`) — Usage details (tokens consumed, request counts, cache hit/miss data)
+   - \`cost-2026-08-01_2026-08-17.csv\` (or legacy \`cost-YYYY-M.csv\`) — Cost details (daily cost data)
 
 > **Note**: The ZIP can be dragged directly into the upload area — no manual extraction needed. Both CSV files are required. Without the cost file, cost-related charts cannot be generated.
 
@@ -1250,7 +1257,7 @@ The DeepSeek API Usage Analytics Dashboard is a **purely browser-side** data vis
 4. The upload area will show a "Processing CSV\u2026" loading state
 5. Once processing is complete, the page automatically switches to the dashboard view
 
-> **Multi-month support**: Drag in all monthly ZIP (or CSV) files at once — the system auto-extracts ZIPs, pairs files by filename (e.g., \`amount-2026-5.csv\` + \`cost-2026-5.csv\`), and merges them.
+> **Multi-month support**: Drag in all monthly ZIP (or CSV) files at once — the system auto-extracts ZIPs, pairs files by filename (both date-range naming like \`amount-2026-08-01_2026-08-17.csv\` + \`cost-2026-08-01_2026-08-17.csv\` and legacy \`amount-2026-5.csv\` + \`cost-2026-5.csv\`), and merges them.
 
 > **[截图占位 - 03]**
 
@@ -1603,7 +1610,8 @@ Each dashboard tab can generate a 1200×630 infographic share image, ideal for s
 
 | Column | Description |
 |--------|-------------|
-| \`utc_date\` | UTC date |
+| \`start_time_iso\` | Period start (ISO 8601); the billing day is its date part (Beijing-local day) |
+| \`end_time_iso\` | Period end (ISO 8601) |
 | \`model\` | Model name |
 | \`api_key_name\` | API Key name |
 | \`api_key\` | API Key value |
@@ -1611,14 +1619,20 @@ Each dashboard tab can generate a 1200×630 infographic share image, ideal for s
 | \`price\` | Unit price (empty for request_count type) |
 | \`amount\` | Count |
 
+> Legacy exports using a \`utc_date\` column (UTC date) and \`amount-YYYY-M.csv\` filenames are also supported.
+
 ### Cost CSV Format
 
 | Column | Description |
 |--------|-------------|
-| \`utc_date\` | UTC date |
+| \`start_time_iso\` | Period start (ISO 8601) |
+| \`end_time_iso\` | Period end (ISO 8601) |
 | \`model\` | Model name |
+| \`wallet_type\` | Wallet type (e.g. Paid) |
 | \`cost\` | Cost (daily total) |
 | \`currency\` | Currency unit |
+
+> Legacy exports using a \`utc_date\` column and \`cost-YYYY-M.csv\` filenames are also supported.
 
 ### Notes
 

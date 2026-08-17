@@ -20,7 +20,7 @@ import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterPro
 /* ------------------------------------------------------------------ */
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.7.0";
+const APP_VERSION = "0.8.0";
 
 /** SoftwareApplication Schema 翻译 */
 const softwareAppSchema: Record<

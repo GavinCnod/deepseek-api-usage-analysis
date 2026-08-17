@@ -50,6 +50,22 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.8.0",
+    date: "2026-08-17",
+    added: [
+      {
+        en: "Support for DeepSeek's new CSV export format — the export schema changed from a `utc_date` date column to `start_time_iso` / `end_time_iso` ISO timestamps (and `user_id` / `wallet_type` became always-present). The parser now derives the billing day from the `start_time_iso` date part (Beijing-local day) and pairs the new date-range filenames (`amount-2026-08-01_2026-08-17.csv`). Legacy exports using `utc_date` and `amount-{year}-{month}.csv` names remain fully supported for backward compatibility.",
+        zh: "支持 DeepSeek 新导出 CSV 格式 — 导出字段由 `utc_date` 日期列改为 `start_time_iso` / `end_time_iso` ISO 时间戳（且 `user_id`、`wallet_type` 变为必带列）。解析器现从 `start_time_iso` 的日期部分派生账单日（北京时间当天），并支持按新的日期区间文件名（如 `amount-2026-08-01_2026-08-17.csv`）配对多个月份。旧式导出（`utc_date` 列 + `amount-{year}-{month}.csv` 命名）保持完整向后兼容。",
+      },
+    ],
+    fixed: [
+      {
+        en: "DeepSeek export format change breaking parsing — newer platform exports no longer include the `utc_date` column, which previously caused the dashboard to reject them with a \"missing column\" error. Parsing now accepts the new schema (and still reads legacy files).",
+        zh: "修复 DeepSeek 导出格式变更导致的解析失败 — 新版本平台导出不再包含 `utc_date` 列，此前会导致仪表盘以「缺少列」错误拒绝文件。现解析逻辑已支持新字段结构（同时兼容旧文件）。",
+      },
+    ],
+  },
+  {
     version: "v0.7.0",
     date: "2026-08-13",
     added: [

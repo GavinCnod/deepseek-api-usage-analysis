@@ -189,7 +189,7 @@ const translations = {
       dependencies: "Dependencies",
       githubLabel: "GitHub Repository",
       reviewSourceCode: "Review source code →",
-      lastUpdated: "Last updated: June 17, 2026",
+      lastUpdated: "Last updated: August 17, 2026",
       viewChangelog: "View Changelog →",
     },
     privacy: {
@@ -769,7 +769,7 @@ const translations = {
       dependencies: "依赖变更",
       githubLabel: "GitHub 仓库",
       reviewSourceCode: "查看源码验证 →",
-      lastUpdated: "最后更新：2026 年 6 月 17 日",
+      lastUpdated: "最后更新：2026 年 8 月 17 日",
       viewChangelog: "查看更新日志 →",
     },
     privacy: {

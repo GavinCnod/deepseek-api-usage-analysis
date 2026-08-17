@@ -266,6 +266,14 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.8.0** (2026-08-17)
+
+*Added*
+- Support for DeepSeek's new CSV export format — schema changed from a `utc_date` column to `start_time_iso` / `end_time_iso` ISO timestamps (`user_id` and `wallet_type` now always present). Parser derives the billing day from `start_time_iso` (Beijing-local day) and pairs the new date-range filenames (`amount-2026-08-01_2026-08-17.csv`). Legacy exports (`utc_date`, `amount-{year}-{month}.csv`) remain fully supported.
+
+*Fixed*
+- DeepSeek export format change breaking parsing — newer exports lack the `utc_date` column, previously rejected with a "missing column" error. Now accepts the new schema and still reads legacy files.
+
 **v0.7.0** (2026-08-13)
 
 *Added*
@@ -440,6 +448,14 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.8.0**（2026-08-17）
+
+*新增*
+- 支持 DeepSeek 新导出 CSV 格式 — 字段由 `utc_date` 列改为 `start_time_iso` / `end_time_iso` ISO 时间戳（`user_id`、`wallet_type` 变为必带列）。解析器从 `start_time_iso` 的日期部分派生账单日（北京时间当天），并按新的日期区间文件名（如 `amount-2026-08-01_2026-08-17.csv`）配对月份。旧式导出（`utc_date` 列 + `amount-{year}-{month}.csv`）保持完整兼容。
+
+*修复*
+- 修复 DeepSeek 导出格式变更导致的解析失败 — 新导出不再包含 `utc_date` 列，此前会被以「缺少列」错误拒绝。现支持新字段结构，同时兼容旧文件。
 
 **v0.7.0**（2026-08-13）
 

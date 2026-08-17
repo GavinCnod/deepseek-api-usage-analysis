@@ -1,7 +1,8 @@
 /**
  * 将 DeepSeek CSV 文件按月配对并拼接，支持多月份分析。
  *
- * 文件名格式：amount-{year}-{month}.csv / cost-{year}-{month}.csv
+ * 文件名格式：amount-{year}-{month}.csv / cost-{year}-{month}.csv（旧式）
+ * 或日期区间式：amount-{start}-{end}.csv / cost-{start}-{end}.csv（新式，如 amount-2026-08-01_2026-08-17.csv）
  * 示例：amount-2026-5.csv + cost-2026-5.csv → 月份键 "2026-5"
  *
  * 同时包含 ZIP 炸弹防护：单文件超过 50MB 将被拒绝处理。
@@ -47,9 +48,18 @@ function stripHeader(text: string): string {
 
 /**
  * Parse year-month from a DeepSeek CSV filename.
- * Expects: amount-2026-6.csv, cost-2026-06.csv, etc.
+ * Supports both naming conventions:
+ * - Legacy: amount-2026-6.csv, cost-2026-06.csv
+ * - New (date-range): amount-2026-08-01_2026-08-17.csv, cost-2026-08-01_2026-08-17.csv
  */
 function extractMonth(filename: string): string | null {
+  // New date-range pattern first: amount-2026-08-01_2026-08-17.csv → month of the start date
+  const rangeMatch = filename.match(
+    /(?:amount|cost)-(\d{4})-(\d{2})-(\d{2})_\d{4}-\d{2}-\d{2}\.csv$/i
+  );
+  if (rangeMatch) return `${rangeMatch[1]}-${rangeMatch[2]}`;
+
+  // Legacy pattern: amount-2026-6.csv, cost-2026-06.csv
   const match = filename.match(/(?:amount|cost)-(\d{4})-(\d{1,2})\.csv$/i);
   if (!match) return null;
   const year = match[1];

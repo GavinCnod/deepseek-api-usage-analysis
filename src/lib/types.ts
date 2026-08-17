@@ -1,7 +1,8 @@
 /** Raw row from amount-{year}-{month}.csv */
 export interface AmountRow {
   user_id: string;
-  utc_date: string;
+  /** Billing date (YYYY-MM-DD), derived from start_time_iso (Beijing local day) or legacy utc_date */
+  date: string;
   model: string;
   api_key_name: string;
   api_key: string;
@@ -23,7 +24,8 @@ export type AmountType =
 /** Raw row from cost-{year}-{month}.csv */
 export interface CostRow {
   user_id: string;
-  utc_date: string;
+  /** Billing date (YYYY-MM-DD), derived from start_time_iso (Beijing local day) or legacy utc_date */
+  date: string;
   model: string;
   wallet_type: string;
   /** Negative = charge */

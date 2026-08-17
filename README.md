@@ -37,14 +37,14 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **One-click copy** — Reusable CopyButton component for clipboard copy of cost values across KeyView, ProjectView, and OverviewView; hover tooltip with i18n-aware toast
 - **Social share cards** — Generate 1200×630 infographic share images for each dashboard tab (Overview / Projects / Keys / Cache / Trends). Customizable "From XXX" signature, optional quote message, per-tab ECharts mini-charts, QR code to deepseek-usage.xyz, app logo watermark, one-click copy to clipboard (paste directly to WeChat / Feishu / DingTalk), and PNG download.
 - **Upload safety** — 50MB per-file size limit to prevent ZIP bomb attacks; user-facing error messages and dedicated FAQ entry
-- **Multi-month support** — Drag multiple months at once; files auto-pair by filename pattern and concatenate. Also supports ZIP archives directly — no extraction needed; drag DeepSeek platform ZIP exports straight onto the page.
+- **Multi-month support** — Drag multiple months at once; files auto-pair by filename pattern (both `amount-{year}-{month}.csv` and date-range `amount-2026-08-01_2026-08-17.csv` naming) and concatenate. Also supports ZIP archives directly — no extraction needed; drag DeepSeek platform ZIP exports straight onto the page.
 - **Apple-minimalist design** — Cold gray paper-texture background, generous whitespace, "no-card" full-width modules, thin horizontal dividers, 5rem hero numbers, diffuse shadows
 - **100% private** — All CSV parsing (Papa Parse), ZIP extraction (JSZip), and cost computation runs client-side; project configuration stored in your browser's localStorage only
 - **SEO optimized** — Server-rendered metadata (canonical URLs, OpenGraph with `alternateLocale` en/zh, Twitter cards), JSON-LD structured data (`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`, bilingual, rendered via reusable `<JsonLd />` component), robots.txt + sitemap.xml (bilingual en/zh entries per route), `<noscript>` crawler fallback content, anchor-linkable landing page sections, `llms.txt` for LLM-friendly site description
 - **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the TitleBar (pill button), LandingPage (dedicated section), FooterBar ("Related Tools" row), and Organization JSON-LD schema.
 - **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.7.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.8.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
 - **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, expanded `BreadcrumbList` with all sub-pages, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
@@ -54,28 +54,31 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 
 ## CSV Format
 
-Standard DeepSeek platform export:
+Standard DeepSeek platform export. Newer exports use `start_time_iso`/`end_time_iso` ISO timestamps and date-range filenames (e.g. `amount-2026-08-01_2026-08-17.csv`); legacy exports with a `utc_date` column and `amount-{year}-{month}.csv` names are also supported.
 
-### `amount-{year}-{month}.csv`
+### `amount-{year}-{month}.csv` (or date-range naming)
 
-| Column         | Description                                                                           |
-| -------------- | ------------------------------------------------------------------------------------- |
-| `utc_date`     | Usage date                                                                            |
-| `model`        | `deepseek-chat`, `deepseek-reasoner`, etc.                                            |
-| `api_key_name` | Your key label                                                                        |
-| `api_key`      | Key (masked)                                                                          |
-| `type`         | `request_count`, `output_tokens`, `input_cache_hit_tokens`, `input_cache_miss_tokens` |
-| `price`        | Unit price in CNY                                                                     |
-| `amount`       | Token or request count                                                                |
+| Column           | Description                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| `start_time_iso` | Period start (ISO 8601); the billing day is its date part (Beijing-local day)          |
+| `end_time_iso`   | Period end (ISO 8601)                                                                  |
+| `model`          | `deepseek-v4-pro`, `deepseek-v4-flash`, etc.                                           |
+| `api_key_name`   | Your key label                                                                         |
+| `api_key`        | Key (masked)                                                                           |
+| `type`           | `request_count`, `output_tokens`, `input_cache_hit_tokens`, `input_cache_miss_tokens` |
+| `price`          | Unit price in CNY (empty for `request_count`)                                          |
+| `amount`         | Token or request count                                                                 |
 
-### `cost-{year}-{month}.csv`
+### `cost-{year}-{month}.csv` (or date-range naming)
 
-| Column     | Description                |
-| ---------- | -------------------------- |
-| `utc_date` | Charge date                |
-| `model`    | Model name                 |
-| `cost`     | Amount (negative = charge) |
-| `currency` | CNY                        |
+| Column           | Description                |
+| ---------------- | -------------------------- |
+| `start_time_iso` | Period start (ISO 8601)    |
+| `end_time_iso`   | Period end (ISO 8601)      |
+| `model`          | Model name                 |
+| `wallet_type`    | Wallet type (e.g. `Paid`)  |
+| `cost`           | Amount (negative = charge) |
+| `currency`       | CNY                        |
 
 ## Development
 
@@ -84,7 +87,7 @@ npm install
 npm run dev        # Dev server at localhost:3000
 npm run build      # Static export → out/
 npm run lint       # ESLint
-npm test           # Vitest (38 tests)
+npm test           # Vitest (47 tests)
 ```
 
 ### Tech Stack
@@ -149,7 +152,7 @@ src/
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.7.0, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.8.0, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
@@ -261,6 +264,17 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.8.0
+
+**Added:**
+
+- Support for DeepSeek's new CSV export format — the export schema changed from a `utc_date` date column to `start_time_iso` / `end_time_iso` ISO timestamps (`user_id` and `wallet_type` are now always present). The parser derives the billing day from the `start_time_iso` date part (Beijing-local day) and pairs the new date-range filenames (`amount-2026-08-01_2026-08-17.csv`). Legacy exports using `utc_date` and `amount-{year}-{month}.csv` names remain fully supported for backward compatibility.
+- New `parser.test.ts` — unit tests covering the new format, legacy-format backward compatibility, missing-column errors, and the date-range filename pairing logic.
+
+**Fixed:**
+
+- DeepSeek export format change breaking parsing — newer platform exports no longer include the `utc_date` column, which previously caused the dashboard to reject them with a "missing column" error. Parsing now accepts the new schema (and still reads legacy files).
 
 ### v0.7.0
 

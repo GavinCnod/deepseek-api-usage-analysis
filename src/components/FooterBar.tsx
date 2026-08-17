@@ -6,7 +6,7 @@ import { buildLocalePath } from "@/lib/localeRouting";
 import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.7.0";
+const APP_VERSION = "0.8.0";
 
 /**
  * FooterBar 属性

@@ -37,14 +37,14 @@
 - **一键复制** — 可复用的 CopyButton 组件，在 KeyView、ProjectView 和 OverviewView 中一键复制费用数值；悬浮提示含国际化成功消息
 - **社交媒体分享卡片** — 为每个仪表盘标签页（总览 / 项目 / Key / 缓存 / 趋势）生成 1200×630 信息图分享图片。支持自定义「From XXX」署名、可选引用文案、各标签页专属 ECharts 迷你图表、deepseek-usage.xyz 二维码、应用 Logo 水印、一键复制到剪贴板（直接粘贴至微信 / 飞书 / 钉钉）以及 PNG 下载。
 - **上传安全** — 单文件 50MB 大小限制，防止 ZIP 炸弹攻击；用户可见的错误提示及专属 FAQ 条目
-- **多月支持** — 一次拖入多个月份文件；根据文件名模式自动配对并拼接。同时支持 ZIP 压缩包直接上传 — 无需解压，直接将 DeepSeek 平台导出的 ZIP 文件拖入页面即可。
+- **多月支持** — 一次拖入多个月份文件；根据文件名模式自动配对并拼接（兼容 `amount-{年份}-{月份}.csv` 与日期区间式 `amount-2026-08-01_2026-08-17.csv` 两种命名）。同时支持 ZIP 压缩包直接上传 — 无需解压，直接将 DeepSeek 平台导出的 ZIP 文件拖入页面即可。
 - **Apple 极简设计** — 冷灰纸质感底、大量留白、「无卡片」通栏模块布局、细横线分割、5rem Hero 大数字、弥散阴影
 - **100% 隐私** — 所有 CSV 解析（Papa Parse）、ZIP 解压（JSZip）和费用计算均在浏览器客户端完成；项目配置仅存储于浏览器的 localStorage 中
 - **SEO 优化** — 服务端渲染元数据（规范 URL、OpenGraph 含 `alternateLocale` en/zh、Twitter 卡片）、JSON-LD 结构化数据（`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`，双语，通过可复用 `<JsonLd />` 组件渲染）、robots.txt + sitemap.xml（每路由 en + zh 双语条目）、`<noscript>` 爬虫回退内容、支持锚点链接的落地页板块、`llms.txt` 面向 LLM 的站点描述
 - **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 TitleBar（胶囊按钮）、LandingPage（专属区段）、FooterBar（「姊妹工具」行）以及 Organization JSON-LD Schema 中。
 - **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.7.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.8.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
 - **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、包含所有子页面的扩展 `BreadcrumbList`、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
@@ -54,28 +54,31 @@
 
 ## CSV 格式
 
-DeepSeek 平台标准导出格式：
+DeepSeek 平台标准导出格式。新导出使用 `start_time_iso` / `end_time_iso` ISO 时间戳与日期区间文件名（如 `amount-2026-08-01_2026-08-17.csv`）；旧式导出（`utc_date` 列 + `amount-{年份}-{月份}.csv` 命名）同样支持。
 
-### `amount-{年份}-{月份}.csv`
+### `amount-{年份}-{月份}.csv`（或日期区间命名）
 
 | 列名             | 说明                                                                                 |
 | -------------- | ---------------------------------------------------------------------------------- |
-| `utc_date`     | 使用日期                                                                               |
-| `model`        | 模型名称，如 `deepseek-chat`、`deepseek-reasoner`                                         |
+| `start_time_iso` | 统计周期开始（ISO 8601）；账单日取其日期部分（北京时间当天）                                        |
+| `end_time_iso`   | 统计周期结束（ISO 8601）                                                               |
+| `model`        | 模型名称，如 `deepseek-v4-pro`、`deepseek-v4-flash`                                        |
 | `api_key_name` | API Key 标签                                                                         |
 | `api_key`      | Key（脱敏）                                                                            |
 | `type`         | `request_count`、`output_tokens`、`input_cache_hit_tokens`、`input_cache_miss_tokens` |
-| `price`        | 单价（人民币）                                                                            |
+| `price`        | 单价（人民币，`request_count` 类型为空）                                                        |
 | `amount`       | Token 或请求数量                                                                        |
 
-### `cost-{年份}-{月份}.csv`
+### `cost-{年份}-{月份}.csv`（或日期区间命名）
 
-| 列名         | 说明        |
-| ---------- | --------- |
-| `utc_date` | 扣费日期      |
-| `model`    | 模型名称      |
-| `cost`     | 金额（负数为扣费） |
-| `currency` | 币种（CNY）   |
+| 列名           | 说明           |
+| ------------ | ------------ |
+| `start_time_iso` | 统计周期开始（ISO 8601） |
+| `end_time_iso`   | 统计周期结束（ISO 8601） |
+| `model`      | 模型名称         |
+| `wallet_type` | 钱包类型（如 `Paid`） |
+| `cost`       | 金额（负数为扣费）    |
+| `currency`   | 币种（CNY）      |
 
 ## 本地开发
 
@@ -84,7 +87,7 @@ npm install
 npm run dev        # 开发服务器 → localhost:3000
 npm run build      # 静态导出 → out/
 npm run lint       # ESLint
-npm test           # Vitest（38 个测试用例）
+npm test           # Vitest（47 个测试用例）
 ```
 
 ### 技术栈
@@ -149,7 +152,7 @@ src/
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.7.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.8.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
@@ -261,6 +264,17 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.8.0
+
+**新增：**
+
+- 支持 DeepSeek 新导出 CSV 格式 — 导出字段由 `utc_date` 日期列改为 `start_time_iso` / `end_time_iso` ISO 时间戳（`user_id`、`wallet_type` 变为必带列）。解析器从 `start_time_iso` 的日期部分派生账单日（北京时间当天），并支持按新的日期区间文件名（如 `amount-2026-08-01_2026-08-17.csv`）配对月份。旧式导出（`utc_date` 列 + `amount-{年份}-{月份}.csv` 命名）保持完整向后兼容。
+- 新增 `parser.test.ts` — 单元测试覆盖新格式解析、旧格式兼容、缺少列报错以及日期区间文件名配对逻辑。
+
+**修复：**
+
+- 修复 DeepSeek 导出格式变更导致的解析失败 — 新版本平台导出不再包含 `utc_date` 列，此前会导致仪表盘以「缺少列」错误拒绝文件。现解析逻辑已支持新字段结构（同时兼容旧文件）。
 
 ### v0.7.0
 

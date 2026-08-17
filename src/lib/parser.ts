@@ -10,7 +10,7 @@ import type {
 } from "./types";
 
 const REQUIRED_AMOUNT_COLUMNS = [
-  "utc_date",
+  "start_time_iso",
   "model",
   "api_key_name",
   "api_key",
@@ -19,8 +19,11 @@ const REQUIRED_AMOUNT_COLUMNS = [
   "amount",
 ] as const;
 
+/** Legacy column used by older DeepSeek exports, still supported for backward compatibility */
+const LEGACY_DATE_COLUMN = "utc_date";
+
 const REQUIRED_COST_COLUMNS = [
-  "utc_date",
+  "start_time_iso",
   "model",
   "cost",
   "currency",
@@ -32,6 +35,35 @@ const VALID_AMOUNT_TYPES = new Set([
   "input_cache_hit_tokens",
   "input_cache_miss_tokens",
 ]);
+
+/**
+ * Resolve the billing date for a row.
+ * New exports carry `start_time_iso` (ISO 8601, e.g. "2026-08-02T00:00:00+08:00") whose
+ * date part is the Beijing-local billing day. Legacy exports carry `utc_date` instead.
+ */
+function resolveDate(raw: Record<string, string>): string {
+  const iso = raw["start_time_iso"]?.trim() ?? "";
+  if (iso) return iso.slice(0, 10);
+  return raw[LEGACY_DATE_COLUMN]?.trim() ?? "";
+}
+
+/**
+ * Validate that all required columns exist. The date column is satisfied by either
+ * `start_time_iso` (new format) or the legacy `utc_date` column.
+ */
+function findMissingColumns(
+  headers: string[],
+  required: readonly string[]
+): string[] {
+  const missing: string[] = [];
+  for (const col of required) {
+    if (!headers.includes(col)) {
+      if (col === "start_time_iso" && headers.includes(LEGACY_DATE_COLUMN)) continue;
+      missing.push(col);
+    }
+  }
+  return missing;
+}
 
 /**
  * Parse and validate the amount CSV text.
@@ -60,15 +92,14 @@ function parseAmountCSV(text: string): { rows: AmountRow[] } | { error: ParseErr
 
   // Validate columns
   const headers = result.meta.fields ?? [];
-  for (const col of REQUIRED_AMOUNT_COLUMNS) {
-    if (!headers.includes(col)) {
-      return {
-        error: {
-          type: "missing_columns",
-          message: `Amount CSV missing required column: "${col}". Found: ${headers.join(", ")}`,
-        },
-      };
-    }
+  const missing = findMissingColumns(headers, REQUIRED_AMOUNT_COLUMNS);
+  if (missing.length > 0) {
+    return {
+      error: {
+        type: "missing_columns",
+        message: `Amount CSV missing required column: "${missing.join(", ")}". Found: ${headers.join(", ")}`,
+      },
+    };
   }
 
   // Parse and validate each row
@@ -114,7 +145,7 @@ function parseAmountCSV(text: string): { rows: AmountRow[] } | { error: ParseErr
 
     rows.push({
       user_id: raw["user_id"] ?? "",
-      utc_date: raw["utc_date"]?.trim() ?? "",
+      date: resolveDate(raw),
       model: raw["model"]?.trim() ?? "",
       api_key_name: raw["api_key_name"]?.trim() ?? "",
       api_key: raw["api_key"]?.trim() ?? "",
@@ -152,15 +183,14 @@ function parseCostCSV(text: string): { rows: CostRow[] } | { error: ParseError }
   }
 
   const headers = result.meta.fields ?? [];
-  for (const col of REQUIRED_COST_COLUMNS) {
-    if (!headers.includes(col)) {
-      return {
-        error: {
-          type: "missing_columns",
-          message: `Cost CSV missing required column: "${col}". Found: ${headers.join(", ")}`,
-        },
-      };
-    }
+  const missing = findMissingColumns(headers, REQUIRED_COST_COLUMNS);
+  if (missing.length > 0) {
+    return {
+      error: {
+        type: "missing_columns",
+        message: `Cost CSV missing required column: "${missing.join(", ")}". Found: ${headers.join(", ")}`,
+      },
+    };
   }
 
   const rows: CostRow[] = [];
@@ -180,7 +210,7 @@ function parseCostCSV(text: string): { rows: CostRow[] } | { error: ParseError }
 
     rows.push({
       user_id: raw["user_id"] ?? "",
-      utc_date: raw["utc_date"]?.trim() ?? "",
+      date: resolveDate(raw),
       model: raw["model"]?.trim() ?? "",
       wallet_type: raw["wallet_type"]?.trim() ?? "",
       cost,
@@ -198,11 +228,11 @@ function pivotAmountRows(rows: AmountRow[]): Map<string, DailyUsage> {
   const map = new Map<string, DailyUsage>();
 
   for (const r of rows) {
-    const key = `${r.utc_date}|${r.model}|${r.api_key_name}`;
+    const key = `${r.date}|${r.model}|${r.api_key_name}`;
     let entry = map.get(key);
     if (!entry) {
       entry = {
-        date: r.utc_date,
+        date: r.date,
         model: r.model,
         apiKeyName: r.api_key_name,
         apiKey: r.api_key,
@@ -246,7 +276,7 @@ function pivotAmountRows(rows: AmountRow[]): Map<string, DailyUsage> {
 
 /**
  * Join cost rows onto the pivoted amount data.
- * Cost CSV has (utc_date, model) but NOT api_key_name.
+ * Cost CSV has (date, model) but NOT api_key_name.
  * We distribute cost proportionally across keys within each (date, model) group
  * based on total token usage.
  */
@@ -259,7 +289,7 @@ function joinCosts(
   // Aggregate cost by (date, model)
   const costByDateModel = new Map<string, number>();
   for (const c of costRows) {
-    const key = `${c.utc_date}|${c.model}`;
+    const key = `${c.date}|${c.model}`;
     costByDateModel.set(key, (costByDateModel.get(key) ?? 0) + Math.abs(c.cost));
   }
 
@@ -302,7 +332,7 @@ function joinCosts(
   // Check for date range mismatch
   if (dailyMap.size > 0 && costRows.length > 0) {
     const amountDates = new Set([...dailyMap.values()].map((d) => d.date));
-    const costDates = new Set(costRows.map((c) => c.utc_date));
+    const costDates = new Set(costRows.map((c) => c.date));
     const amountOnly = [...amountDates].filter((d) => !costDates.has(d));
     if (amountOnly.length > 0) {
       warnings.push({
