@@ -55,11 +55,12 @@ export interface ArticleSection {
 export interface PricingRow {
   model: string;
   modelColor?: string;
-  input: string;
+  /** 单元格内容；数组时渲染为多行堆叠（如高峰/闲时 双币种） */
+  input: string | string[];
   inputColor?: string;
-  output: string;
+  output: string | string[];
   outputColor?: string;
-  cacheHit: string;
+  cacheHit: string | string[];
   cacheHitColor?: string;
   notes: string;
 }

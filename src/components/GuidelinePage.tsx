@@ -7,6 +7,7 @@ import { useTranslation } from "@/i18n";
 import { buildLocalePath } from "@/lib/localeRouting";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import RecommendedToolsSection from "./RecommendedToolsSection";
 
 /* ================================================================== */
 /*  截图文件名映射                                                       */
@@ -724,6 +725,7 @@ export function GuidelinePage() {
         </div>
       </div>
 
+      <RecommendedToolsSection maxWidth="6xl" />
       <FooterBar />
     </div>
   );

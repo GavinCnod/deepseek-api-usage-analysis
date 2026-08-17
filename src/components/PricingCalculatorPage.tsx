@@ -4,13 +4,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useTranslation } from "@/i18n";
-import { trackOutboundClick } from "@/lib/analytics";
 import { buildLocalePath } from "@/lib/localeRouting";
-import { getAffiliatesByIds } from "@/lib/affiliates";
 import { buildPricingCalculatorSoftwareAppJsonLd } from "@/lib/schema";
 import { formatTokens } from "@/lib/format";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import RecommendedToolsSection from "./RecommendedToolsSection";
 
 /** 单个计价单元：固定价（竞品）或 高峰/闲时 双价（DeepSeek 新定价） */
 type PriceCell = number | { peak: number; offpeak: number };
@@ -126,7 +125,6 @@ export function PricingCalculatorPage() {
     { key: "claudeHaiku45", name: "Claude Haiku 4.5", pricing: PRICING.claudeHaiku45, color: "var(--positive)", notes: "—" },
   ];
 
-  const vultrAffiliate = getAffiliatesByIds(["vultr"])[0];
   const estimateSteps = [
     { title: t.pricingCalculator.estimateStep1Title, desc: t.pricingCalculator.estimateStep1Desc },
     { title: t.pricingCalculator.estimateStep2Title, desc: t.pricingCalculator.estimateStep2Desc },
@@ -629,38 +627,10 @@ export function PricingCalculatorPage() {
         </section>
 
         <hr style={{ borderColor: "var(--border)", marginBottom: "3rem" }} />
-
-        {/* Vultr 联盟导流 CTA */}
-        {vultrAffiliate && (
-          <section className="mb-16 text-center">
-            <h2
-              className="text-xl font-bold tracking-tight mb-3"
-              style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
-            >
-              {t.pricingCalculator.deployCTA}
-            </h2>
-            <p
-              className="text-sm leading-relaxed text-pretty mb-6 max-w-md mx-auto"
-              style={{ color: "var(--text-secondary)" }}
-            >
-              {t.pricingCalculator.deployCTADesc}
-            </p>
-            <a
-              href={vultrAffiliate.url}
-              target="_blank"
-              rel={vultrAffiliate.rel}
-              onClick={() => trackOutboundClick("pricing_calculator", "vultr")}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:opacity-90"
-              style={{ background: "var(--text-primary)", color: "var(--accent-inverse)" }}
-            >
-              {t.pricingCalculator.deployCTALink}
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 17L17 7M17 7H7m10 0v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
-          </section>
-        )}
       </div>
+
+      {/* 底部推荐工具（商业化模块） */}
+      <RecommendedToolsSection maxWidth="3xl" />
 
       <FooterBar />
     </div>

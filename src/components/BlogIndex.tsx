@@ -6,6 +6,7 @@ import { buildLocalePath } from "@/lib/localeRouting";
 import { getBlogArticleDefinition } from "@/lib/blogArticles";
 import TitleBar from "@/components/TitleBar";
 import FooterBar from "@/components/FooterBar";
+import RecommendedToolsSection from "@/components/RecommendedToolsSection";
 
 export default function BlogIndex() {
   const { locale, t } = useTranslation();
@@ -41,6 +42,12 @@ export default function BlogIndex() {
       description: t.blogIndex.article5Desc,
       slug: "deepseek-csv-export-format-changed-aug-2026" as const,
       tags: t.blogIndex.article5Tags.split(", "),
+    },
+    {
+      title: t.blogIndex.article6Title,
+      description: t.blogIndex.article6Desc,
+      slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions" as const,
+      tags: t.blogIndex.article6Tags.split(", "),
     },
   ].sort((a, b) =>
     getBlogArticleDefinition(b.slug).publishedTime.localeCompare(
@@ -113,6 +120,7 @@ export default function BlogIndex() {
         </div>
       </div>
 
+      <RecommendedToolsSection maxWidth="3xl" />
       <FooterBar />
     </div>
   );

@@ -7,7 +7,7 @@ import sitemap from "@/app/sitemap";
 describe("sitemap", () => {
   it("返回完整的双语条目集合", () => {
     const entries = sitemap();
-    expect(entries.length).toBe(30);
+    expect(entries.length).toBe(32);
   });
 
   it("包含英文无前缀与中文 /zh 路由", () => {

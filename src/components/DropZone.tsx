@@ -57,6 +57,10 @@ export default function DropZone() {
         }
         const result = await concatMonthlyCSVs(csvEntries);
         loadFiles(result.amountText, result.costText, result.label);
+        // 解析在 DataContext 中异步进行（setTimeout），失败不会抛到这里；
+        // 复位 reading 后由 loadFiles 同步置位的 loading 继续覆盖 busy，
+        // 解析失败时（result 仍为 null）UI 能恢复正常可上传状态。
+        setReading(false);
         trackEvent("upload_csv");
       } catch (err) {
         setConcatError(err instanceof Error ? err.message : String(err));

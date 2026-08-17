@@ -523,3 +523,30 @@ export function buildArticleCsvFormatMetadata(locale: Locale): Metadata {
     modifiedTime: article.modifiedTime,
   });
 }
+
+/**
+ * 构建文章《GPT-5.6 Luna vs DeepSeek V4 Flash: 2026 性价比之王》的 metadata。
+ */
+export function buildArticleValueChampionsMetadata(locale: Locale): Metadata {
+  const article = getBlogArticleLocaleMeta("gpt-5.6-luna-vs-deepseek-v4-flash-value-champions", locale);
+  const enArticle = getBlogArticleLocaleMeta("gpt-5.6-luna-vs-deepseek-v4-flash-value-champions", "en");
+  const zhArticle = getBlogArticleLocaleMeta("gpt-5.6-luna-vs-deepseek-v4-flash-value-champions", "zh");
+
+  return buildBlogArticleMetadata(locale, {
+    pathname: article.pathname,
+    title: {
+      en: enArticle.title,
+      zh: zhArticle.title,
+    },
+    description: {
+      en: enArticle.description,
+      zh: zhArticle.description,
+    },
+    keywords: {
+      en: enArticle.keywords,
+      zh: zhArticle.keywords,
+    },
+    publishedTime: article.publishedTime,
+    modifiedTime: article.modifiedTime,
+  });
+}

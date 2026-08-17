@@ -7,6 +7,7 @@ import { MAX_UPLOAD_SIZE_BYTES } from "@/lib/concatFiles";
 import { trackEvent } from "@/lib/analytics";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import RecommendedToolsSection from "./RecommendedToolsSection";
 import LandingPage from "./LandingPage";
 import KPICards from "./KPICards";
 import OverviewView from "./OverviewView";
@@ -302,6 +303,7 @@ export default function Dashboard() {
         </div>
       </div>
 
+      <RecommendedToolsSection maxWidth="6xl" />
       <FooterBar />
     </div>
   );

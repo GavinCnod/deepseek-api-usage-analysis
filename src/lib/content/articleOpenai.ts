@@ -18,12 +18,12 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "Let's start with the raw pricing, as of July 2026 (per 1 million tokens):",
+            "Let's start with the raw pricing, as of August 2026 (per 1 million tokens):",
         },
         {
           type: "compare_note",
           content:
-            "Based on published API pricing as of July 2026. Actual costs may vary based on usage patterns and caching efficiency.",
+            "Based on published API pricing as of August 2026. DeepSeek prices shown in CNY and USD (≈ 6.9 CNY/USD); peak hours are Beijing time 09:00–12:00 and 14:00–18:00, and off-peak is 50% off. GPT-5.6 Luna was cut 80% and Terra 20% on July 30, 2026; OpenAI and Anthropic both offer a 50% Batch API discount for offline workloads. Actual costs vary with usage patterns and caching efficiency.",
         },
       ],
     },
@@ -33,7 +33,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            '<strong>DeepSeek V4 Pro</strong> excels at structured reasoning, code generation, and long-context tasks (1M token context window). Its "Thinking Mode" produces Chain-of-Thought reasoning comparable to o1-level models at a price point that makes it viable for high-volume production workloads.',
+            '<strong>DeepSeek V4 Pro</strong> excels at structured reasoning, code generation, and long-context tasks (1M token context window). Its "Thinking Mode" produces Chain-of-Thought reasoning comparable to o1-level models at a price point that makes it viable for high-volume production workloads. Since DeepSeek bills off-peak hours at half the peak rate, routing batch jobs and cron workloads to Beijing evening/night windows cuts the bill further.',
         },
         {
           type: "p",
@@ -83,15 +83,26 @@ export const en: ArticleContent = {
     },
   ],
   pricingTable: {
-    headers: ["Model", "Input / 1M tokens", "Output / 1M tokens", "Cache Hit / 1M tokens"],
+    headers: ["Model", "Input / 1M tokens (¥ / $)", "Output / 1M tokens (¥ / $)", "Cache Hit / 1M tokens (¥ / $)"],
     rows: [
-      { model: "DeepSeek V4 Flash", modelColor: "var(--positive)", input: "$0.14", output: "$0.29", cacheHit: "$0.003", cacheHitColor: "var(--positive)", notes: "—" },
-      { model: "DeepSeek V4 Pro", input: "$0.43", output: "$0.87", cacheHit: "$0.004", notes: "—" },
-      { model: "GPT-5.5", input: "$5.00", inputColor: "var(--danger)", output: "$30.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
-      { model: "GPT-5.4", input: "$2.50", inputColor: "var(--danger)", output: "$15.00", outputColor: "var(--danger)", cacheHit: "$0.25", notes: "—" },
-      { model: "GPT-5.4 mini", input: "$0.75", output: "$4.50", cacheHit: "$0.07", notes: "—" },
-      { model: "Claude Fable 5", input: "$10.00", inputColor: "var(--danger)", output: "$50.00", outputColor: "var(--danger)", cacheHit: "$1.00", notes: "—" },
-      { model: "Claude Opus 4.8", input: "$5.00", inputColor: "var(--danger)", output: "$25.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
+      {
+        model: "DeepSeek V4 Flash", modelColor: "var(--positive)",
+        input: ["Peak ¥3.00 / $0.43", "Off-peak ¥1.50 / $0.22"],
+        output: ["Peak ¥9.00 / $1.30", "Off-peak ¥4.50 / $0.65"],
+        cacheHit: ["Peak ¥0.10 / $0.014", "Off-peak ¥0.05 / $0.007"],
+        cacheHitColor: "var(--positive)", notes: "Off-peak = 50% of peak",
+      },
+      {
+        model: "DeepSeek V4 Pro",
+        input: ["Peak ¥9.00 / $1.30", "Off-peak ¥4.50 / $0.65"],
+        output: ["Peak ¥27.00 / $3.91", "Off-peak ¥13.50 / $1.96"],
+        cacheHit: ["Peak ¥0.30 / $0.043", "Off-peak ¥0.15 / $0.022"],
+        notes: "Off-peak = 50% of peak",
+      },
+      { model: "GPT-5.6 Sol", input: "$5.00", inputColor: "var(--danger)", output: "$30.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
+      { model: "GPT-5.6 Terra", input: "$2.00", inputColor: "var(--danger)", output: "$12.00", outputColor: "var(--danger)", cacheHit: "$0.20", notes: "—" },
+      { model: "GPT-5.6 Luna", input: "$0.20", output: "$1.20", cacheHit: "$0.02", notes: "—" },
+      { model: "Claude Opus 5", input: "$5.00", inputColor: "var(--danger)", output: "$25.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
       { model: "Claude Sonnet 5", input: "$2.00", inputColor: "var(--danger)", output: "$10.00", outputColor: "var(--danger)", cacheHit: "$0.20", notes: "—" },
       { model: "Claude Haiku 4.5", input: "$1.00", output: "$5.00", cacheHit: "$0.10", notes: "—" },
     ],
@@ -116,12 +127,12 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "先看原始定价，数据截至 2026 年 7 月（每百万 Token）：",
+            "先看原始定价，数据截至 2026 年 8 月（每百万 Token）：",
         },
         {
           type: "compare_note",
           content:
-            "基于 2026 年 7 月公开发布的 API 定价。实际费用可能因使用模式和缓存效率而有所不同。",
+            "基于 2026 年 8 月公开发布的 API 定价。DeepSeek 价格同时以人民币与美元（≈ 6.9 CNY/USD）列出；高峰时段为北京时间 9:00–12:00、14:00–18:00，闲时半价。GPT-5.6 Luna 于 2026 年 7 月 30 日降价 80%、Terra 降价 20%；OpenAI 与 Anthropic 的 Batch API 均为离线任务提供五折优惠。实际费用可能因使用模式和缓存效率而有所不同。",
         },
       ],
     },
@@ -131,7 +142,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "<strong>DeepSeek V4 Pro</strong> 在结构化推理、代码生成和长上下文任务（1M Token 上下文窗口）方面表现优异。其「思考模式」可产生与 o1 级别模型相当的思维链推理，且价格低廉到足以支撑大规模生产工作负载。",
+            "<strong>DeepSeek V4 Pro</strong> 在结构化推理、代码生成和长上下文任务（1M Token 上下文窗口）方面表现优异。其「思考模式」可产生与 o1 级别模型相当的思维链推理，且价格低廉到足以支撑大规模生产工作负载。由于 DeepSeek 对闲时（北京时间晚间至清晨）按半价计费，把批量任务和定时脚本调度到这些时段，还能再砍掉一半成本。",
         },
         {
           type: "p",
@@ -181,15 +192,26 @@ export const zh: ArticleContent = {
     },
   ],
   pricingTable: {
-    headers: ["模型", "输入 / 百万 Token", "输出 / 百万 Token", "缓存命中 / 百万 Token"],
+    headers: ["模型", "输入 / 百万 Token（¥ / $）", "输出 / 百万 Token（¥ / $）", "缓存命中 / 百万 Token（¥ / $）"],
     rows: [
-      { model: "DeepSeek V4 Flash", modelColor: "var(--positive)", input: "$0.14", output: "$0.29", cacheHit: "$0.003", cacheHitColor: "var(--positive)", notes: "—" },
-      { model: "DeepSeek V4 Pro", input: "$0.43", output: "$0.87", cacheHit: "$0.004", notes: "—" },
-      { model: "GPT-5.5", input: "$5.00", inputColor: "var(--danger)", output: "$30.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
-      { model: "GPT-5.4", input: "$2.50", inputColor: "var(--danger)", output: "$15.00", outputColor: "var(--danger)", cacheHit: "$0.25", notes: "—" },
-      { model: "GPT-5.4 mini", input: "$0.75", output: "$4.50", cacheHit: "$0.07", notes: "—" },
-      { model: "Claude Fable 5", input: "$10.00", inputColor: "var(--danger)", output: "$50.00", outputColor: "var(--danger)", cacheHit: "$1.00", notes: "—" },
-      { model: "Claude Opus 4.8", input: "$5.00", inputColor: "var(--danger)", output: "$25.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
+      {
+        model: "DeepSeek V4 Flash", modelColor: "var(--positive)",
+        input: ["高峰 ¥3.00 / $0.43", "闲时 ¥1.50 / $0.22"],
+        output: ["高峰 ¥9.00 / $1.30", "闲时 ¥4.50 / $0.65"],
+        cacheHit: ["高峰 ¥0.10 / $0.014", "闲时 ¥0.05 / $0.007"],
+        cacheHitColor: "var(--positive)", notes: "闲时 = 高峰价 50%",
+      },
+      {
+        model: "DeepSeek V4 Pro",
+        input: ["高峰 ¥9.00 / $1.30", "闲时 ¥4.50 / $0.65"],
+        output: ["高峰 ¥27.00 / $3.91", "闲时 ¥13.50 / $1.96"],
+        cacheHit: ["高峰 ¥0.30 / $0.043", "闲时 ¥0.15 / $0.022"],
+        notes: "闲时 = 高峰价 50%",
+      },
+      { model: "GPT-5.6 Sol", input: "$5.00", inputColor: "var(--danger)", output: "$30.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
+      { model: "GPT-5.6 Terra", input: "$2.00", inputColor: "var(--danger)", output: "$12.00", outputColor: "var(--danger)", cacheHit: "$0.20", notes: "—" },
+      { model: "GPT-5.6 Luna", input: "$0.20", output: "$1.20", cacheHit: "$0.02", notes: "—" },
+      { model: "Claude Opus 5", input: "$5.00", inputColor: "var(--danger)", output: "$25.00", outputColor: "var(--danger)", cacheHit: "$0.50", notes: "—" },
       { model: "Claude Sonnet 5", input: "$2.00", inputColor: "var(--danger)", output: "$10.00", outputColor: "var(--danger)", cacheHit: "$0.20", notes: "—" },
       { model: "Claude Haiku 4.5", input: "$1.00", output: "$5.00", cacheHit: "$0.10", notes: "—" },
     ],

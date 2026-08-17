@@ -270,9 +270,18 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 
 ### v0.9.0
 
+**Added:**
+
+- New blog article published — "The 2026 Value Champions: GPT-5.6 Luna & DeepSeek V4 Flash — and the Best Model for Every Budget" (`/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions`) with bilingual EN/ZH content, an 8-model dual-currency pricing table (¥ / $, peak / off-peak), the "price is no longer a proxy for quality" thesis, an off-peak scheduling playbook, and a tier-by-tier best-value framework. Fully wired into the blog index, sitemap, prev/next chain, and SEO metadata.
+- Blog comparison articles refreshed to August 2026 pricing — the OpenAI vs Claude vs DeepSeek, OpenCode Go, and context-caching articles now use the new DeepSeek peak / off-peak rates, the GPT-5.6 Sol / Terra / Luna lineup, and the Claude Opus 5 / Sonnet 5 / Haiku 4.5 lineup, with dual-currency (¥ / $) pricing cells. The OpenCode Go article's "DeepSeek price hike" narrative was strengthened with the landed peak-price increase.
+
 **Improved:**
 
 - Pricing Calculator updated to DeepSeek's new peak / off-peak billing — DeepSeek V4 Flash and V4 Pro now use the official per-million-token prices in CNY with peak hours (Beijing time 09:00–12:00 and 14:00–18:00) billed at full price and off-peak hours at 50% off. A new "Peak-Hour Share" slider lets you model how much of your traffic falls in peak windows, and the comparison table shows both peak and off-peak prices for each DeepSeek model. Cache-hit pricing was also corrected to the new 1/30-of-input rate. Competitor lineup refreshed to GPT-5.6 Sol / Terra / Luna and Claude Opus 5 / Sonnet 5 / Haiku 4.5 with their latest August 2026 prices (including the July 30 GPT-5.6 price cuts and the 50% Batch API discount).
+
+**Fixed:**
+
+- DropZone stuck-spinner on parse failure — a CSV that passed concatenation but failed CSV parsing left the upload UI spinning forever, because the parse error is raised asynchronously inside the data context and never reached the drop zone's catch clause. The busy state is now correctly released after concatenation, so a failed parse returns the user to the upload state (with the error banner visible) instead of requiring a page reload. Regression test added.
 
 ### v0.8.0
 

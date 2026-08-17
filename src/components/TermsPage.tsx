@@ -5,6 +5,7 @@ import { useTranslation } from "@/i18n";
 import { buildLocalePath, buildLocaleUrl } from "@/lib/localeRouting";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import RecommendedToolsSection from "./RecommendedToolsSection";
 import { useMemo } from "react";
 
 /* ================================================================== */
@@ -247,6 +248,7 @@ export function TermsPage() {
         </p>
       </div>
 
+      <RecommendedToolsSection maxWidth="3xl" />
       <FooterBar />
     </div>
   );

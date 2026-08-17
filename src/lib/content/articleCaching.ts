@@ -28,7 +28,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "The pricing difference is dramatic. As of July 2026, DeepSeek V4 Flash charges <strong>$0.27 per million input tokens</strong> for cache misses, but only <strong>$0.07 per million for cache hits</strong> — that's a 74% discount. For V4 Pro, the savings are similar: $0.55 vs $0.14 per million.",
+            "The pricing difference is dramatic. As of August 2026, DeepSeek V4 Flash charges <strong>¥3.00 per million input tokens</strong> for cache misses at peak (¥1.50 off-peak), but only <strong>¥0.10 per million for cache hits</strong> (¥0.05 off-peak) — that's a 96.7% discount (cached input is billed at 1/30 of the uncached rate). For V4 Pro, the ratio is identical: ¥9.00 miss vs ¥0.30 hit at peak.",
         },
         {
           type: "p",
@@ -161,7 +161,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "价格差异相当显著。截至 2026 年 7 月，DeepSeek V4 Flash 的缓存未命中价格是 <strong>每百万输入 Token 0.27 美元</strong>，而缓存命中只需 <strong>每百万 0.07 美元</strong>——折扣高达 74%。V4 Pro 的节省幅度类似：0.55 美元 vs 0.14 美元。",
+            "价格差异相当显著。截至 2026 年 8 月，DeepSeek V4 Flash 的缓存未命中价格是高峰时段<strong>每百万输入 Token ¥3.00</strong>（闲时 ¥1.50），而缓存命中只需 <strong>每百万 ¥0.10</strong>（闲时 ¥0.05）——折扣高达 96.7%（缓存命中输入按未命中价的 1/30 计费）。V4 Pro 的比例完全相同：高峰 ¥9.00 未命中 vs ¥0.30 命中。",
         },
         {
           type: "p",

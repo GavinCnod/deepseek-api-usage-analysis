@@ -8,6 +8,7 @@ import { buildLocalePath } from "@/lib/localeRouting";
 import { buildCacheAnalyzerSoftwareAppJsonLd } from "@/lib/schema";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import RecommendedToolsSection from "./RecommendedToolsSection";
 
 /** UTM 参数：将落地页 CTA 转化归因到本页面 */
 const UTM =
@@ -328,6 +329,7 @@ export function CacheAnalyzerPage() {
         </section>
       </div>
 
+      <RecommendedToolsSection maxWidth="3xl" />
       <FooterBar />
     </div>
   );

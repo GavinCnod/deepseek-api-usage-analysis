@@ -16,6 +16,7 @@ import { useTranslation } from "@/i18n";
 import { buildLocalePath, buildLocaleUrl } from "@/lib/localeRouting";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
+import RecommendedToolsSection from "./RecommendedToolsSection";
 import { useMemo } from "react";
 
 /* ================================================================== */
@@ -52,10 +53,26 @@ const CHANGELOG_DATA: VersionEntry[] = [
   {
     version: "v0.9.0",
     date: "2026-08-17",
+    added: [
+      {
+        en: "New blog article published — \"The 2026 Value Champions: GPT-5.6 Luna & DeepSeek V4 Flash — and the Best Model for Every Budget\" (`/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions`) with bilingual EN/ZH content, an 8-model dual-currency pricing table (¥ / $, peak / off-peak), the \"price is no longer a proxy for quality\" thesis, an off-peak scheduling playbook, and a tier-by-tier best-value framework. Fully wired into the blog index, sitemap, prev/next chain, and SEO metadata.",
+        zh: "发布新博客文章 —《2026 年性价比之王：GPT-5.6 Luna 与 DeepSeek V4 Flash——每个预算档位的最优模型选择》（`/zh/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions`），含中英双语内容、8 模型双币种（¥ / $、高峰 / 闲时）对比表、「价格不再是质量代理」论点、闲时调度打法与分档最优选择框架。已完整接入博客首页、sitemap、前后篇链与 SEO 元数据。",
+      },
+      {
+        en: "Blog comparison articles refreshed to August 2026 pricing — the OpenAI vs Claude vs DeepSeek, OpenCode Go, and context-caching articles now use the new DeepSeek peak / off-peak rates, the GPT-5.6 Sol / Terra / Luna lineup, and the Claude Opus 5 / Sonnet 5 / Haiku 4.5 lineup, with dual-currency (¥ / $) pricing cells. The OpenCode Go article's \"DeepSeek price hike\" narrative was strengthened with the landed peak-price increase.",
+        zh: "对比类博客文章更新至 2026 年 8 月定价 — OpenAI vs Claude vs DeepSeek、OpenCode Go 与上下文缓存指南三篇文章改用新的 DeepSeek 高峰/闲时价、GPT-5.6 Sol / Terra / Luna 阵容与 Claude Opus 5 / Sonnet 5 / Haiku 4.5 阵容，价格单元格支持双币种（¥ / $）。OpenCode Go 文章的「DeepSeek 涨价」叙事结合已落地的高峰价上调得到强化。",
+      },
+    ],
     improved: [
       {
         en: "Pricing Calculator updated to DeepSeek's new peak / off-peak billing — DeepSeek V4 Flash and V4 Pro now use the official per-million-token prices in CNY with peak hours (Beijing time 09:00–12:00 and 14:00–18:00) billed at full price and off-peak hours at 50% off. A new \"Peak-Hour Share\" slider lets you model how much of your traffic falls in peak windows, and the comparison table shows both peak and off-peak prices for each DeepSeek model. Cache-hit pricing was also corrected to the new 1/30-of-input rate. Competitor lineup refreshed to GPT-5.6 Sol / Terra / Luna and Claude Opus 5 / Sonnet 5 / Haiku 4.5 with their latest August 2026 prices (including the July 30 GPT-5.6 price cuts and the 50% Batch API discount).",
         zh: "定价计算器更新为 DeepSeek 新的高峰 / 闲时计价 — DeepSeek V4 Flash 与 V4 Pro 现按官方每百万 Token 人民币价格计费，高峰时段（北京时间 9:00–12:00、14:00–18:00）全价、闲时半价。新增「忙时占比」滑块，可模拟流量落在高峰窗口的比例；对比表为每个 DeepSeek 模型同时展示高峰与闲时价格。缓存命中计价同步修正为输入价的 1/30。竞品阵容更新为 GPT-5.6 Sol / Terra / Luna 与 Claude Opus 5 / Sonnet 5 / Haiku 4.5，采用 2026 年 8 月最新定价（含 7 月 30 日 GPT-5.6 降价与 Batch API 五折优惠）。",
+      },
+    ],
+    fixed: [
+      {
+        en: "DropZone stuck-spinner on parse failure — a CSV that passed concatenation but failed CSV parsing left the upload UI spinning forever, because the parse error is raised asynchronously inside the data context and never reached the drop zone's catch clause. The busy state is now correctly released after concatenation, so a failed parse returns the user to the upload state (with the error banner visible) instead of requiring a page reload. Regression test added.",
+        zh: "修复 DropZone 解析失败后卡在「处理中」旋转状态 — 拼接通过但 CSV 解析失败时，由于解析错误在数据上下文中异步抛出、不会进入上传区的 catch 分支，上传区会永久卡在转圈状态。现拼接完成后正确释放 busy 状态，解析失败会回到可重新上传的界面（并显示错误横幅），无需刷新页面。已补充回归测试。",
       },
     ],
   },
@@ -1000,6 +1017,7 @@ export function ChangelogPage() {
         </p>
       </div>
 
+      <RecommendedToolsSection maxWidth="3xl" />
       <FooterBar />
     </div>
   );

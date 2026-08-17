@@ -13,20 +13,23 @@ export type BlogArticleSlug =
   | "deepseek-cost-optimization-tools"
   | "openai-claude-vs-deepseek-cost-comparison"
   | "opencode-go-cheapest-deepseek-v4-flash"
-  | "deepseek-csv-export-format-changed-aug-2026";
+  | "deepseek-csv-export-format-changed-aug-2026"
+  | "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions";
 
 type BlogTitleKey =
   | "article1Title"
   | "article2Title"
   | "article3Title"
   | "article4Title"
-  | "article5Title";
+  | "article5Title"
+  | "article6Title";
 type BlogDescriptionKey =
   | "article1Desc"
   | "article2Desc"
   | "article3Desc"
   | "article4Desc"
-  | "article5Desc";
+  | "article5Desc"
+  | "article6Desc";
 
 interface BlogArticleDefinition {
   slug: BlogArticleSlug;
@@ -207,6 +210,43 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "DeepSeek start_time_iso",
         "DeepSeek 导出格式变更",
         "DeepSeek CSV 解析",
+      ],
+    },
+  },
+  "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions": {
+    slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
+    pathname: "/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
+    titleKey: "article6Title",
+    descriptionKey: "article6Desc",
+    author: "Gavin Chen",
+    publishedTime: "2026-08-17T00:00:00.000Z",
+    modifiedTime: "2026-08-17T00:00:00.000Z",
+    dateLabel: {
+      en: "August 17, 2026",
+      zh: "2026 年 8 月 17 日",
+    },
+    keywords: {
+      en: [
+        "GPT-5.6 Luna",
+        "DeepSeek V4 Flash",
+        "best value LLM",
+        "cheap LLM",
+        "LLM pricing 2026",
+        "off-peak pricing",
+        "LLM cost optimization",
+        "GPT-5.6 Terra",
+        "Claude Sonnet 5",
+      ],
+      zh: [
+        "GPT-5.6 Luna",
+        "DeepSeek V4 Flash",
+        "性价比模型",
+        "便宜的大模型",
+        "大模型定价 2026",
+        "闲时定价",
+        "大模型成本优化",
+        "GPT-5.6 Terra",
+        "Claude Sonnet 5",
       ],
     },
   },

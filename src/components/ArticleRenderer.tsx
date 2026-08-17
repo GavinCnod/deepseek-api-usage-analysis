@@ -3,6 +3,7 @@
 
 import { useTranslation } from "@/i18n";
 import { buildLocalePath } from "@/lib/localeRouting";
+import type { ReactNode } from "react";
 import type { ArticleSection, PricingRow } from "@/lib/content";
 
 /* ===== Props ===== */
@@ -95,6 +96,18 @@ function RichListItem({
 }
 
 /* ===== 主渲染器 ===== */
+
+/** Render a pricing cell — arrays are stacked into multiple lines (peak/off-peak × currency). */
+function renderCell(value: string | string[]): ReactNode {
+  if (Array.isArray(value)) {
+    return value.map((line, i) => (
+      <span key={i} className="block whitespace-nowrap">
+        {line}
+      </span>
+    ));
+  }
+  return value;
+}
 
 export default function ArticleRenderer({ sections, pricingTable }: ArticleRendererProps) {
   const { locale } = useTranslation();
@@ -195,13 +208,13 @@ export default function ArticleRenderer({ sections, pricingTable }: ArticleRende
                     {row.model}
                   </td>
                   <td className="text-right py-2.5 px-3 font-mono" style={{ color: row.inputColor || "var(--text-primary)" }}>
-                    {row.input}
+                    {renderCell(row.input)}
                   </td>
                   <td className="text-right py-2.5 px-3 font-mono" style={{ color: row.outputColor || "var(--text-primary)" }}>
-                    {row.output}
+                    {renderCell(row.output)}
                   </td>
                   <td className="text-right py-2.5 px-3 font-mono" style={{ color: row.cacheHitColor || "var(--text-primary)" }}>
-                    {row.cacheHit}
+                    {renderCell(row.cacheHit)}
                   </td>
                   <td className="py-2.5 pl-3" style={{ color: "var(--text-tertiary)" }}>
                     {row.notes}

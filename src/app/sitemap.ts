@@ -118,6 +118,12 @@ const ROUTES: SitemapRouteConfig[] = [
     changeFrequency: "weekly",
     priority: 0.6,
   },
+  {
+    pathname: "/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
+    lastModified: buildDate,
+    changeFrequency: "weekly",
+    priority: 0.6,
+  },
 ];
 
 /**

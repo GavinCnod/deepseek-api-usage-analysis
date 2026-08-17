@@ -56,17 +56,17 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "Here is the trick that makes OpenCode Go so compelling. A typical agent request on V4 Flash is about <strong>790 input + 68,000 cached + 280 output tokens</strong>. At official rates that works out to roughly <strong>$0.0004 per request</strong> — so an entire month of serious agentic work stays well under budget.",
+            "Here is the trick that makes OpenCode Go so compelling. A typical agent request on V4 Flash is about <strong>790 input + 68,000 cached + 280 output tokens</strong>. At the new off-peak rates that works out to roughly <strong>$0.0009 per request</strong> (about $0.0017 if every request lands in a peak window) — so even a month of serious agentic work stays comfortably within budget.",
         },
         {
           type: "p",
           content:
-            "Pay-as-you-go on the raw DeepSeek API means your traffic costs whatever you burn. With OpenCode Go you pay a <strong>flat $10/month</strong> and get <strong>$60 of V4 Flash usage included</strong> — a <strong>6× multiplier</strong> on your money. In request terms, that is around <strong>31,650 requests per 5-hour window, 79,050 per week, and 158,150 per month</strong>.",
+            "Pay-as-you-go on the raw DeepSeek API means your traffic costs whatever you burn. With OpenCode Go you pay a <strong>flat $10/month</strong> and get <strong>$60 of V4 Flash usage included</strong> — a <strong>6× multiplier</strong> on your money. In request terms, that is around <strong>66,000 requests a month at off-peak rates</strong> — or roughly 35,000 if every request lands in a peak window.",
         },
         {
           type: "p",
           content:
-            "And because real-world cache-hit rates on Go sit at <strong>96%</strong>, the effective cost is even lower than the sticker price suggests — most of your input rides the <code>$0.0028 / 1M</code> cached lane.",
+            "And because real-world cache-hit rates on Go sit at <strong>96%</strong>, the effective cost is even lower than the sticker price suggests — most of your input rides the cached lane at <code>¥0.10 / 1M</code> peak (¥0.05 off-peak), a tiny fraction of the uncached input rate.",
         },
       ],
     },
@@ -76,7 +76,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "V4 Flash and V4 Pro are siblings with the same 1M context, but very different economics. Flash is <strong>~3× cheaper</strong> on both input and output ($0.14 vs $0.435, $0.28 vs $0.87), and it scores <strong>82/100 on cost-efficiency</strong> versus the Pro's <strong>40/100</strong>. Pro's edge is raw coding ability (87 vs 74).",
+            "V4 Flash and V4 Pro are siblings with the same 1M context, but very different economics. Flash is <strong>~3× cheaper</strong> on both input and output at every hour (peak $0.43 vs $1.30 input, $1.30 vs $3.91 output; off-peak is half of that), and it scores <strong>82/100 on cost-efficiency</strong> versus the Pro's <strong>40/100</strong>. Pro's edge is raw coding ability (87 vs 74).",
         },
         {
           type: "p",
@@ -91,7 +91,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "Straight from DeepSeek's official pricing page: <em>'We plan to raise the overall pricing for DeepSeek API services in the near future, with a significant increase expected.'</em> For pay-as-you-go users, that means your unit costs are about to jump.",
+            "Straight from DeepSeek's official pricing page: <em>'We plan to raise the overall pricing for DeepSeek API services in the near future, with a significant increase expected.'</em> And the first wave is already here: under the new peak / off-peak schedule, V4 Flash output is billed at <strong>¥9 per million tokens at peak hours — 4.5× the old flat ¥2</strong> — while off-peak holds at half of peak. For pay-as-you-go users, higher unit costs are no longer a rumor; they are live.",
         },
         {
           type: "p",
@@ -146,11 +146,25 @@ export const en: ArticleContent = {
     },
   ],
   pricingTable: {
-    headers: ["Model", "Input / 1M", "Output / 1M", "Cache Hit / 1M"],
+    headers: ["Model", "Input / 1M (¥ / $)", "Output / 1M (¥ / $)", "Cache Hit / 1M (¥ / $)"],
     rows: [
-      { model: "DeepSeek V4 Flash", modelColor: "var(--positive)", input: "$0.14", inputColor: "var(--positive)", output: "$0.28", outputColor: "var(--positive)", cacheHit: "$0.0028", cacheHitColor: "var(--positive)", notes: "Cheapest frontier reasoning" },
-      { model: "DeepSeek V4 Pro", input: "$0.435", output: "$0.87", cacheHit: "$0.003625", notes: "~3× Flash" },
-      { model: "GPT-5.6 Luna", input: "$0.20", output: "$1.20", outputColor: "var(--danger)", cacheHit: "$0.02", notes: "4.3× Flash output" },
+      {
+        model: "DeepSeek V4 Flash", modelColor: "var(--positive)",
+        input: ["Peak ¥3.00 / $0.43", "Off-peak ¥1.50 / $0.22"],
+        inputColor: "var(--positive)",
+        output: ["Peak ¥9.00 / $1.30", "Off-peak ¥4.50 / $0.65"],
+        outputColor: "var(--positive)",
+        cacheHit: ["Peak ¥0.10 / $0.014", "Off-peak ¥0.05 / $0.007"],
+        cacheHitColor: "var(--positive)", notes: "Cheapest with off-peak + cache hits",
+      },
+      {
+        model: "DeepSeek V4 Pro",
+        input: ["Peak ¥9.00 / $1.30", "Off-peak ¥4.50 / $0.65"],
+        output: ["Peak ¥27.00 / $3.91", "Off-peak ¥13.50 / $1.96"],
+        cacheHit: ["Peak ¥0.30 / $0.043", "Off-peak ¥0.15 / $0.022"],
+        notes: "~3× Flash at every tier",
+      },
+      { model: "GPT-5.6 Luna", input: "$0.20", output: "$1.20", outputColor: "var(--danger)", cacheHit: "$0.02", notes: "Output beats Flash peak, loses at off-peak" },
     ],
   },
 };
@@ -211,17 +225,17 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "这正是 OpenCode Go 最有吸引力的地方。V4 Flash 上的一次典型 Agent 请求大约是 <strong>790 输入 + 68,000 缓存 + 280 输出 Token</strong>。按官方定价折算，单次请求成本约 <strong>$0.0004</strong>——即使整月高强度跑 Agent 工作流，也远在预算之内。",
+            "这正是 OpenCode Go 最有吸引力的地方。V4 Flash 上的一次典型 Agent 请求大约是 <strong>790 输入 + 68,000 缓存 + 280 输出 Token</strong>。按新的闲时定价折算，单次请求成本约 <strong>$0.0009</strong>（若全部落在高峰窗口则约 $0.0017）——即使整月高强度跑 Agent 工作流，也仍在预算之内。",
         },
         {
           type: "p",
           content:
-            "在 DeepSeek 官方 API 上按量付费，同样的流量烧多少钱就是多少钱。而 OpenCode Go 只需 <strong>固定每月 $10</strong>，就包含 <strong>$60 的 V4 Flash 用量</strong>——<strong>6 倍杠杆</strong>。换算成请求数大约是：<strong>每 5 小时 31,650 次、每周 79,050 次、每月 158,150 次</strong>。",
+            "在 DeepSeek 官方 API 上按量付费，同样的流量烧多少钱就是多少钱。而 OpenCode Go 只需 <strong>固定每月 $10</strong>，就包含 <strong>$60 的 V4 Flash 用量</strong>——<strong>6 倍杠杆</strong>。换算成请求数大约是：<strong>按闲时价每月约 66,000 次</strong>——若全部落在高峰窗口则约 35,000 次。",
         },
         {
           type: "p",
           content:
-            "再叠加 Go 上真实 <strong>96% 的缓存命中率</strong>，实际单次成本比标价还要低——绝大多数输入走的是 <code>$0.0028 / 1M</code> 的缓存通道。",
+            "再叠加 Go 上真实 <strong>96% 的缓存命中率</strong>，实际单次成本比标价还要低——绝大多数输入走的是 <code>¥0.10 / 1M</code> 高峰（¥0.05 闲时）的缓存通道，仅为未命中输入价的零头。",
         },
       ],
     },
@@ -231,7 +245,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "V4 Flash 和 V4 Pro 同出一门，都有 1M 上下文，但经济性天差地别。Flash 在输入和输出上都要便宜 <strong>约 3 倍</strong>（$0.14 vs $0.435，$0.28 vs $0.87），成本效率得分 <strong>82/100</strong>，而 Pro 只有 <strong>40/100</strong>。Pro 的优势在于纯粹的编码能力（87 vs 74）。",
+            "V4 Flash 和 V4 Pro 同出一门，都有 1M 上下文，但经济性天差地别。Flash 在输入和输出上任何时段都要便宜 <strong>约 3 倍</strong>（高峰 $0.43 vs $1.30 输入、$1.30 vs $3.91 输出；闲时再减半），成本效率得分 <strong>82/100</strong>，而 Pro 只有 <strong>40/100</strong>。Pro 的优势在于纯粹的编码能力（87 vs 74）。",
         },
         {
           type: "p",
@@ -246,7 +260,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "DeepSeek 官方定价页原话：<em>「我们计划在不久的将来整体上调 DeepSeek API 服务的定价，且涨幅预计显著。」</em>对按量付费用户来说，单位成本即将跳涨。",
+            "DeepSeek 官方定价页原话：<em>「我们计划在不久的将来整体上调 DeepSeek API 服务的定价，且涨幅预计显著。」</em>而且第一波已经落地：新的高峰/闲时计价下，V4 Flash 输出在高峰时段按 <strong>每百万 Token ¥9 计费——是旧平价 ¥2 的 4.5 倍</strong>，闲时则维持高峰的一半。对按量付费用户来说，单位成本上涨不再是传闻，而是正在进行时。",
         },
         {
           type: "p",
@@ -301,11 +315,25 @@ export const zh: ArticleContent = {
     },
   ],
   pricingTable: {
-    headers: ["模型", "输入 / 1M", "输出 / 1M", "缓存命中 / 1M"],
+    headers: ["模型", "输入 / 1M（¥ / $）", "输出 / 1M（¥ / $）", "缓存命中 / 1M（¥ / $）"],
     rows: [
-      { model: "DeepSeek V4 Flash", modelColor: "var(--positive)", input: "$0.14", inputColor: "var(--positive)", output: "$0.28", outputColor: "var(--positive)", cacheHit: "$0.0028", cacheHitColor: "var(--positive)", notes: "最便宜的前沿推理模型" },
-      { model: "DeepSeek V4 Pro", input: "$0.435", output: "$0.87", cacheHit: "$0.003625", notes: "约为 Flash 的 3 倍" },
-      { model: "GPT-5.6 Luna", input: "$0.20", output: "$1.20", outputColor: "var(--danger)", cacheHit: "$0.02", notes: "输出为 Flash 的 4.3 倍" },
+      {
+        model: "DeepSeek V4 Flash", modelColor: "var(--positive)",
+        input: ["高峰 ¥3.00 / $0.43", "闲时 ¥1.50 / $0.22"],
+        inputColor: "var(--positive)",
+        output: ["高峰 ¥9.00 / $1.30", "闲时 ¥4.50 / $0.65"],
+        outputColor: "var(--positive)",
+        cacheHit: ["高峰 ¥0.10 / $0.014", "闲时 ¥0.05 / $0.007"],
+        cacheHitColor: "var(--positive)", notes: "闲时 + 缓存命中时最便宜",
+      },
+      {
+        model: "DeepSeek V4 Pro",
+        input: ["高峰 ¥9.00 / $1.30", "闲时 ¥4.50 / $0.65"],
+        output: ["高峰 ¥27.00 / $3.91", "闲时 ¥13.50 / $1.96"],
+        cacheHit: ["高峰 ¥0.30 / $0.043", "闲时 ¥0.15 / $0.022"],
+        notes: "任何时段均为 Flash 的约 3 倍",
+      },
+      { model: "GPT-5.6 Luna", input: "$0.20", output: "$1.20", outputColor: "var(--danger)", cacheHit: "$0.02", notes: "输出低于 Flash 高峰价，高于 Flash 闲时价" },
     ],
   },
 };
