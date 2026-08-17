@@ -112,6 +112,12 @@ const ROUTES: SitemapRouteConfig[] = [
     changeFrequency: "monthly",
     priority: 0.6,
   },
+  {
+    pathname: "/blog/deepseek-csv-export-format-changed-aug-2026",
+    lastModified: buildDate,
+    changeFrequency: "weekly",
+    priority: 0.6,
+  },
 ];
 
 /**

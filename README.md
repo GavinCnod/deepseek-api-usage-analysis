@@ -132,7 +132,8 @@ src/
 │   │   │   ├── deepseek-context-caching-guide/page.tsx    # Blog article 1
 │   │   │   ├── deepseek-cost-optimization-tools/page.tsx  # Blog article 2
 │   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # Blog article 3
-│   │   │   └── opencode-go-cheapest-deepseek-v4-flash/page.tsx # Blog article 4
+│   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # Blog article 4
+│   │   │   └── deepseek-csv-export-format-changed-aug-2026/page.tsx # Blog article 5
 │   │   └── author/
 │   │       └── page.tsx          # /author route with independent SEO metadata
 │   ├── zh/               # Chinese root layout group (mirrors all (site)/ routes)
@@ -207,6 +208,8 @@ src/
     ├── content/articleCaching.ts   # Article 1 content: DeepSeek context caching guide (bilingual)
     ├── content/articleTools.ts     # Article 2 content: Top 5 cost optimization tools comparison (bilingual)
     ├── content/articleOpenai.ts    # Article 3 content: OpenAI GPT vs Claude vs DeepSeek V4 Pro cost comparison (bilingual + pricingTable)
+    ├── content/articleOpencodeGo.ts # Article 4 content: DeepSeek V4 Flash on OpenCode Go (bilingual + pricingTable)
+    ├── content/articleCsvFormatChange.ts # Article 5 content: DeepSeek usage CSV export format change (bilingual)
     ├── localeRouting.ts      # URL-level language routing: DEFAULT_LOCALE, ZH_LOCALE_PREFIX, isZhPathname(), buildLocalePath(), switchLocalePath()
     ├── site.ts               # Site-level public constants: SITE_URL, SITE_NAME, OG_IMAGE_URL, LOGO_IMAGE_URL
     ├── pageMetadata.ts       # Page-level SEO metadata builder: buildLocalizedPageMetadata() (canonical, alternates, OG, Twitter, keywords, author)

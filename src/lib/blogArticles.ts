@@ -12,18 +12,21 @@ export type BlogArticleSlug =
   | "deepseek-context-caching-guide"
   | "deepseek-cost-optimization-tools"
   | "openai-claude-vs-deepseek-cost-comparison"
-  | "opencode-go-cheapest-deepseek-v4-flash";
+  | "opencode-go-cheapest-deepseek-v4-flash"
+  | "deepseek-csv-export-format-changed-aug-2026";
 
 type BlogTitleKey =
   | "article1Title"
   | "article2Title"
   | "article3Title"
-  | "article4Title";
+  | "article4Title"
+  | "article5Title";
 type BlogDescriptionKey =
   | "article1Desc"
   | "article2Desc"
   | "article3Desc"
-  | "article4Desc";
+  | "article4Desc"
+  | "article5Desc";
 
 interface BlogArticleDefinition {
   slug: BlogArticleSlug;
@@ -173,6 +176,37 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "AI 编程订阅",
         "DeepSeek V4 Flash 价格",
         "最便宜的大模型",
+      ],
+    },
+  },
+  "deepseek-csv-export-format-changed-aug-2026": {
+    slug: "deepseek-csv-export-format-changed-aug-2026",
+    pathname: "/blog/deepseek-csv-export-format-changed-aug-2026",
+    titleKey: "article5Title",
+    descriptionKey: "article5Desc",
+    author: "Gavin Chen",
+    publishedTime: "2026-08-17T00:00:00.000Z",
+    modifiedTime: "2026-08-17T00:00:00.000Z",
+    dateLabel: {
+      en: "August 17, 2026",
+      zh: "2026 年 8 月 17 日",
+    },
+    keywords: {
+      en: [
+        "DeepSeek CSV export format",
+        "DeepSeek usage export",
+        "DeepSeek billing CSV",
+        "DeepSeek start_time_iso",
+        "DeepSeek export format change",
+        "DeepSeek CSV parser",
+      ],
+      zh: [
+        "DeepSeek CSV 导出格式",
+        "DeepSeek 用量导出",
+        "DeepSeek 账单 CSV",
+        "DeepSeek start_time_iso",
+        "DeepSeek 导出格式变更",
+        "DeepSeek CSV 解析",
       ],
     },
   },

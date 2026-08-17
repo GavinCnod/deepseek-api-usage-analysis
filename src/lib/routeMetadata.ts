@@ -496,3 +496,30 @@ export function buildArticleOpenAiMetadata(locale: Locale): Metadata {
     modifiedTime: article.modifiedTime,
   });
 }
+
+/**
+ * 构建文章《DeepSeek Changed Its Usage CSV Export Format》的 metadata。
+ */
+export function buildArticleCsvFormatMetadata(locale: Locale): Metadata {
+  const article = getBlogArticleLocaleMeta("deepseek-csv-export-format-changed-aug-2026", locale);
+  const enArticle = getBlogArticleLocaleMeta("deepseek-csv-export-format-changed-aug-2026", "en");
+  const zhArticle = getBlogArticleLocaleMeta("deepseek-csv-export-format-changed-aug-2026", "zh");
+
+  return buildBlogArticleMetadata(locale, {
+    pathname: article.pathname,
+    title: {
+      en: enArticle.title,
+      zh: zhArticle.title,
+    },
+    description: {
+      en: enArticle.description,
+      zh: zhArticle.description,
+    },
+    keywords: {
+      en: enArticle.keywords,
+      zh: zhArticle.keywords,
+    },
+    publishedTime: article.publishedTime,
+    modifiedTime: article.modifiedTime,
+  });
+}

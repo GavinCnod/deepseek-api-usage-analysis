@@ -132,7 +132,8 @@ src/
 │   │   │   ├── deepseek-context-caching-guide/page.tsx    # 博客文章 1
 │   │   │   ├── deepseek-cost-optimization-tools/page.tsx  # 博客文章 2
 │   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # 博客文章 3
-│   │   │   └── opencode-go-cheapest-deepseek-v4-flash/page.tsx # 博客文章 4
+│   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # 博客文章 4
+│   │   │   └── deepseek-csv-export-format-changed-aug-2026/page.tsx # 博客文章 5
 │   │   └── author/
 │   │       └── page.tsx          # /author 路由，包含独立 SEO 元数据
 │   ├── zh/               # 中文根布局路由组（镜像所有 (site)/ 路由）
@@ -207,6 +208,8 @@ src/
     ├── content/articleCaching.ts   # 文章 1 内容：DeepSeek 上下文缓存指南（双语）
     ├── content/articleTools.ts     # 文章 2 内容：Top 5 成本优化工具对比（双语）
     ├── content/articleOpenai.ts    # 文章 3 内容：OpenAI GPT vs Claude vs DeepSeek V4 Pro 成本对比（双语 + 定价表）
+    ├── content/articleOpencodeGo.ts # 文章 4 内容：OpenCode Go 上的 DeepSeek V4 Flash（双语 + 定价表）
+    ├── content/articleCsvFormatChange.ts # 文章 5 内容：DeepSeek 用量导出 CSV 格式变更（双语）
     ├── localeRouting.ts      # URL 级语言路由：DEFAULT_LOCALE、ZH_LOCALE_PREFIX、isZhPathname()、buildLocalePath()、switchLocalePath()
     ├── site.ts               # 站点级公开常量：SITE_URL、SITE_NAME、OG_IMAGE_URL、LOGO_IMAGE_URL
     ├── pageMetadata.ts       # 页面级 SEO 元数据构建器：buildLocalizedPageMetadata()（规范 URL、alternates、OG、Twitter、关键词、作者）

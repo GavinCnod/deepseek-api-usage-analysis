@@ -36,6 +36,12 @@ export default function BlogIndex() {
       slug: "opencode-go-cheapest-deepseek-v4-flash" as const,
       tags: t.blogIndex.article4Tags.split(", "),
     },
+    {
+      title: t.blogIndex.article5Title,
+      description: t.blogIndex.article5Desc,
+      slug: "deepseek-csv-export-format-changed-aug-2026" as const,
+      tags: t.blogIndex.article5Tags.split(", "),
+    },
   ].sort((a, b) =>
     getBlogArticleDefinition(b.slug).publishedTime.localeCompare(
       getBlogArticleDefinition(a.slug).publishedTime

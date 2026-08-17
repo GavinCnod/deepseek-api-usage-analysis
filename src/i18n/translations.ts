@@ -324,6 +324,11 @@ const translations = {
       article4Desc:
         "The cheapest frontier reasoning model is on OpenCode Go: $0.14 in / $0.28 out per 1M tokens, bundled with ~$60 of monthly usage for just $10. Plus why DeepSeek's announced price hike makes now the time to subscribe.",
       article4Tags: "OpenCode Go, DeepSeek V4 Flash, Pricing, Cost Optimization, Subscription",
+      article5Title:
+        "DeepSeek Changed Its Usage CSV Export Format — What's New & How to Read It",
+      article5Desc:
+        "DeepSeek's billing export schema changed: `utc_date` became `start_time_iso` / `end_time_iso` timestamps and filenames are now date-range based. We break down every column change and show how to read the new format — and how our free dashboard already supports it.",
+      article5Tags: "DeepSeek, CSV Format, Export, Announcement, Cost Tracking",
     },
     costTracker: {
       pageTitle: "DeepSeek API Cost Tracker",
@@ -904,6 +909,11 @@ const translations = {
       article4Desc:
         "最便宜的前沿推理模型就在 OpenCode Go：输入 $0.14 / 输出 $0.28 每百万 Token，每月 $10 即含约 $60 用量。附上为何 DeepSeek 官宣涨价让现在订阅更值得。",
       article4Tags: "OpenCode Go, DeepSeek V4 Flash, 定价, 成本优化, 订阅",
+      article5Title:
+        "DeepSeek 改了用量导出 CSV 格式 — 变了什么？免费仪表盘已适配",
+      article5Desc:
+        "DeepSeek 账单导出字段变更：`utc_date` 改为 `start_time_iso` / `end_time_iso` 时间戳，文件名也变成日期区间式。我们逐列拆解新格式、教你如何阅读，并告诉你免费仪表盘已全面支持。",
+      article5Tags: "DeepSeek, CSV 格式, 导出, 公告, 成本追踪",
     },
     costTracker: {
       pageTitle: "DeepSeek API 费用追踪器",

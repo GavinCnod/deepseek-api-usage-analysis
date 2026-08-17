@@ -19,6 +19,7 @@
 - [Blog: Cost Optimization Tools](https://deepseek-usage.xyz/blog/deepseek-cost-optimization-tools) — Top 5 DeepSeek API cost optimization & observability tools compared
 - [Blog: OpenAI vs DeepSeek](https://deepseek-usage.xyz/blog/openai-claude-vs-deepseek-cost-comparison) — Cost-benefit analysis: OpenAI GPT vs Claude vs DeepSeek V4 Pro
 - [Blog: DeepSeek V4 Flash on OpenCode Go](https://deepseek-usage.xyz/blog/opencode-go-cheapest-deepseek-v4-flash) — The world's cheapest DeepSeek V4 Flash via OpenCode Go subscription ($10/month, ~$60 of usage)
+- [Blog: DeepSeek CSV Export Format Change](https://deepseek-usage.xyz/blog/deepseek-csv-export-format-changed-aug-2026) — DeepSeek changed its usage CSV export format (utc_date → start_time_iso/end_time_iso); what changed and how to read it
 - [User Guide](https://deepseek-usage.xyz/guideline) — Bilingual step-by-step usage documentation with annotated screenshots
 - [Changelog](https://deepseek-usage.xyz/changelog) — Complete version history from v0.1.0 to v0.8.0
 - [Author](https://deepseek-usage.xyz/author) — Gavin Chen's profile page with bio, skills, and social links

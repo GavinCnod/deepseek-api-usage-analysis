@@ -645,6 +645,7 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 - [Blog: Cost Optimization Tools](https://deepseek-usage.xyz/blog/deepseek-cost-optimization-tools) — Top 5 DeepSeek API cost optimization & observability tools
 - [Blog: OpenAI vs DeepSeek](https://deepseek-usage.xyz/blog/openai-claude-vs-deepseek-cost-comparison) — OpenAI GPT vs Claude vs DeepSeek V4 Pro cost-benefit analysis
 - [Blog: DeepSeek V4 Flash on OpenCode Go](https://deepseek-usage.xyz/blog/opencode-go-cheapest-deepseek-v4-flash) — The world's cheapest DeepSeek V4 Flash via OpenCode Go subscription ($10/month, ~$60 of usage)
+- [Blog: DeepSeek CSV Export Format Change](https://deepseek-usage.xyz/blog/deepseek-csv-export-format-changed-aug-2026) — DeepSeek changed its usage CSV export format (utc_date → start_time_iso/end_time_iso, date-range filenames); column-by-column breakdown and how to read it
 - [User Guide / 用户操作手册](https://deepseek-usage.xyz/guideline) — Bilingual step-by-step documentation with screenshots
 - [Changelog / 更新日志](https://deepseek-usage.xyz/changelog) — Complete version history
 - [Privacy Policy / 隐私政策](https://deepseek-usage.xyz/privacy) — Bilingual legal text
