@@ -44,7 +44,7 @@
 - **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 FooterBar（「姊妹工具」行）、LandingPage（专属区段）以及 Organization JSON-LD Schema 中。
 - **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.9.3 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.10.1 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
 - **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、包含所有子页面的扩展 `BreadcrumbList`、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
@@ -87,7 +87,7 @@ npm install
 npm run dev        # 开发服务器 → localhost:3000
 npm run build      # 静态导出 → out/
 npm run lint       # ESLint
-npm test           # Vitest（47 个测试用例）
+npm test           # Vitest（49 个测试用例）
 ```
 
 ### 技术栈
@@ -127,6 +127,17 @@ src/
 │   │   │   └── page.tsx        # SEO 落地页：DeepSeek 缓存命中率分析器
 │   │   ├── deepseek-api-pricing-calculator/
 │   │   │   └── page.tsx        # SEO 落地页：DeepSeek API 价格计算器
+│   │   ├── deepseek-v4-flash-pricing/        # 模型定价 SEO 页面（8 个模型，共用 ModelPricingPage）
+│   │   ├── deepseek-v4-pro-pricing/
+│   │   ├── gpt-5.6-sol-pricing/
+│   │   ├── gpt-5.6-terra-pricing/
+│   │   ├── gpt-5.6-luna-pricing/
+│   │   ├── claude-opus-5-pricing/
+│   │   ├── claude-sonnet-5-pricing/
+│   │   ├── claude-haiku-4.5-pricing/
+│   │   ├── what-is-deepseek-cache-hit-rate/  # Glossary「什么是 X」页面（3 个，共用 GlossaryPage）
+│   │   ├── what-is-deepseek-context-caching/
+│   │   ├── what-is-deepseek-off-peak-pricing/
 │   │   ├── blog/
 │   │   │   ├── page.tsx                    # /blog 文章索引：最新优先的文章列表
 │   │   │   ├── deepseek-context-caching-guide/page.tsx    # 博客文章 1
@@ -154,13 +165,17 @@ src/
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.9.3 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.10.1 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
 │   ├── CacheAnalyzerContent.tsx # <noscript> SEO 回退：双语缓存分析器内容供爬虫抓取
 │   ├── PricingCalculatorPage.tsx # SEO 落地页：DeepSeek API 价格计算器（交互式滑块 + 竞品对比表 + 推荐墙）
 │   ├── PricingCalculatorContent.tsx # <noscript> SEO 回退：双语价格计算器内容供爬虫抓取
+│   ├── ModelPricingPage.tsx    # 共享模型定价 SEO 页面（价格表 + 关键事实 + FAQ + 交叉链接），由 modelPricing.ts + modelPricingContent.ts 驱动
+│   ├── ModelPricingContent.tsx # <noscript> SEO 回退：双语单模型定价内容供爬虫抓取
+│   ├── GlossaryPage.tsx        # 共享 Glossary「什么是 X」SEO 页面（定义 + 章节 + FAQ），由 glossaryContent.ts 驱动
+│   ├── GlossaryContent.tsx     # <noscript> SEO 回退：双语术语内容供爬虫抓取
 │   ├── AuthorPage.tsx         # 作者个人资料页（双语简介、技能、社交链接、JSON-LD Person Schema）
 │   ├── AuthorContent.tsx      # <noscript> SEO 回退：双语作者简介供爬虫抓取
 │   ├── BlogPostLayout.tsx     # 可复用博客文章模板（Apple 极简风格，元数据行，交叉链接，CTA）
@@ -213,10 +228,13 @@ src/
     ├── content/articleOpencodeGo.ts # 文章 4 内容：OpenCode Go 上的 DeepSeek V4 Flash（双语 + 定价表）
     ├── content/articleCsvFormatChange.ts # 文章 5 内容：DeepSeek 用量导出 CSV 格式变更（双语）
     ├── content/articleValueChampions.ts # 文章 6 内容：2026 年性价比之王（GPT-5.6 Luna vs DeepSeek V4 Flash）（双语 + 定价表）
+    ├── content/modelPricingContent.ts # 单模型定价页 SEO 文案（8 个模型，双语，含 FAQ）
+    ├── content/glossaryContent.ts # Glossary「什么是 X」页 SEO 文案（3 个术语，双语，含 FAQ）
+    ├── modelPricing.ts          # 模型定价唯一事实来源（MODEL_PRICING）+ 模型注册表；PricingCalculatorPage 与所有模型定价页共同消费
     ├── localeRouting.ts      # URL 级语言路由：DEFAULT_LOCALE、ZH_LOCALE_PREFIX、isZhPathname()、buildLocalePath()、switchLocalePath()
     ├── site.ts               # 站点级公开常量：SITE_URL、SITE_NAME、OG_IMAGE_URL、LOGO_IMAGE_URL
     ├── pageMetadata.ts       # 页面级 SEO 元数据构建器：buildLocalizedPageMetadata()（规范 URL、alternates、OG、Twitter、关键词、作者）
-    └── routeMetadata.ts      # 路由级元数据构建器：buildHomeMetadata()、buildGuidelineMetadata() 等（共 13 个构建器）
+    └── routeMetadata.ts      # 路由级元数据构建器：buildHomeMetadata()、buildGuidelineMetadata() 等（含 buildModelPricingMetadata、buildGlossaryMetadata，共 18 个构建器）
 ├── __tests__/
 │   ├── analytics.test.ts       # trackEvent 单元测试
 │   ├── schema.test.ts          # Organization + BreadcrumbList Schema 测试
@@ -245,9 +263,10 @@ src/
 本应用为客户端渲染的静态 SPA 实现了多层 SEO 策略：
 
 - **generateMetadata()** — 动态服务端渲染元数据：规范 URL、OpenGraph（标题、描述、图片）、Twitter 卡片、hreflang 语言标注（en/zh）、robots 指令
-- **JSON-LD 结构化数据** — `SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization` 双语 Schema（英文和中文，共 8 个 script 标签），构建时通过 `layout.tsx` 中的 `<script type="application/ld+json">` 注入；`Organization` Schema 帮助 Google 建立品牌知识面板
-- **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含 `/`、`/guideline`、`/privacy`、`/terms` 和 `/changelog` 五个条目；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
-- **`<noscript>` 回退** — `LandingContent.tsx` 输出关键落地页内容（使用说明、常见问题、关于），供不执行 JavaScript 的爬虫抓取；`PrivacyContent.tsx`、`TermsContent.tsx` 和 `ChangelogContent.tsx` 为隐私政策、使用条款和更新日志页面提供双语 `<noscript>` 回退内容（EEAT 信任信号）
+- **JSON-LD 结构化数据** — `SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization` 双语 Schema（英文和中文，共 8 个 script 标签），构建时通过 `layout.tsx` 中的 `<script type="application/ld+json">` 注入；`Organization` Schema 帮助 Google 建立品牌知识面板。程序化页面各自追加结构化数据：模型定价页输出 `Product` + `FAQPage`，Glossary 页输出 `Article` + `FAQPage`
+- **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含全部公开路由（首页、操作手册、隐私、条款、更新日志、3 个工具落地页、6 篇博客、作者、8 个模型定价页、3 个 Glossary 页），每路由 en + zh 双语条目并附 `alternates.languages`；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
+- **程序化 SEO 页面** — 8 个单模型定价页（`/deepseek-v4-flash-pricing`、`/gpt-5.6-luna-pricing` 等）与 3 个 Glossary 页（`/what-is-deepseek-cache-hit-rate`、`/what-is-deepseek-context-caching`、`/what-is-deepseek-off-peak-pricing`），均双语镜像、含每页独立文案、FAQ 与 JSON-LD；模型定价页从共享 `MODEL_PRICING` 配置实时渲染价格表（唯一事实来源，与价格计算器不漂移）
+- **`<noscript>` 回退** — `LandingContent.tsx` 输出关键落地页内容（使用说明、常见问题、关于），供不执行 JavaScript 的爬虫抓取；`PrivacyContent.tsx`、`TermsContent.tsx`、`ChangelogContent.tsx`、`ModelPricingContent.tsx` 和 `GlossaryContent.tsx` 为各自页面提供双语 `<noscript>` 回退内容（EEAT 信任信号）
 - **`llms.txt`** — 面向 LLM 的站点描述，位于 `/llms.txt`，总结应用功能、特性与结构，供 AI 工具使用
 - **语义化 HTML** — 落地页和操作手册页包含可见的 `<h1>`，仪表盘视图包含 `<h1 className="sr-only">`，配合正确的 section 结构
 
@@ -270,6 +289,25 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.10.1
+
+**改进：**
+
+- 首页「免费工具」区块重设 — 本系列真正的交互工具只有价格计算器（成本追踪器与缓存分析器实为纯 SEO 落地页，其 CTA 均指向首页仪表盘），因此首页改为只展示一张计算器卡片，不再把两个 SEO 页当工具展示。卡片下方新增全部 8 个单模型定价页的枢纽（`MODEL_KEYS`/`MODEL_PRICING_PATHS` 驱动，杜绝孤儿页），区块标题更新为「免费工具」。两篇 SEO 落地页仍可通过页脚工具行、博客内链与页面互链触达。
+- AffiliateWall 新增 `centered` 属性 — 首页「我们正在使用的好工具」卡片文字（名称、描述、佣金）改为居中，与区块的居中标题保持一致；其余页面保持默认左对齐卡片不变。
+
+### v0.10.0
+
+**新增：**
+
+- 程序化 SEO 页面上线 — 8 个单模型定价页（`/deepseek-v4-flash-pricing`、`/deepseek-v4-pro-pricing`、`/gpt-5.6-sol-pricing`、`/gpt-5.6-terra-pricing`、`/gpt-5.6-luna-pricing`、`/claude-opus-5-pricing`、`/claude-sonnet-5-pricing`、`/claude-haiku-4.5-pricing`）与 3 个 Glossary 页（`/what-is-deepseek-cache-hit-rate`、`/what-is-deepseek-context-caching`、`/what-is-deepseek-off-peak-pricing`），均双语镜像并含每页独立文案、FAQ 与 JSON-LD（定价页 `Product` + `FAQPage`，术语页 `Article` + `FAQPage`）。价格计算器新增连接全部 8 个定价页的枢纽区块（杜绝孤儿页），每个定价页与姊妹页互链，术语页则链向相关工具、博客文章与关联术语。
+- 共享模型定价配置 — 将 `MODEL_PRICING` 从价格计算器提取为唯一事实来源（`src/lib/modelPricing.ts`），由计算器与全部 8 个定价页共同消费，杜绝价格漂移；各定价页价格表从该配置实时渲染。
+
+**改进：**
+
+- 价格计算器新增「每个模型的完整定价页面」区块，为每个模型链接独立定价页，成为程序化定价页面集群的枢纽。
+- Sitemap 从 54 条扩展到 60 条 — 新增 8 个模型定价路由与 3 个 Glossary 路由，每路由含 en/zh 双语条目与 `alternates.languages`。
 
 ### v0.9.3
 

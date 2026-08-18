@@ -44,7 +44,7 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the FooterBar ("Related Tools" row), LandingPage (dedicated section), and Organization JSON-LD schema.
 - **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.9.3) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.10.1) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
 - **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, expanded `BreadcrumbList` with all sub-pages, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
@@ -87,7 +87,7 @@ npm install
 npm run dev        # Dev server at localhost:3000
 npm run build      # Static export → out/
 npm run lint       # ESLint
-npm test           # Vitest (47 tests)
+npm test           # Vitest (49 tests)
 ```
 
 ### Tech Stack
@@ -127,6 +127,17 @@ src/
 │   │   │   └── page.tsx        # SEO landing: DeepSeek Cache Hit Rate Analyzer
 │   │   ├── deepseek-api-pricing-calculator/
 │   │   │   └── page.tsx        # SEO landing: DeepSeek API Pricing Calculator
+│   │   ├── deepseek-v4-flash-pricing/        # Model pricing SEO pages (×8 models, shared ModelPricingPage)
+│   │   ├── deepseek-v4-pro-pricing/
+│   │   ├── gpt-5.6-sol-pricing/
+│   │   ├── gpt-5.6-terra-pricing/
+│   │   ├── gpt-5.6-luna-pricing/
+│   │   ├── claude-opus-5-pricing/
+│   │   ├── claude-sonnet-5-pricing/
+│   │   ├── claude-haiku-4.5-pricing/
+│   │   ├── what-is-deepseek-cache-hit-rate/  # Glossary "what is" pages (×3, shared GlossaryPage)
+│   │   ├── what-is-deepseek-context-caching/
+│   │   ├── what-is-deepseek-off-peak-pricing/
 │   │   ├── blog/
 │   │   │   ├── page.tsx                    # /blog article index: newest-first post list
 │   │   │   ├── deepseek-context-caching-guide/page.tsx    # Blog article 1
@@ -154,13 +165,17 @@ src/
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.9.3, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.10.1, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
 │   ├── CacheAnalyzerContent.tsx # <noscript> SEO fallback: bilingual cache analyzer content for crawlers
 │   ├── PricingCalculatorPage.tsx # SEO landing: DeepSeek API Pricing Calculator (interactive slider + competitor table + recommendation wall)
 │   ├── PricingCalculatorContent.tsx # <noscript> SEO fallback: bilingual pricing calculator content for crawlers
+│   ├── ModelPricingPage.tsx    # Shared model pricing SEO page (price table + facts + FAQ + cross-links), driven by modelPricing.ts + modelPricingContent.ts
+│   ├── ModelPricingContent.tsx # <noscript> SEO fallback: bilingual per-model pricing content for crawlers
+│   ├── GlossaryPage.tsx        # Shared glossary "what is" SEO page (definition + sections + FAQ), driven by glossaryContent.ts
+│   ├── GlossaryContent.tsx     # <noscript> SEO fallback: bilingual glossary content for crawlers
 │   ├── AuthorPage.tsx         # Author profile page (bilingual bio, skills, social links, JSON-LD Person schema)
 │   ├── AuthorContent.tsx      # <noscript> SEO fallback: bilingual author bio for crawlers
 │   ├── BlogPostLayout.tsx     # Reusable blog post template (Apple-minimalist, metadata row, cross-links, CTA)
@@ -213,10 +228,13 @@ src/
     ├── content/articleOpencodeGo.ts # Article 4 content: DeepSeek V4 Flash on OpenCode Go (bilingual + pricingTable)
     ├── content/articleCsvFormatChange.ts # Article 5 content: DeepSeek usage CSV export format change (bilingual)
     ├── content/articleValueChampions.ts # Article 6 content: 2026 value champions (GPT-5.6 Luna vs DeepSeek V4 Flash) (bilingual + pricingTable)
+    ├── content/modelPricingContent.ts # Per-model pricing page SEO copy (8 models, bilingual, FAQ)
+    ├── content/glossaryContent.ts # Glossary "what is" page SEO copy (3 terms, bilingual, FAQ)
+    ├── modelPricing.ts          # Single source of truth for model pricing (MODEL_PRICING) + model registry; consumed by PricingCalculatorPage + all model pricing pages
     ├── localeRouting.ts      # URL-level language routing: DEFAULT_LOCALE, ZH_LOCALE_PREFIX, isZhPathname(), buildLocalePath(), switchLocalePath()
     ├── site.ts               # Site-level public constants: SITE_URL, SITE_NAME, OG_IMAGE_URL, LOGO_IMAGE_URL
     ├── pageMetadata.ts       # Page-level SEO metadata builder: buildLocalizedPageMetadata() (canonical, alternates, OG, Twitter, keywords, author)
-    └── routeMetadata.ts      # Route-specific metadata builders: buildHomeMetadata(), buildGuidelineMetadata(), etc. (13 builders)
+    └── routeMetadata.ts      # Route-specific metadata builders: buildHomeMetadata(), buildGuidelineMetadata(), etc. (buildModelPricingMetadata, buildGlossaryMetadata, 18 builders total)
 ├── __tests__/
 │   ├── analytics.test.ts       # trackEvent unit tests
 │   ├── schema.test.ts          # Organization + BreadcrumbList schema tests
@@ -245,9 +263,10 @@ The dashboard follows an **Apple-minimalist** design language driven entirely by
 The app implements a multi-layered SEO strategy for a client-rendered static SPA:
 
 - **generateMetadata()** — Dynamic server-rendered metadata: canonical URL, OpenGraph (title, description, image), Twitter card, hreflang alternates (en/zh), robots directives
-- **JSON-LD structured data** — `SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization` schemas in both English and Chinese (8 total script tags), injected at build time via `<script type="application/ld+json">` in `layout.tsx`; `Organization` schema enables Google Knowledge Panel brand recognition
-- **robots.txt + sitemap.xml** — Generated at build time via Next.js 16 `MetadataRoute` conventions; sitemap includes `/`, `/guideline`, `/privacy`, `/terms`, and `/changelog` entries; site URL from `NEXT_PUBLIC_SITE_URL` env var
-- **`<noscript>` fallback** — `LandingContent.tsx` outputs key landing page content (How It Works, FAQ, About) for crawlers that don't execute JavaScript; `PrivacyContent.tsx`, `TermsContent.tsx`, and `ChangelogContent.tsx` provide bilingual `<noscript>` fallbacks for the privacy, terms, and changelog pages (EEAT trust signals)
+- **JSON-LD structured data** — `SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization` schemas in both English and Chinese (8 total script tags), injected at build time via `<script type="application/ld+json">` in `layout.tsx`; `Organization` schema enables Google Knowledge Panel brand recognition. Programmatic pages add their own: model pricing pages emit `Product` + `FAQPage`, glossary pages emit `Article` + `FAQPage`.
+- **robots.txt + sitemap.xml** — Generated at build time via Next.js 16 `MetadataRoute` conventions; sitemap includes every public route (home, guideline, privacy, terms, changelog, 3 tool landing pages, 6 blog articles, author, 8 model pricing pages, 3 glossary pages) with en + zh bilingual entries and `alternates.languages`; site URL from `NEXT_PUBLIC_SITE_URL` env var
+- **Programmatic SEO pages** — 8 per-model pricing pages (`/deepseek-v4-flash-pricing`, `/gpt-5.6-luna-pricing`, etc.) and 3 glossary pages (`/what-is-deepseek-cache-hit-rate`, `/what-is-deepseek-context-caching`, `/what-is-deepseek-off-peak-pricing`), each EN/ZH mirrored with unique per-page copy, FAQ, and JSON-LD; model pricing pages render live price tables from the shared `MODEL_PRICING` config (single source of truth, no drift with the Pricing Calculator)
+- **`<noscript>` fallback** — `LandingContent.tsx` outputs key landing page content (How It Works, FAQ, About) for crawlers that don't execute JavaScript; `PrivacyContent.tsx`, `TermsContent.tsx`, `ChangelogContent.tsx`, `ModelPricingContent.tsx`, and `GlossaryContent.tsx` provide bilingual `<noscript>` fallbacks for their pages (EEAT trust signals)
 - **`llms.txt`** — LLM-friendly site description served at `/llms.txt`, summarizing the app's purpose, features, and structure for AI tools
 - **Semantic HTML** — Visible `<h1>` on landing page and guideline page, `<h1 className="sr-only">` on dashboard, proper section structure
 
@@ -270,6 +289,25 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.10.1
+
+**Improved:**
+
+- Homepage "Free Tools" section redesigned — only the pricing calculator is a real interactive tool (the cost tracker and cache analyzer are pure SEO landing pages whose CTAs point back to the homepage dashboard), so the homepage now shows a single calculator card instead of three. A hub of all 8 per-model pricing pages (`MODEL_KEYS`/`MODEL_PRICING_PATHS`) was added below it (anti-orphan), and the section title updated to "Free Tools". The two SEO pages stay reachable via the footer Tools row, blog posts, and cross-links.
+- AffiliateWall gains a `centered` prop — the homepage "Recommended Tools" cards now center their text (name, description, commission) to match the section's centered heading, while all other pages keep the default left-aligned cards.
+
+### v0.10.0
+
+**Added:**
+
+- Programmatic SEO pages launched — 8 per-model pricing pages (`/deepseek-v4-flash-pricing`, `/deepseek-v4-pro-pricing`, `/gpt-5.6-sol-pricing`, `/gpt-5.6-terra-pricing`, `/gpt-5.6-luna-pricing`, `/claude-opus-5-pricing`, `/claude-sonnet-5-pricing`, `/claude-haiku-4.5-pricing`) and 3 glossary pages (`/what-is-deepseek-cache-hit-rate`, `/what-is-deepseek-context-caching`, `/what-is-deepseek-off-peak-pricing`), all EN/ZH mirrored with unique per-page copy, FAQ, and JSON-LD (`Product` + `FAQPage` for pricing pages, `Article` + `FAQPage` for glossary pages). The Pricing Calculator hosts a hub section linking all 8 pricing pages (anti-orphan), each pricing page cross-links its siblings, and glossary pages link to the relevant tools, blog articles, and related terms.
+- Shared model pricing config — `MODEL_PRICING` extracted from the Pricing Calculator into a single source of truth (`src/lib/modelPricing.ts`) consumed by both the calculator and all 8 pricing pages, eliminating price drift; prices render live into each pricing page's table.
+
+**Improved:**
+
+- Pricing Calculator links out to every model's dedicated pricing page from a new "Full pricing pages per model" section, becoming the hub of the programmatic pricing cluster.
+- Sitemap expanded from 54 to 60 entries — 8 model pricing routes and 3 glossary routes added with en/zh bilingual entries and `alternates.languages`.
 
 ### v0.9.3
 

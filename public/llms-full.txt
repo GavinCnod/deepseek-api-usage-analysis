@@ -266,6 +266,22 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.10.1** (2026-08-18)
+
+*Improved*
+- Homepage "Free Tools" section redesigned — the cost tracker and cache analyzer are pure SEO landing pages (only the pricing calculator is a real interactive tool), so the homepage now shows a single calculator card instead of three, plus a hub of all 8 per-model pricing pages (`MODEL_KEYS`/`MODEL_PRICING_PATHS`, anti-orphan). The two SEO pages stay reachable via the footer Tools row, blog posts, and cross-links.
+- AffiliateWall gains a `centered` prop — homepage "Recommended Tools" cards now center their text (name, description, commission) to match the centered section heading; other pages keep the default left-aligned cards.
+
+**v0.10.0** (2026-08-18)
+
+*Added*
+- Programmatic SEO pages launched — 8 per-model pricing pages (`/deepseek-*-pricing`) and 3 glossary pages (`/what-is-deepseek-*`), all EN/ZH mirrored with unique per-page copy, FAQ, and JSON-LD. The Pricing Calculator hosts a hub section linking all 8 pricing pages (anti-orphan); each pricing page cross-links its siblings; glossary pages link to related tools, articles, and terms.
+- Shared model pricing config — `MODEL_PRICING` extracted into `src/lib/modelPricing.ts` as the single source of truth consumed by both the calculator and all 8 pricing pages, eliminating price drift.
+
+*Improved*
+- Pricing Calculator links out to every model's dedicated pricing page from a new "Full pricing pages per model" section, becoming the hub of the programmatic pricing cluster.
+- Sitemap expanded from 54 to 60 entries — 8 model pricing routes and 3 glossary routes added with en/zh bilingual entries and `alternates.languages`.
+
 **v0.9.3** (2026-08-18)
 
 *Added*
@@ -492,6 +508,22 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.10.1**（2026-08-18）
+
+*改进*
+- 首页「免费工具」区块重设 — 成本追踪器与缓存分析器实为纯 SEO 落地页（真正交互工具只有价格计算器），因此首页改为只展示一张计算器卡片，并在下方新增全部 8 个单模型定价页的枢纽（`MODEL_KEYS`/`MODEL_PRICING_PATHS` 驱动，杜绝孤儿页）。两篇 SEO 落地页仍可通过页脚工具行、博客内链与页面互链触达。
+- AffiliateWall 新增 `centered` 属性 — 首页「我们正在使用的好工具」卡片文字（名称、描述、佣金）改为居中，与区块居中标题保持一致；其余页面保持默认左对齐。
+
+**v0.10.0**（2026-08-18）
+
+*新增*
+- 程序化 SEO 页面上线 — 8 个单模型定价页（`/deepseek-*-pricing`）与 3 个 Glossary 页（`/what-is-deepseek-*`），均双语镜像并含每页独立文案、FAQ 与 JSON-LD。价格计算器新增连接全部 8 个定价页的枢纽区块（杜绝孤儿页），每个定价页与姊妹页互链，术语页链向相关工具、博客文章与关联术语。
+- 共享模型定价配置 — 将 `MODEL_PRICING` 提取为唯一事实来源（`src/lib/modelPricing.ts`），由计算器与全部 8 个定价页共同消费，杜绝价格漂移。
+
+*改进*
+- 价格计算器新增「每个模型的完整定价页面」区块，为每个模型链接独立定价页，成为程序化定价页面集群的枢纽。
+- Sitemap 从 54 条扩展到 60 条 — 新增 8 个模型定价路由与 3 个 Glossary 路由，每路由含 en/zh 双语条目与 `alternates.languages`。
 
 **v0.9.3**（2026-08-18）
 

@@ -18,7 +18,7 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/lib/localeRouting.ts` | URL-level i18n routing helpers (`/zh` prefix logic) |
 | `src/lib/site.ts` | Site constants (`SITE_URL`, `SITE_NAME`, image URLs) |
 | `src/lib/pageMetadata.ts` | `buildLocalizedPageMetadata()` — canonical, alternates, OG, Twitter, keywords, author |
-| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 6 articles) |
+| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 6 articles, 8 model pricing pages via `buildModelPricingMetadata`, 3 glossary pages via `buildGlossaryMetadata`) |
 | `src/lib/blogArticles.ts` | Blog article definitions (slug, pathname, titleKey, descriptionKey, keywords, publishedTime) |
 | `src/lib/content.ts` | Article content type definitions (`ArticleSection[]`, `ContentBlock`, `PricingRow`) |
 | `src/lib/content/articleCaching.ts` | Article 1 content (context caching guide) |
@@ -27,6 +27,9 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/lib/content/articleOpencodeGo.ts` | Article 4 content (OpenCode Go — cheapest DeepSeek V4 Flash) |
 | `src/lib/content/articleCsvFormatChange.ts` | Article 5 content (DeepSeek CSV export format change) |
 | `src/lib/content/articleValueChampions.ts` | Article 6 content (2026 value champions: GPT-5.6 Luna vs DeepSeek V4 Flash) |
+| `src/lib/modelPricing.ts` | Single source of truth for model prices (`MODEL_PRICING`, CNY peak/off-peak for DeepSeek) + model registry; consumed by PricingCalculatorPage and all 8 model pricing pages |
+| `src/lib/content/modelPricingContent.ts` | Per-model pricing page SEO copy (8 models, bilingual, FAQ) |
+| `src/lib/content/glossaryContent.ts` | Glossary "what is" page SEO copy (3 terms, bilingual, FAQ) |
 | `src/components/JsonLd.tsx` | Reusable JSON-LD `<script>` renderer |
 | `src/components/NotFoundClient.tsx` | Client 404 UI (bilingual, in-page locale toggle, back-links) rendered by `global-not-found.tsx` |
 | `src/components/AffiliateWall.tsx` | Commercial recommendation module for affiliate links |
@@ -34,6 +37,8 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/components/CostTrackerContent.tsx` | `<noscript>` fallback for cost tracker SEO |
 | `src/components/CacheAnalyzerContent.tsx` | `<noscript>` fallback for cache analyzer SEO |
 | `src/components/PricingCalculatorContent.tsx` | `<noscript>` fallback for pricing calculator SEO |
+| `src/components/ModelPricingPage.tsx` / `ModelPricingContent.tsx` | Shared model pricing SEO page (price table + facts + FAQ + cross-links) + its `<noscript>` fallback |
+| `src/components/GlossaryPage.tsx` / `GlossaryContent.tsx` | Shared glossary "what is" SEO page (definition + sections + FAQ) + its `<noscript>` fallback |
 
 ## Sister project cross-linking
 
@@ -59,6 +64,7 @@ The app supports full EN/ZH mirroring at the URL level:
 - Language switching via `LanguageSwitcher` uses `buildLocalePath()` to preserve the current page context.
 - Sitemap generates both en and zh entries per route with cross-referenced `alternates.languages`.
 - SEO landing pages (`/deepseek-api-cost-tracker`, `/deepseek-cache-hit-rate-analyzer`, `/deepseek-api-pricing-calculator`) each have Chinese mirrors with localized metadata.
+- Programmatic SEO pages (8 model pricing pages like `/deepseek-v4-flash-pricing`, 3 glossary pages like `/what-is-deepseek-cache-hit-rate`) have Chinese mirrors with localized metadata; each is a thin `page.tsx` that re-exports the EN route's default component and overrides `generateMetadata` with the `zh` locale.
 - Blog articles have Chinese mirrors with localized content loaded from `content/article*.ts` modules.
 
 ## Skill routing

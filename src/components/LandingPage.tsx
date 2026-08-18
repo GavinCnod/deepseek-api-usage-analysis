@@ -11,6 +11,7 @@ import ErrorDisplay from "./ErrorDisplay";
 import LandingContent from "./LandingContent";
 import AffiliateWall from "./AffiliateWall";
 import { buildLocalePath } from "@/lib/localeRouting";
+import { MODEL_KEYS, MODEL_NAMES, MODEL_PRICING_PATHS } from "@/lib/modelPricing";
 
 /**
  * Landing 页面 - 上传前的完整落地页
@@ -287,7 +288,7 @@ export default function LandingPage() {
         </section>
 
         {/* ============================================================ */}
-        {/* 工具系列入口                                                 */}
+        {/* 免费工具（定价计算器）+ 各模型定价页 hub                           */}
         {/* ============================================================ */}
         <hr className="reveal-section" style={{ borderColor: "var(--border)" }} />
         <section
@@ -304,44 +305,71 @@ export default function LandingPage() {
           >
             {t.landing.toolsTitle}
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {[
-              {
-                href: buildLocalePath("/deepseek-api-cost-tracker", locale),
-                title: t.costTracker.pageTitle,
-                desc: t.landing.toolsCostTrackerDesc,
-              },
-              {
-                href: buildLocalePath("/deepseek-cache-hit-rate-analyzer", locale),
-                title: t.cacheAnalyzer.pageTitle,
-                desc: t.landing.toolsCacheDesc,
-              },
-              {
-                href: buildLocalePath("/deepseek-api-pricing-calculator", locale),
-                title: t.pricingCalculator.pageTitle,
-                desc: t.landing.toolsCalculatorDesc,
-              },
-            ].map((tool) => (
-              <Link
-                key={tool.href}
-                href={tool.href}
-                className="block p-5 rounded-subtle transition-all duration-200 hover:opacity-90"
-                style={{ border: "1px solid var(--border)" }}
+
+          {/* 唯一工具卡：定价计算器 */}
+          <div className="max-w-md mx-auto">
+            <Link
+              href={buildLocalePath("/deepseek-api-pricing-calculator", locale)}
+              className="block p-6 rounded-subtle transition-all duration-200 hover:opacity-90 text-center"
+              style={{ border: "1px solid var(--border)" }}
+            >
+              <h3
+                className="text-sm font-semibold mb-1 transition-colors duration-200"
+                style={{ color: "var(--text-primary)" }}
               >
-                <h3
-                  className="text-sm font-semibold mb-1 transition-colors duration-200"
-                  style={{ color: "var(--text-primary)" }}
+                {t.pricingCalculator.pageTitle}
+              </h3>
+              <p
+                className="text-xs leading-relaxed text-pretty mb-4"
+                style={{ color: "var(--text-secondary)" }}
+              >
+                {t.landing.toolsCalculatorDesc}
+              </p>
+              <span
+                className="inline-flex items-center gap-1.5 text-xs font-semibold"
+                style={{ color: "var(--accent)" }}
+              >
+                {t.landing.toolsCalculatorLink}
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  {tool.title}
-                </h3>
-                <p
-                  className="text-xs leading-relaxed text-pretty"
-                  style={{ color: "var(--text-secondary)" }}
+                  <path
+                    d="M5 12h14M12 5l7 7-7 7"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+            </Link>
+          </div>
+
+          {/* 各模型定价页 hub（防孤儿页） */}
+          <div className="mt-8 text-center">
+            <p
+              className="text-[11px] font-semibold uppercase tracking-widest mb-4 text-pretty"
+              style={{ color: "var(--text-tertiary)" }}
+            >
+              {t.landing.toolsPricingHubTitle}
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {MODEL_KEYS.map((key) => (
+                <Link
+                  key={key}
+                  href={buildLocalePath(MODEL_PRICING_PATHS[key], locale)}
+                  className="inline-flex items-center gap-1 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-200 hover:opacity-80"
+                  style={{ border: "1px solid var(--border)", color: "var(--text-secondary)" }}
                 >
-                  {tool.desc}
-                </p>
-              </Link>
-            ))}
+                  {MODEL_NAMES[key][locale]}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -371,7 +399,7 @@ export default function LandingPage() {
           >
             {t.costTracker.recommendedUsingDes}
           </p>
-          <AffiliateWall ids={["opencode-go","vultr", "railway", "tencent-cloud", "silicon-flow", "warp"]} />
+          <AffiliateWall ids={["opencode-go","vultr", "railway", "tencent-cloud", "silicon-flow", "warp"]} centered />
         </section>
 
         {/* ============================================================ */}

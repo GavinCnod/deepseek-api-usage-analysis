@@ -6,6 +6,8 @@ import { getAffiliatesByIds } from "@/lib/affiliates";
 
 interface AffiliateWallProps {
   ids: string[];
+  /** 卡片内文字是否居中（默认靠左）。首页推荐墙使用居中。 */
+  centered?: boolean;
 }
 
 /**
@@ -14,7 +16,7 @@ interface AffiliateWallProps {
  * 采用卡片式布局，展示联盟计划或推荐工具。
  * 包含名称、双语描述、佣金/条件信息，并处理出站链接追踪。
  */
-export default function AffiliateWall({ ids }: AffiliateWallProps) {
+export default function AffiliateWall({ ids, centered = false }: AffiliateWallProps) {
   const { locale } = useTranslation();
   const affiliates = getAffiliatesByIds(ids);
 
@@ -36,13 +38,19 @@ export default function AffiliateWall({ ids }: AffiliateWallProps) {
             target="_blank"
             rel={item.rel}
             onClick={() => trackOutboundClick("affiliate_wall", item.id)}
-            className="flex flex-col p-4 rounded-subtle transition-colors duration-200 group"
+            className={`flex flex-col p-4 rounded-subtle transition-colors duration-200 group ${
+              centered ? "text-center" : ""
+            }`}
             style={{
               border: "1px solid var(--border)",
               background: "var(--bg)",
             }}
           >
-            <div className="flex items-center justify-between mb-2">
+            <div
+              className={`flex items-center mb-2 ${
+                centered ? "justify-center" : "justify-between"
+              }`}
+            >
               <h3
                 className="text-sm font-semibold group-hover:underline"
                 style={{ color: "var(--text-primary)" }}

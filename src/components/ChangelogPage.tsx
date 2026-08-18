@@ -51,6 +51,44 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.10.1",
+    date: "2026-08-18",
+    improved: [
+      {
+        en: "Homepage \"Free Tools\" section redesigned — only the pricing calculator is a real interactive tool (the cost tracker and cache analyzer are pure SEO landing pages whose CTAs point back to the homepage dashboard), so the homepage now shows a single calculator card instead of three. A hub of all 8 per-model pricing pages (`MODEL_KEYS`/`MODEL_PRICING_PATHS`) was added below it (anti-orphan), and the section title updated to \"Free Tools\". The two SEO pages stay reachable via the footer Tools row, blog posts, and cross-links.",
+        zh: "首页「免费工具」区块重设 — 本系列真正的交互工具只有价格计算器（成本追踪器与缓存分析器实为纯 SEO 落地页，其 CTA 均指向首页仪表盘），因此首页改为只展示一张计算器卡片，不再把两个 SEO 页当工具展示。卡片下方新增全部 8 个单模型定价页的枢纽（`MODEL_KEYS`/`MODEL_PRICING_PATHS` 驱动，杜绝孤儿页），区块标题更新为「免费工具」。两篇 SEO 落地页仍可通过页脚工具行、博客内链与页面互链触达。",
+      },
+      {
+        en: "AffiliateWall gains a `centered` prop — the homepage \"Recommended Tools\" cards now center their text (name, description, commission) to match the section's centered heading, while all other pages keep the default left-aligned cards.",
+        zh: "AffiliateWall 新增 `centered` 属性 — 首页「我们正在使用的好工具」卡片文字（名称、描述、佣金）改为居中，与区块的居中标题保持一致；其余页面保持默认左对齐卡片不变。",
+      },
+    ],
+  },
+  {
+    version: "v0.10.0",
+    date: "2026-08-18",
+    added: [
+      {
+        en: "Programmatic SEO pages launched — 8 per-model pricing pages (`/deepseek-v4-flash-pricing`, `/deepseek-v4-pro-pricing`, `/gpt-5.6-sol-pricing`, `/gpt-5.6-terra-pricing`, `/gpt-5.6-luna-pricing`, `/claude-opus-5-pricing`, `/claude-sonnet-5-pricing`, `/claude-haiku-4.5-pricing`) and 3 glossary pages (`/what-is-deepseek-cache-hit-rate`, `/what-is-deepseek-context-caching`, `/what-is-deepseek-off-peak-pricing`), all EN/ZH mirrored with unique per-page copy, FAQ, and JSON-LD (`Product` + `FAQPage` for pricing pages, `Article` + `FAQPage` for glossary pages). The Pricing Calculator now hosts a hub section linking all 8 pricing pages (anti-orphan), each pricing page cross-links its siblings, and glossary pages link to the relevant tools, blog articles, and related terms.",
+        zh: "程序化 SEO 页面上线 — 8 个单模型定价页（`/deepseek-v4-flash-pricing`、`/deepseek-v4-pro-pricing`、`/gpt-5.6-sol-pricing`、`/gpt-5.6-terra-pricing`、`/gpt-5.6-luna-pricing`、`/claude-opus-5-pricing`、`/claude-sonnet-5-pricing`、`/claude-haiku-4.5-pricing`）与 3 个 Glossary 页（`/what-is-deepseek-cache-hit-rate`、`/what-is-deepseek-context-caching`、`/what-is-deepseek-off-peak-pricing`），均双语镜像并含每页独立文案、FAQ 与 JSON-LD（定价页 `Product` + `FAQPage`，术语页 `Article` + `FAQPage`）。价格计算器新增连接全部 8 个定价页的枢纽区块（杜绝孤儿页），每个定价页与姊妹页互链，术语页则链向相关工具、博客文章与关联术语。",
+      },
+      {
+        en: "Shared model pricing config — `MODEL_PRICING` extracted from the Pricing Calculator into a single source of truth (`src/lib/modelPricing.ts`) consumed by both the calculator and all 8 pricing pages, eliminating price drift between pages. Prices render live into each pricing page's table from this config.",
+        zh: "共享模型定价配置 — 将 `MODEL_PRICING` 从价格计算器提取为唯一事实来源（`src/lib/modelPricing.ts`），由计算器与全部 8 个定价页共同消费，杜绝页面间价格漂移。各定价页的价格表从该配置实时渲染。",
+      },
+    ],
+    improved: [
+      {
+        en: "Pricing Calculator now links out to every model's dedicated pricing page from a new 'Full pricing pages per model' section, turning it into the hub of the programmatic pricing cluster.",
+        zh: "价格计算器新增「每个模型的完整定价页面」区块，为每个模型链接独立定价页，成为程序化定价页面集群的枢纽。",
+      },
+      {
+        en: "Sitemap expanded from 54 to 60 entries — 8 model pricing routes and 3 glossary routes added with en/zh bilingual entries and `alternates.languages`.",
+        zh: "Sitemap 从 54 条扩展到 60 条 — 新增 8 个模型定价路由与 3 个 Glossary 路由，每路由含 en/zh 双语条目与 `alternates.languages`。",
+      },
+    ],
+  },
+  {
     version: "v0.9.3",
     date: "2026-08-18",
     added: [

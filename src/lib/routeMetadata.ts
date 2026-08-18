@@ -8,6 +8,76 @@ import type { Metadata } from "next";
 import type { Locale } from "@/i18n/translations";
 import { getBlogArticleLocaleMeta } from "@/lib/blogArticles";
 import { buildLocalizedPageMetadata } from "@/lib/pageMetadata";
+import {
+  getModelPricingContent,
+} from "@/lib/content/modelPricingContent";
+import { MODEL_NAMES, MODEL_PRICING_PATHS, type ModelKey } from "@/lib/modelPricing";
+import {
+  getGlossaryContent,
+  GLOSSARY_PATHS,
+  type GlossarySlug,
+} from "@/lib/content/glossaryContent";
+
+/**
+ * 构建单模型定价落地页 metadata。
+ */
+export function buildModelPricingMetadata(
+  modelKey: ModelKey,
+  locale: Locale
+): Metadata {
+  const content = getModelPricingContent(modelKey);
+  const name = MODEL_NAMES[modelKey][locale];
+
+  return buildLocalizedPageMetadata(locale, {
+    pathname: MODEL_PRICING_PATHS[modelKey],
+    title: {
+      en: content.seoTitle.en,
+      zh: content.seoTitle.zh,
+    },
+    description: {
+      en: content.description.en,
+      zh: content.description.zh,
+    },
+    keywords: {
+      en: content.keywords.en,
+      zh: content.keywords.zh,
+    },
+    imageAlt: {
+      en: `${name} API pricing`,
+      zh: `${name} API 定价`,
+    },
+  });
+}
+
+/**
+ * 构建 Glossary 术语落地页 metadata。
+ */
+export function buildGlossaryMetadata(
+  slug: GlossarySlug,
+  locale: Locale
+): Metadata {
+  const content = getGlossaryContent(slug);
+
+  return buildLocalizedPageMetadata(locale, {
+    pathname: GLOSSARY_PATHS[slug],
+    title: {
+      en: content.seoTitle.en,
+      zh: content.seoTitle.zh,
+    },
+    description: {
+      en: content.description.en,
+      zh: content.description.zh,
+    },
+    keywords: {
+      en: content.keywords.en,
+      zh: content.keywords.zh,
+    },
+    imageAlt: {
+      en: content.heroTitle.en,
+      zh: content.heroTitle.zh,
+    },
+  });
+}
 
 /** 博客文章元数据构建参数。 */
 interface BlogArticleMetadataInput {

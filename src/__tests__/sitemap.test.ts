@@ -7,7 +7,29 @@ import sitemap from "@/app/sitemap";
 describe("sitemap", () => {
   it("返回完整的双语条目集合", () => {
     const entries = sitemap();
-    expect(entries.length).toBe(32);
+    expect(entries.length).toBe(54);
+  });
+
+  it("包含新增的模型定价页与 Glossary 页", () => {
+    const entries = sitemap();
+    const urls = entries.map((e) => e.url);
+
+    // 8 个模型定价页
+    expect(urls.some((u) => u.endsWith("/deepseek-v4-flash-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/zh/deepseek-v4-flash-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/deepseek-v4-pro-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/gpt-5.6-luna-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/gpt-5.6-sol-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/gpt-5.6-terra-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/claude-opus-5-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/claude-sonnet-5-pricing"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/claude-haiku-4.5-pricing"))).toBe(true);
+
+    // 3 个 Glossary 页
+    expect(urls.some((u) => u.endsWith("/what-is-deepseek-cache-hit-rate"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/zh/what-is-deepseek-cache-hit-rate"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/what-is-deepseek-context-caching"))).toBe(true);
+    expect(urls.some((u) => u.endsWith("/what-is-deepseek-off-peak-pricing"))).toBe(true);
   });
 
   it("包含英文无前缀与中文 /zh 路由", () => {

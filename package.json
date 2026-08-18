@@ -1,6 +1,6 @@
 {
   "name": "ds-usage-analysis",
-  "version": "0.9.3",
+  "version": "0.10.1",
   "private": true,
   "license": "MIT",
   "scripts": {

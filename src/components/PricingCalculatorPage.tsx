@@ -7,53 +7,21 @@ import { useTranslation } from "@/i18n";
 import { buildLocalePath } from "@/lib/localeRouting";
 import { buildPricingCalculatorSoftwareAppJsonLd } from "@/lib/schema";
 import { formatTokens } from "@/lib/format";
+import {
+  CNY_PER_USD,
+  effectivePrice,
+  MODEL_PRICING,
+  MODEL_PRICING_PATHS,
+  type ModelKey,
+} from "@/lib/modelPricing";
 import TitleBar from "./TitleBar";
 import FooterBar from "./FooterBar";
 import RecommendedToolsSection from "./RecommendedToolsSection";
 
-/** 单个计价单元：固定价（竞品）或 高峰/闲时 双价（DeepSeek 新定价） */
-type PriceCell = number | { peak: number; offpeak: number };
-
-type ModelPricing = {
-  input: PriceCell;
-  output: PriceCell;
-  cacheHit: PriceCell;
-  /** 价格基准货币：DeepSeek 官方价按 CNY 维护，竞品按 USD 维护 */
-  currency: "CNY" | "USD";
-};
-
-const CNY_PER_USD = 6.9;
-
 /**
- * DeepSeek 定价 (CNY/百万 tokens，按高峰/闲时) + 竞品定价 (USD/百万 tokens)
- *
- * 高峰时段：北京时间 9:00–12:00、14:00–18:00；其余为闲时，价格减半。
+ * 价格数据统一由 @/lib/modelPricing 提供（MODEL_PRICING），
+ * 与各模型独立定价落地页共用同一来源，避免漂移。
  */
-const PRICING: Record<string, ModelPricing> = {
-  v4Flash: {
-    input: { peak: 3.0, offpeak: 1.5 },
-    output: { peak: 9.0, offpeak: 4.5 },
-    cacheHit: { peak: 0.1, offpeak: 0.05 },
-    currency: "CNY",
-  },
-  v4Pro: {
-    input: { peak: 9.0, offpeak: 4.5 },
-    output: { peak: 27.0, offpeak: 13.5 },
-    cacheHit: { peak: 0.3, offpeak: 0.15 },
-    currency: "CNY",
-  },
-  gpt56Sol: { input: 5.0, output: 30.0, cacheHit: 0.5, currency: "USD" },
-  gpt56Terra: { input: 2.0, output: 12.0, cacheHit: 0.2, currency: "USD" },
-  gpt56Luna: { input: 0.2, output: 1.2, cacheHit: 0.02, currency: "USD" },
-  claudeOpus5: { input: 5.0, output: 25.0, cacheHit: 0.5, currency: "USD" },
-  claudeSonnet5: { input: 2.0, output: 10.0, cacheHit: 0.2, currency: "USD" },
-  claudeHaiku45: { input: 1.0, output: 5.0, cacheHit: 0.1, currency: "USD" },
-};
-
-/** 高峰/闲时混合后的有效单价 (忙时占比为 0–1) */
-function effectivePrice(cell: PriceCell, share: number): number {
-  return typeof cell === "number" ? cell : cell.offpeak + (cell.peak - cell.offpeak) * share;
-}
 
 /**
  * 格式化成本显示 (支持 CNY/USD 切换)
@@ -107,7 +75,7 @@ export function PricingCalculatorPage() {
   const peakFraction = peakShare / 100;
 
   /** 根据输入、输出、缓存命中率和高峰占比估算某个模型的月度成本。 */
-  const calcCost = (p: ModelPricing, share: number) => {
+  const calcCost = (p: (typeof MODEL_PRICING)[ModelKey], share: number) => {
     const cachedInput = inputM * cacheFraction * effectivePrice(p.cacheHit, share);
     const uncachedInput = inputM * (1 - cacheFraction) * effectivePrice(p.input, share);
     const outputCost = outputM * effectivePrice(p.output, share);
@@ -115,15 +83,15 @@ export function PricingCalculatorPage() {
   };
 
   const modelsData = [
-    { key: "v4Flash", name: t.pricingCalculator.deepseekV4Flash, pricing: PRICING.v4Flash, color: "var(--positive)", notes: t.pricingCalculator.peakWindowNote },
-    { key: "v4Pro", name: t.pricingCalculator.deepseekV4Pro, pricing: PRICING.v4Pro, color: "var(--positive)", notes: t.pricingCalculator.peakWindowNote },
-    { key: "gpt56Sol", name: "GPT-5.6 Sol", pricing: PRICING.gpt56Sol, color: "var(--danger)", notes: "—" },
-    { key: "gpt56Terra", name: "GPT-5.6 Terra", pricing: PRICING.gpt56Terra, color: "var(--danger)", notes: "—" },
-    { key: "gpt56Luna", name: "GPT-5.6 Luna", pricing: PRICING.gpt56Luna, color: "var(--text-primary)", notes: "—" },
-    { key: "claudeOpus5", name: "Claude Opus 5", pricing: PRICING.claudeOpus5, color: "var(--danger)", notes: "—" },
-    { key: "claudeSonnet5", name: "Claude Sonnet 5", pricing: PRICING.claudeSonnet5, color: "var(--text-primary)", notes: "—" },
-    { key: "claudeHaiku45", name: "Claude Haiku 4.5", pricing: PRICING.claudeHaiku45, color: "var(--positive)", notes: "—" },
-  ];
+    { key: "v4Flash", name: t.pricingCalculator.deepseekV4Flash, pricing: MODEL_PRICING.v4Flash, color: "var(--positive)", notes: t.pricingCalculator.peakWindowNote },
+    { key: "v4Pro", name: t.pricingCalculator.deepseekV4Pro, pricing: MODEL_PRICING.v4Pro, color: "var(--positive)", notes: t.pricingCalculator.peakWindowNote },
+    { key: "gpt56Sol", name: "GPT-5.6 Sol", pricing: MODEL_PRICING.gpt56Sol, color: "var(--danger)", notes: "—" },
+    { key: "gpt56Terra", name: "GPT-5.6 Terra", pricing: MODEL_PRICING.gpt56Terra, color: "var(--danger)", notes: "—" },
+    { key: "gpt56Luna", name: "GPT-5.6 Luna", pricing: MODEL_PRICING.gpt56Luna, color: "var(--text-primary)", notes: "—" },
+    { key: "claudeOpus5", name: "Claude Opus 5", pricing: MODEL_PRICING.claudeOpus5, color: "var(--danger)", notes: "—" },
+    { key: "claudeSonnet5", name: "Claude Sonnet 5", pricing: MODEL_PRICING.claudeSonnet5, color: "var(--text-primary)", notes: "—" },
+    { key: "claudeHaiku45", name: "Claude Haiku 4.5", pricing: MODEL_PRICING.claudeHaiku45, color: "var(--positive)", notes: "—" },
+  ] as const;
 
   const estimateSteps = [
     { title: t.pricingCalculator.estimateStep1Title, desc: t.pricingCalculator.estimateStep1Desc },
@@ -398,8 +366,8 @@ export function PricingCalculatorPage() {
             {modelsData.map((item) => {
               const currentCost = calcCost(item.pricing, peakFraction);
               const isBaseModel = item.key === "v4Flash" || item.key === "v4Pro";
-              const multiplierFlash = currentCost > 0 ? (currentCost / calcCost(PRICING.v4Flash, peakFraction)).toFixed(1) : "0";
-              const multiplierPro = currentCost > 0 ? (currentCost / calcCost(PRICING.v4Pro, peakFraction)).toFixed(1) : "0";
+              const multiplierFlash = currentCost > 0 ? (currentCost / calcCost(MODEL_PRICING.v4Flash, peakFraction)).toFixed(1) : "0";
+              const multiplierPro = currentCost > 0 ? (currentCost / calcCost(MODEL_PRICING.v4Pro, peakFraction)).toFixed(1) : "0";
 
               return (
                 <div key={item.key} className="p-4 rounded-subtle text-center flex flex-col justify-center" style={{ border: "1px solid var(--border)" }}>
@@ -578,7 +546,7 @@ export function PricingCalculatorPage() {
               <tbody>
                 {modelsData.map((item) => {
                   const src = item.pricing.currency;
-                  const renderPrice = (cell: PriceCell) =>
+                  const renderPrice = (cell: (typeof MODEL_PRICING)[ModelKey]["input"]) =>
                     typeof cell === "number" ? (
                       formatMoney(cell, src, currency, locale)
                     ) : (
@@ -638,6 +606,39 @@ export function PricingCalculatorPage() {
                   {item.desc}
                 </p>
               </div>
+            ))}
+          </div>
+        </section>
+
+        <hr style={{ borderColor: "var(--border)", marginBottom: "3rem" }} />
+
+        {/* 每个模型的独立定价页 */}
+        <section className="mb-16">
+          <h2
+            className="text-lg font-bold tracking-tight mb-3"
+            style={{ color: "var(--text-primary)", letterSpacing: "-0.02em" }}
+          >
+            {locale === "zh" ? "每个模型的完整定价页面" : "Full pricing pages per model"}
+          </h2>
+          <p
+            className="text-sm leading-relaxed text-pretty mb-6"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            {locale === "zh"
+              ? "每个模型都有独立的定价深度页，包含高峰/闲时单价、缓存命中价格、适用场景与常见问题。"
+              : "Each model has a dedicated pricing page with peak/off-peak rates, cache-hit pricing, best-use guidance, and FAQs."}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {modelsData.map((item) => (
+              <Link
+                key={item.key}
+                href={buildLocalePath(MODEL_PRICING_PATHS[item.key], locale)}
+                className="inline-flex items-center gap-1 px-3.5 py-2 rounded-full text-xs font-medium transition-all duration-200 hover:opacity-80"
+                style={{ border: "1px solid var(--border)", color: "var(--text-secondary)" }}
+              >
+                {item.name}
+                <span aria-hidden="true">→</span>
+              </Link>
             ))}
           </div>
         </section>

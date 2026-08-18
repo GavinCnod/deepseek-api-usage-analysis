@@ -13,6 +13,18 @@ import {
 } from "@/lib/authors";
 import { getBlogArticleDefinition, type BlogArticleSlug } from "@/lib/blogArticles";
 import { buildLocaleUrl } from "@/lib/localeRouting";
+import {
+  MODEL_NAMES,
+  MODEL_PRICING,
+  MODEL_PRICING_PATHS,
+  type ModelKey,
+} from "@/lib/modelPricing";
+import { getModelPricingContent } from "@/lib/content/modelPricingContent";
+import {
+  getGlossaryContent,
+  GLOSSARY_PATHS,
+  type GlossarySlug,
+} from "@/lib/content/glossaryContent";
 import { LOGO_IMAGE_URL } from "@/lib/site";
 import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
 
@@ -21,7 +33,7 @@ import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterPro
 /* ------------------------------------------------------------------ */
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.9.3";
+const APP_VERSION = "0.10.1";
 
 /** SoftwareApplication Schema 翻译 */
 const softwareAppSchema: Record<
@@ -451,6 +463,94 @@ export function buildCacheAnalyzerSoftwareAppJsonLd(locale: Locale): Record<stri
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
+    },
+  };
+}
+
+/**
+ * 生成单模型定价页的 FAQPage + Product JSON-LD
+ *
+ * 每个模型独立定价落地页注入一套结构化数据：
+ * - FAQPage 复用页面可见的 FAQ 文案，保证一致
+ * - Product + Offer 表达该模型的公开 API 价格
+ */
+export function buildModelPricingJsonLd(
+  modelKey: ModelKey,
+  locale: Locale
+): Record<string, unknown> {
+  const content = getModelPricingContent(modelKey);
+  const pathname = MODEL_PRICING_PATHS[modelKey];
+  const url = buildLocaleUrl(locale, pathname);
+  const name = MODEL_NAMES[modelKey][locale];
+  const pricing = MODEL_PRICING[modelKey];
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url,
+    inLanguage: locale,
+    mainEntity: content.faq[locale].map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+    about: {
+      "@type": "Product",
+      name,
+      url,
+      description: content.description[locale],
+      inLanguage: locale,
+      offers: {
+        "@type": "Offer",
+        price: String(
+          typeof pricing.input === "number" ? pricing.input : pricing.input.peak
+        ),
+        priceCurrency: pricing.currency,
+        description:
+          pricing.currency === "CNY"
+            ? "per million tokens, peak-hour list price"
+            : "per million tokens, standard-tier list price",
+      },
+    },
+  };
+}
+
+/**
+ * 生成 Glossary 术语页的 FAQPage + Article JSON-LD
+ *
+ * 每个术语页注入 FAQPage（复用页面可见文案）与 Article
+ * （标注定义与正文章节），帮助搜索引擎理解术语含义。
+ */
+export function buildGlossaryJsonLd(
+  slug: GlossarySlug,
+  locale: Locale
+): Record<string, unknown> {
+  const content = getGlossaryContent(slug);
+  const pathname = GLOSSARY_PATHS[slug];
+  const url = buildLocaleUrl(locale, pathname);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    url,
+    inLanguage: locale,
+    mainEntity: content.faq[locale].map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+    about: {
+      "@type": "Article",
+      headline: content.heroTitle[locale],
+      description: content.description[locale],
+      url,
+      inLanguage: locale,
+      mainEntityOfPage: { "@type": "WebPage", "@id": url },
+      author: {
+        "@type": "Organization",
+        name: "MindRose Team",
+        url: MINDROSE_SITE_URL,
+      },
     },
   };
 }

@@ -15,6 +15,8 @@ import {
   getBlogArticleDefinition,
   type BlogArticleSlug,
 } from "@/lib/blogArticles";
+import { MODEL_KEYS, MODEL_PRICING_PATHS } from "@/lib/modelPricing";
+import { GLOSSARY_SLUGS, GLOSSARY_PATHS } from "@/lib/content/glossaryContent";
 
 /** 静态导出兼容：标记此路由在构建时静态生成 */
 export const dynamic = "force-static";
@@ -133,6 +135,18 @@ const ROUTES: SitemapRouteConfig[] = [
     changeFrequency: "weekly",
     priority: 0.6,
   },
+  ...MODEL_KEYS.map((key) => ({
+    pathname: MODEL_PRICING_PATHS[key],
+    lastModified: buildDate,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  })),
+  ...GLOSSARY_SLUGS.map((slug) => ({
+    pathname: GLOSSARY_PATHS[slug],
+    lastModified: buildDate,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  })),
 ];
 
 /**
