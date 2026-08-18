@@ -532,6 +532,22 @@ export function PricingCalculatorPage() {
                 {locale === "zh" ? "阅读深度对比报告" : "Read the deep-dive comparison"}
                 <span aria-hidden="true">→</span>
               </Link>
+              <Link
+                href={buildLocalePath("/deepseek-api-cost-tracker", locale)}
+                className="text-xs font-medium hover:underline inline-flex items-center gap-1"
+                style={{ color: "var(--accent)" }}
+              >
+                {locale === "zh" ? "用 CSV 追踪真实花费" : "Track real spend from CSVs"}
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link
+                href={buildLocalePath("/deepseek-cache-hit-rate-analyzer", locale)}
+                className="text-xs font-medium hover:underline inline-flex items-center gap-1"
+                style={{ color: "var(--accent)" }}
+              >
+                {locale === "zh" ? "分析你的缓存命中率" : "Analyze your cache hit rate"}
+                <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
           <p className="text-xs mb-6" style={{ color: "var(--text-tertiary)" }}>

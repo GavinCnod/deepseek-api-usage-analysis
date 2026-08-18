@@ -1,6 +1,6 @@
 # DeepSeek API Usage Analytics Dashboard — Full Content
 
-> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.9.2.
+> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.9.3.
 
 ---
 
@@ -266,6 +266,18 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.9.3** (2026-08-18)
+
+*Added*
+- Tool series internal linking — the 3 tool landing pages (`/deepseek-api-cost-tracker`, `/deepseek-cache-hit-rate-analyzer`, `/deepseek-api-pricing-calculator`) are now reachable from a new "Explore the Tool Series" homepage section, a dedicated Tools row in the footer (every page), in-content links across 5 blog posts, and cross-links between the tool pages — no more orphaned pages.
+
+*Improved*
+- Keyword ownership clarified — the homepage title targets the broad brand term "DeepSeek API Usage Analytics — Free CSV Dashboard"; "deepseek api cost tracker" belongs exclusively to the cost tracker tool page, removing self-competition.
+- Meta descriptions optimized — 10 English descriptions trimmed from 165–211 to ≤160 characters for cleaner SERP display.
+- Blog index structured data — `/blog` and `/zh/blog` now emit Blog + ItemList JSON-LD referencing all 6 articles.
+- Site icons slimmed — favicon compressed from 242 KB to ~10 KB plus a new 180×180 apple-touch-icon; the 242 KB `ds-usage-logo.ico` is no longer referenced from page markup.
+- Custom bilingual 404 — branded page (English default, in-page Chinese toggle) with links back to the homepage, blog, and all three tools.
+
 **v0.9.2** (2026-08-18)
 
 *Added*
@@ -480,6 +492,18 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.9.3**（2026-08-18）
+
+*新增*
+- 工具系列内链体系 — 3 个工具落地页（`/deepseek-api-cost-tracker`、`/deepseek-cache-hit-rate-analyzer`、`/deepseek-api-pricing-calculator`）现可从首页新增的「探索工具系列」区块、页脚新增的「工具」链接行（全站可见）、5 篇博客正文内链以及工具页之间的互链触达——彻底消除孤儿页面。
+
+*改进*
+- 关键词归属明确 — 首页标题改为瞄准宽泛品牌词「DeepSeek API Usage Analytics — Free CSV Dashboard」；精确词「deepseek api cost tracker」完全归属成本追踪工具页，消除关键词自相蚕食。
+- 元描述优化 — 10 条英文页面描述从 165–211 字符精简至 160 字符以内，改善搜索结果展示。
+- 博客索引结构化数据 — `/blog` 与 `/zh/blog` 新增 Blog + ItemList JSON-LD，引用全部 6 篇文章。
+- 站点图标瘦身 — favicon 从 242 KB 压缩至约 10 KB，并新增 180×180 苹果触摸图标；页面标记不再引用 242 KB 的 `ds-usage-logo.ico`。
+- 自定义双语 404 页 — 品牌化页面（默认英文，页面内可切换中文），提供首页、博客和三个工具的返回链接。
 
 **v0.9.2**（2026-08-18）
 

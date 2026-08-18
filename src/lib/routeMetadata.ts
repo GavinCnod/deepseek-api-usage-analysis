@@ -57,11 +57,11 @@ export function buildHomeMetadata(locale: Locale): Metadata {
   return buildLocalizedPageMetadata(locale, {
     pathname: "/",
     title: {
-      en: "DeepSeek API Cost Tracker — Free CSV Usage Dashboard",
-      zh: "DeepSeek API 费用追踪器与用量分析 — 免费 CSV 仪表盘",
+      en: "DeepSeek API Usage Analytics — Free CSV Dashboard",
+      zh: "DeepSeek API 用量分析 — 免费 CSV 仪表盘",
     },
     description: {
-      en: "Free DeepSeek API cost tracker. Upload billing CSVs and get instant cost breakdowns, cache hit rate analysis, and per-key spending — all in your browser, no signup required.",
+      en: "Free DeepSeek API usage analytics. Upload billing CSVs for instant cost breakdowns, cache analysis, and per-key spend — all in your browser, no signup.",
       zh: "免费 DeepSeek API 费用追踪器。上传账单 CSV，即时查看费用拆分、缓存命中率分析和各 Key 支出明细——纯浏览器端处理，无需注册。",
     },
     keywords: {
@@ -100,7 +100,7 @@ export function buildGuidelineMetadata(locale: Locale): Metadata {
       zh: "DeepSeek API 用量分析仪表盘 — 用户指南",
     },
     description: {
-      en: "Complete user guide for the DeepSeek API Usage Analytics Dashboard — export CSVs, upload files, and navigate all views with step-by-step instructions and screenshots.",
+      en: "Complete user guide for the DeepSeek API Usage Analytics Dashboard — export and upload CSVs, then explore every view step by step with screenshots.",
       zh: "DeepSeek API 用量分析仪表盘完整用户指南。通过分步说明和截图了解如何导出 CSV、上传文件以及浏览所有仪表盘视图。",
     },
     keywords: {
@@ -135,7 +135,7 @@ export function buildPrivacyMetadata(locale: Locale): Metadata {
       zh: "隐私政策 — DeepSeek API 用量分析仪表盘",
     },
     description: {
-      en: "Privacy Policy for the DeepSeek API Usage Analytics Dashboard. Learn how we handle your data: all CSV processing is local, no data is uploaded, and Google Analytics is opt-in. Built by Gavin & MindRose Team.",
+      en: "Privacy Policy for the DeepSeek API Usage Analytics Dashboard — CSV processing is 100% local, nothing is uploaded, GA is opt-in. Built by Gavin & MindRose.",
       zh: "DeepSeek API 用量分析仪表盘隐私政策。了解我们如何处理数据：所有 CSV 处理均在本地完成，不上传文件，Google Analytics 为可选启用。",
     },
     keywords: {
@@ -164,7 +164,7 @@ export function buildTermsMetadata(locale: Locale): Metadata {
       zh: "使用条款 — DeepSeek API 用量分析仪表盘",
     },
     description: {
-      en: "Terms of Use for the DeepSeek API Usage Analytics Dashboard. As-is open source software, no warranty, not affiliated with DeepSeek. Built by Gavin & MindRose Team.",
+      en: "Terms of Use for the DeepSeek API Usage Analytics Dashboard — open source, provided as-is, not affiliated with DeepSeek. Built by Gavin & MindRose Team.",
       zh: "DeepSeek API 用量分析仪表盘使用条款。软件按现状提供、无担保，与 DeepSeek 无隶属关系，由 Gavin 与 MindRose 团队维护。",
     },
     keywords: {
@@ -193,7 +193,7 @@ export function buildChangelogMetadata(locale: Locale): Metadata {
       zh: "更新日志 — DeepSeek API 用量分析仪表盘",
     },
     description: {
-      en: "Complete changelog for the DeepSeek API Usage Analytics Dashboard. Track all new features, improvements, bug fixes, and dependency changes across every release since v0.1.0. Built by Gavin & MindRose Team.",
+      en: "Complete changelog for the DeepSeek API Usage Analytics Dashboard — new features, improvements, bug fixes, and dependencies across every release since v0.1.0.",
       zh: "DeepSeek API 用量分析仪表盘完整更新日志。追踪自 v0.1.0 以来的新增功能、改进优化、问题修复与依赖变更。",
     },
     keywords: {
@@ -222,7 +222,7 @@ export function buildCostTrackerMetadata(locale: Locale): Metadata {
       zh: "DeepSeek API 费用追踪器 — 免费 CSV 仪表盘 | 无需注册",
     },
     description: {
-      en: "Free DeepSeek API cost tracker. Upload billing CSVs for daily costs, per-key attribution, cache hit rates, and project breakdowns — processed locally in your browser.",
+      en: "Free DeepSeek API cost tracker — upload billing CSVs for daily costs, per-key attribution, cache hit rates, and project breakdowns, all processed locally.",
       zh: "免费 DeepSeek API 费用追踪器。上传账单 CSV，即时查看每日费用、按 Key 归因、缓存命中率和项目拆分——全部在浏览器本地处理。",
     },
     keywords: {
@@ -259,7 +259,7 @@ export function buildCacheAnalyzerMetadata(locale: Locale): Metadata {
       zh: "DeepSeek 缓存命中率分析器 — 优化 API 成本",
     },
     description: {
-      en: "Analyze your DeepSeek cache hit rate from billing CSVs. Track daily trends, per-key hits vs misses, and discover prompt engineering tips to reduce API costs by up to 90%.",
+      en: "Analyze your DeepSeek cache hit rate from billing CSVs — daily trends, per-key hits vs misses, and prompt tips to cut API costs by up to 90%.",
       zh: "从账单 CSV 分析 DeepSeek 缓存命中率。追踪每日趋势、各 Key 命中/未命中对比，获取 Prompt 工程优化技巧，最高可降低 90% API 成本。",
     },
     keywords: {
@@ -333,7 +333,7 @@ export function buildAuthorPageMetadata(locale: Locale): Metadata {
       zh: "关于作者 — Gavin Chen 与 MindRose 团队",
     },
     description: {
-      en: "Learn who builds the DeepSeek API Usage Analytics Dashboard. This author page introduces Gavin Chen, the MindRose team, public profile links, and project background.",
+      en: "Learn who builds the DeepSeek API Usage Analytics Dashboard — Gavin Chen, the MindRose team, their public profiles, and the project background.",
       zh: "了解谁在构建 DeepSeek API 用量分析仪表盘。此作者页面介绍 Gavin Chen、MindRose 团队、公开资料链接与项目背景。",
     },
     keywords: {

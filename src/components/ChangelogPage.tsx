@@ -51,6 +51,38 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.9.3",
+    date: "2026-08-18",
+    added: [
+      {
+        en: "Tool series internal linking — the 3 tool landing pages (`/deepseek-api-cost-tracker`, `/deepseek-cache-hit-rate-analyzer`, `/deepseek-api-pricing-calculator`) are now linked from a new 'Explore the Tool Series' section on the homepage, a dedicated Tools row in the footer (visible on every page), in-content links across 5 blog posts, and cross-links between the tool pages themselves — no more orphaned pages.",
+        zh: "工具系列内链体系 — 3 个工具落地页（`/deepseek-api-cost-tracker`、`/deepseek-cache-hit-rate-analyzer`、`/deepseek-api-pricing-calculator`）现可从首页新增的「探索工具系列」区块、页脚新增的「工具」链接行（全站可见）、5 篇博客正文内链以及工具页之间的互链触达——彻底消除孤儿页面。",
+      },
+    ],
+    improved: [
+      {
+        en: "Keyword ownership clarified — the homepage title now targets the broad brand term 'DeepSeek API Usage Analytics — Free CSV Dashboard' (aligned with its H1), while the exact-match keyword 'deepseek api cost tracker' is owned exclusively by the cost tracker tool page, removing self-competition between the two.",
+        zh: "关键词归属明确 — 首页标题改为瞄准宽泛品牌词「DeepSeek API Usage Analytics — Free CSV Dashboard」（与 H1 对齐），精确词「deepseek api cost tracker」完全归属成本追踪工具页，消除两页之间的关键词自相蚕食。",
+      },
+      {
+        en: "Meta descriptions optimized — 10 English page descriptions trimmed from 165–211 characters down to ≤160 for cleaner SERP display (home, guideline, privacy, terms, changelog, cost tracker, cache analyzer, author, and 2 blog posts).",
+        zh: "元描述优化 — 10 条英文页面描述从 165–211 字符精简至 160 字符以内（首页、指南、隐私、条款、更新日志、费用追踪、缓存分析、作者及 2 篇博客），改善搜索结果展示。",
+      },
+      {
+        en: "Blog index structured data — `/blog` and `/zh/blog` now emit Blog + ItemList JSON-LD referencing all 6 articles, giving search engines an explicit content hierarchy for the blog.",
+        zh: "博客索引结构化数据 — `/blog` 与 `/zh/blog` 新增 Blog + ItemList JSON-LD，引用全部 6 篇文章，为搜索引擎提供明确的博客内容层级。",
+      },
+      {
+        en: "Site icons slimmed — favicon compressed from 242 KB to ~10 KB (multi-size 16/32/48) with a new 180×180 apple-touch-icon; the 242 KB `ds-usage-logo.ico` is no longer referenced from page markup, saving ~240 KB per page load.",
+        zh: "站点图标瘦身 — favicon 从 242 KB 压缩至约 10 KB（16/32/48 多尺寸），并新增 180×180 苹果触摸图标；页面标记不再引用 242 KB 的 `ds-usage-logo.ico`，每个页面请求节省约 240 KB。",
+      },
+      {
+        en: "Custom bilingual 404 — replaced the default Next.js error page with a branded page (English by default, with an in-page Chinese toggle) that links back to the homepage, blog, and all three tools. Requires `experimental.globalNotFound` (multiple root layouts) and ships as `app/global-not-found.tsx`.",
+        zh: "自定义双语 404 页 — 用品牌化页面替换 Next.js 默认错误页（默认英文，页面内可切换中文），并提供首页、博客和三个工具的返回链接。因项目采用多根布局，启用 `experimental.globalNotFound` 并通过 `app/global-not-found.tsx` 输出。",
+      },
+    ],
+  },
+  {
     version: "v0.9.2",
     date: "2026-08-18",
     added: [

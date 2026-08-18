@@ -55,8 +55,8 @@ export const en: ArticleContent = {
           items: [
             "<strong>Use an AI Gateway.</strong> Portkey and Helicone both support multi-provider routing. Configure them to send a percentage of traffic to DeepSeek while keeping OpenAI or Claude as fallback.",
             "<strong>Start with non-critical workloads.</strong> Migrate internal tools, data extraction pipelines, and summarization tasks first. Keep customer-facing chat on your current provider until you've validated DeepSeek's performance on your specific prompts.",
-            'Monitor cache hit rates. DeepSeek\'s cost advantage is amplified by effective caching. Use our <a href="/">free dashboard</a> to track cache hit rates per key and optimize your prompt structure.',
-            "<strong>Compare real costs, not list prices.</strong> Your effective cost depends on your cache hit rate, input/output ratio, and thinking token usage. Upload CSVs from your providers to see actual per-request costs side by side.",
+            'Monitor cache hit rates. DeepSeek\'s cost advantage is amplified by effective caching. Use our <a href="/deepseek-cache-hit-rate-analyzer">cache hit rate analyzer</a> to track hit rates per key and optimize your prompt structure.',
+            "<strong>Compare real costs, not list prices.</strong> Your effective cost depends on your cache hit rate, input/output ratio, and thinking token usage. Model your exact workload with our <a href=\"/deepseek-api-pricing-calculator\">pricing calculator</a> — it handles DeepSeek's peak/off-peak and cache pricing alongside OpenAI and Anthropic rates.",
           ],
         },
       ],
@@ -164,8 +164,8 @@ export const zh: ArticleContent = {
           items: [
             "<strong>使用 AI 网关。</strong> Portkey 和 Helicone 都支持多供应商路由。将它们配置为将一部分流量发送到 DeepSeek，同时保留 OpenAI 或 Claude 作为回退方案。",
             "<strong>先从非关键负载开始。</strong>优先迁移内部工具、数据抽取流水线和摘要任务。在验证 DeepSeek 在你具体 Prompt 上的表现之前，保持面向客户的对话在现有供应商上。",
-            '<strong>监控缓存命中率。</strong> DeepSeek 的成本优势在有效缓存的加持下更为显著。使用我们的<a href="/">免费仪表盘</a>追踪各 Key 的缓存命中率并优化 Prompt 结构。',
-            "<strong>对比实际成本而不是标价。</strong>你的实际成本取决于缓存命中率、输入/输出比例和思考 Token 的使用量。上传不同供应商的账单数据，查看每次请求的真实成本对比。",
+            '<strong>监控缓存命中率。</strong> DeepSeek 的成本优势在有效缓存的加持下更为显著。使用我们的<a href="/deepseek-cache-hit-rate-analyzer">缓存命中率分析器</a>追踪各 Key 的命中率并优化 Prompt 结构。',
+            "<strong>对比实际成本而不是标价。</strong>你的实际成本取决于缓存命中率、输入/输出比例和思考 Token 的使用量。用我们的<a href=\"/deepseek-api-pricing-calculator\">定价计算器</a>建模你的真实工作负载——它同时覆盖 DeepSeek 的高峰/闲时、缓存定价以及 OpenAI 和 Anthropic 的费率。",
           ],
         },
       ],

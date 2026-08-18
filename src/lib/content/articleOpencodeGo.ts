@@ -91,7 +91,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "Straight from DeepSeek's official pricing page: <em>'We plan to raise the overall pricing for DeepSeek API services in the near future, with a significant increase expected.'</em> And the first wave is already here: under the new peak / off-peak schedule, V4 Flash output is billed at <strong>¥9 per million tokens at peak hours — 4.5× the old flat ¥2</strong> — while off-peak holds at half of peak. For pay-as-you-go users, higher unit costs are no longer a rumor; they are live.",
+            "Straight from DeepSeek's official pricing page: <em>'We plan to raise the overall pricing for DeepSeek API services in the near future, with a significant increase expected.'</em> And the first wave is already here: under the new peak / off-peak schedule, V4 Flash output is billed at <strong>¥9 per million tokens at peak hours — 4.5× the old flat ¥2</strong> — while off-peak holds at half of peak. For pay-as-you-go users, higher unit costs are no longer a rumor; they are live. Run your own workload through our <a href=\"/deepseek-api-pricing-calculator\">pricing calculator</a> to see exactly what the new schedule means for your monthly bill.",
         },
         {
           type: "p",
@@ -260,7 +260,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "DeepSeek 官方定价页原话：<em>「我们计划在不久的将来整体上调 DeepSeek API 服务的定价，且涨幅预计显著。」</em>而且第一波已经落地：新的高峰/闲时计价下，V4 Flash 输出在高峰时段按 <strong>每百万 Token ¥9 计费——是旧平价 ¥2 的 4.5 倍</strong>，闲时则维持高峰的一半。对按量付费用户来说，单位成本上涨不再是传闻，而是正在进行时。",
+            "DeepSeek 官方定价页原话：<em>「我们计划在不久的将来整体上调 DeepSeek API 服务的定价，且涨幅预计显著。」</em>而且第一波已经落地：新的高峰/闲时计价下，V4 Flash 输出在高峰时段按 <strong>每百万 Token ¥9 计费——是旧平价 ¥2 的 4.5 倍</strong>，闲时则维持高峰的一半。对按量付费用户来说，单位成本上涨不再是传闻，而是正在进行时。用我们的<a href=\"/deepseek-api-pricing-calculator\">定价计算器</a>跑一下你的真实工作负载，看看新计价对你的月度账单意味着什么。",
         },
         {
           type: "p",

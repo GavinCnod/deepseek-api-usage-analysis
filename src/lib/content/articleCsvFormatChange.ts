@@ -143,7 +143,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "Version <strong>0.8.0</strong> of our free <a href=\"/\">DeepSeek usage analytics dashboard</a> parses the new export format out of the box: it derives the billing day from <code>start_time_iso</code>, pairs the new date-range filenames, and still fully supports legacy <code>utc_date</code> exports. Just drag the ZIP from the platform onto the page — everything runs locally in your browser, no upload, no signup.",
+            "Version <strong>0.8.0</strong> of our free <a href=\"/deepseek-api-cost-tracker\">DeepSeek API Cost Tracker</a> parses the new export format out of the box: it derives the billing day from <code>start_time_iso</code>, pairs the new date-range filenames, and still fully supports legacy <code>utc_date</code> exports. Just drag the ZIP from the platform onto the page — everything runs locally in your browser, no upload, no signup.",
         },
         {
           type: "p",
@@ -307,7 +307,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "免费 <a href=\"/\">DeepSeek 用量分析仪表盘</a> 的 <strong>v0.8.0</strong> 已开箱支持新导出格式：从 <code>start_time_iso</code> 派生账单日、按日期区间文件名配对月份，同时完整兼容旧的 <code>utc_date</code> 导出。把平台下载的 ZIP 直接拖进页面即可——全部在浏览器本地完成，不上传、不注册。",
+            "免费 <a href=\"/deepseek-api-cost-tracker\">DeepSeek API 费用追踪器</a> 的 <strong>v0.8.0</strong> 已开箱支持新导出格式：从 <code>start_time_iso</code> 派生账单日、按日期区间文件名配对月份，同时完整兼容旧的 <code>utc_date</code> 导出。把平台下载的 ZIP 直接拖进页面即可——全部在浏览器本地完成，不上传、不注册。",
         },
         {
           type: "p",

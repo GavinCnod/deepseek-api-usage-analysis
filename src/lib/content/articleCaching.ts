@@ -88,7 +88,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "You can't improve what you don't measure. Our free DeepSeek API Usage Dashboard shows your cache hit rate over time, broken down by API key. A hit rate above 40% (green) means your caching strategy is working well. Below 20% (red) is a strong signal that your prompt structure needs attention.",
+            "You can't improve what you don't measure. Our free <a href=\"/deepseek-cache-hit-rate-analyzer\">DeepSeek Cache Hit Rate Analyzer</a> shows your cache hit rate over time, broken down by API key. A hit rate above 40% (green) means your caching strategy is working well. Below 20% (red) is a strong signal that your prompt structure needs attention.",
         },
       ],
     },
@@ -221,7 +221,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "无法度量就无法优化。我们的免费 DeepSeek API 用量分析仪表盘可以按 API Key 展示缓存命中率的长期趋势。命中率 > 40%（绿色）说明你的缓存策略运作良好；< 20%（红色）则强烈提示 Prompt 结构需要优化。",
+            "无法度量就无法优化。我们的免费<a href=\"/deepseek-cache-hit-rate-analyzer\">DeepSeek 缓存命中率分析器</a>可以按 API Key 展示缓存命中率的长期趋势。命中率 > 40%（绿色）说明你的缓存策略运作良好；< 20%（红色）则强烈提示 Prompt 结构需要优化。",
         },
       ],
     },

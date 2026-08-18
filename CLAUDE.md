@@ -6,6 +6,7 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 
 - **Route groups**: `(site)/` is an invisible grouping for the English root layout; all pages live under `src/app/(site)/`. The Chinese mirror lives under `src/app/zh/` with identical routes.
 - **Shared root layout**: `AppRootLayout.tsx` is imported by both `(site)/layout.tsx` and `zh/layout.tsx`, rendering `<ThemeProvider> → <AppI18nShell locale> → <DataProvider> → <ProjectConfigProvider>` with GA script injection.
+- **Global 404**: because there is no single root layout, the custom 404 uses `experimental.globalNotFound` + `src/app/global-not-found.tsx` (full HTML document, wraps `NotFoundClient.tsx` in a standalone `I18nProvider` — locale is NOT locked, so the in-page EN/ZH toggle works via `setLocale`).
 - **SEO metadata**: Centralized in `routeMetadata.ts` (page-specific builders) → `pageMetadata.ts` (`buildLocalizedPageMetadata`) → `schema.ts` (JSON-LD). Each page imports the appropriate builder.
 - **Locale routing**: `localeRouting.ts` provides path helpers (`buildLocalePath`, `switchLocalePath`, `buildLocaleUrl`, etc.) used by navigation components and language switcher.
 
@@ -27,6 +28,7 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/lib/content/articleCsvFormatChange.ts` | Article 5 content (DeepSeek CSV export format change) |
 | `src/lib/content/articleValueChampions.ts` | Article 6 content (2026 value champions: GPT-5.6 Luna vs DeepSeek V4 Flash) |
 | `src/components/JsonLd.tsx` | Reusable JSON-LD `<script>` renderer |
+| `src/components/NotFoundClient.tsx` | Client 404 UI (bilingual, in-page locale toggle, back-links) rendered by `global-not-found.tsx` |
 | `src/components/AffiliateWall.tsx` | Commercial recommendation module for affiliate links |
 | `src/components/RecommendedToolsSection.tsx` | Shared site-wide "Recommended Tools We ARE USING" wall (AffiliateWall + heading), rendered before FooterBar on every page |
 | `src/components/CostTrackerContent.tsx` | `<noscript>` fallback for cost tracker SEO |

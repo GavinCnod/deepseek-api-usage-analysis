@@ -32,9 +32,6 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export function buildRootLayoutMetadata(): Metadata {
   return {
     metadataBase: new URL(SITE_URL),
-    icons: {
-      icon: "/ds-usage-logo.ico",
-    },
     robots: {
       index: true,
       follow: true,

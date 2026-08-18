@@ -260,6 +260,16 @@ export function CacheAnalyzerPage() {
               <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 {t.cacheAnalyzer.feature1Desc}
               </p>
+              <span className="block mt-2">
+                <Link
+                  href={buildLocalePath("/deepseek-api-cost-tracker", locale)}
+                  className="inline-flex items-center gap-1 text-xs font-medium hover:underline"
+                  style={{ color: "var(--accent)" }}
+                >
+                  {locale === "zh" ? "用费用追踪器查看对应花费" : "See the matching spend in the cost tracker"}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </span>
             </div>
             <div>
               <h3 className="text-sm font-semibold mb-2" style={{ color: "var(--text-primary)" }}>
@@ -268,6 +278,16 @@ export function CacheAnalyzerPage() {
               <p className="text-sm leading-relaxed" style={{ color: "var(--text-secondary)" }}>
                 {t.cacheAnalyzer.feature2Desc}
               </p>
+              <span className="block mt-2">
+                <Link
+                  href={buildLocalePath("/deepseek-api-pricing-calculator", locale)}
+                  className="inline-flex items-center gap-1 text-xs font-medium hover:underline"
+                  style={{ color: "var(--accent)" }}
+                >
+                  {locale === "zh" ? "用定价计算器量化你的节省" : "Quantify your savings with the pricing calculator"}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              </span>
             </div>
           </div>
         </section>

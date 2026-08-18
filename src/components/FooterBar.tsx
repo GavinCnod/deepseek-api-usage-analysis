@@ -6,7 +6,7 @@ import { buildLocalePath } from "@/lib/localeRouting";
 import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.9.2";
+const APP_VERSION = "0.9.3";
 
 /**
  * FooterBar 属性
@@ -34,6 +34,9 @@ export default function FooterBar({ animate = false, sectionRef }: FooterBarProp
   const blogHref = buildLocalePath("/blog", locale);
   const authorHref = buildLocalePath("/author", locale);
   const changelogHref = buildLocalePath("/changelog", locale);
+  const costTrackerHref = buildLocalePath("/deepseek-api-cost-tracker", locale);
+  const cacheAnalyzerHref = buildLocalePath("/deepseek-cache-hit-rate-analyzer", locale);
+  const pricingCalculatorHref = buildLocalePath("/deepseek-api-pricing-calculator", locale);
 
   const content = (
     <footer
@@ -41,6 +44,36 @@ export default function FooterBar({ animate = false, sectionRef }: FooterBarProp
       style={{ color: "var(--text-tertiary)" }}
     >
       <hr style={{ borderColor: "var(--border)", marginBottom: "1.5rem" }} />
+
+      <div className="mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs">
+        <span style={{ color: "var(--text-secondary)" }}>
+          {t.footer.toolsLabel}
+        </span>
+        <span aria-hidden="true">·</span>
+        <Link
+          href={costTrackerHref}
+          className="transition-colors duration-200 hover:underline underline-offset-2"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {t.costTracker.pageTitle}
+        </Link>
+        <span aria-hidden="true">·</span>
+        <Link
+          href={cacheAnalyzerHref}
+          className="transition-colors duration-200 hover:underline underline-offset-2"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {t.cacheAnalyzer.pageTitle}
+        </Link>
+        <span aria-hidden="true">·</span>
+        <Link
+          href={pricingCalculatorHref}
+          className="transition-colors duration-200 hover:underline underline-offset-2"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {t.pricingCalculator.pageTitle}
+        </Link>
+      </div>
 
       <div className="mb-4 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-xs">
         <span style={{ color: "var(--text-secondary)" }}>

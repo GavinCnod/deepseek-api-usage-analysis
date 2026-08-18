@@ -78,7 +78,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            '<a href="/">Our tool</a> takes a fundamentally different approach: instead of intercepting API calls, you drag your DeepSeek CSV billing exports directly into the browser. Everything runs locally — no server, no signup, no data upload. This makes it the most privacy-respecting option and ideal for developers who want quick insights without integrating SDKs.',
+            '<a href="/deepseek-api-cost-tracker">Our free DeepSeek API Cost Tracker</a> takes a fundamentally different approach: instead of intercepting API calls, you drag your DeepSeek CSV billing exports directly into the browser. Everything runs locally — no server, no signup, no data upload. This makes it the most privacy-respecting option and ideal for developers who want quick insights without integrating SDKs.',
         },
         {
           type: "p",
@@ -98,7 +98,7 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
-            "Many developers use a combination: Helicone for real-time alerts, and our CSV analyzer for monthly deep-dives and trend analysis. The tools are complementary, not competitive.",
+            "Many developers use a combination: Helicone for real-time alerts, and our CSV analyzer for monthly deep-dives and trend analysis. The tools are complementary, not competitive. Before you commit to a plan, estimate your exact workload costs with our <a href=\"/deepseek-api-pricing-calculator\">pricing calculator</a> — it models DeepSeek's peak/off-peak rates and cache pricing for any model mix.",
         },
       ],
     },
@@ -183,7 +183,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            '<a href="/">我们的工具</a>采取了一条根本不同的路线：不拦截 API 调用，而是让你直接把 DeepSeek CSV 账单导出的文件拖进浏览器。一切数据都在本地运行——无需服务器、无需注册、无需上传数据。因此它是隐私最受尊重的选择，也最适合希望在不集成 SDK 的前提下快速获取洞察的开发者。',
+            '<a href="/deepseek-api-cost-tracker">我们的免费 DeepSeek API 费用追踪器</a>采取了一条根本不同的路线：不拦截 API 调用，而是让你直接把 DeepSeek CSV 账单导出的文件拖进浏览器。一切数据都在本地运行——无需服务器、无需注册、无需上传数据。因此它是隐私最受尊重的选择，也最适合希望在不集成 SDK 的前提下快速获取洞察的开发者。',
         },
         {
           type: "p",
@@ -203,7 +203,7 @@ export const zh: ArticleContent = {
         {
           type: "p",
           content:
-            "很多开发者组合使用：Helicone 负责实时告警，我们的 CSV 分析器负责月度深度分析和趋势观察。这些工具互补而非竞争。",
+            "很多开发者组合使用：Helicone 负责实时告警，我们的 CSV 分析器负责月度深度分析和趋势观察。这些工具互补而非竞争。在确定方案前，先用我们的<a href=\"/deepseek-api-pricing-calculator\">定价计算器</a>按你的实际用量估算成本——它支持 DeepSeek 高峰/闲时费率与缓存定价，适用于任意模型组合。",
         },
       ],
     },

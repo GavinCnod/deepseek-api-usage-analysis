@@ -155,7 +155,7 @@ export default function LandingPage() {
             className="absolute inset-0 pointer-events-none select-none reveal-section hidden md:block"
             style={bgDecorationStyle}
             ref={(el) => {
-              sectionRefs.current[7] = el;
+              sectionRefs.current[8] = el;
             }}
             aria-hidden="true"
           />
@@ -287,6 +287,65 @@ export default function LandingPage() {
         </section>
 
         {/* ============================================================ */}
+        {/* 工具系列入口                                                 */}
+        {/* ============================================================ */}
+        <hr className="reveal-section" style={{ borderColor: "var(--border)" }} />
+        <section
+          id="tools"
+          className="pt-10 pb-12 reveal-section"
+          style={{ contentVisibility: "auto" }}
+          ref={(el) => {
+            sectionRefs.current[3] = el;
+          }}
+        >
+          <h2
+            className="text-[11px] font-semibold uppercase tracking-widest mb-8 text-center text-pretty"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            {t.landing.toolsTitle}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                href: buildLocalePath("/deepseek-api-cost-tracker", locale),
+                title: t.costTracker.pageTitle,
+                desc: t.landing.toolsCostTrackerDesc,
+              },
+              {
+                href: buildLocalePath("/deepseek-cache-hit-rate-analyzer", locale),
+                title: t.cacheAnalyzer.pageTitle,
+                desc: t.landing.toolsCacheDesc,
+              },
+              {
+                href: buildLocalePath("/deepseek-api-pricing-calculator", locale),
+                title: t.pricingCalculator.pageTitle,
+                desc: t.landing.toolsCalculatorDesc,
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="block p-5 rounded-subtle transition-all duration-200 hover:opacity-90"
+                style={{ border: "1px solid var(--border)" }}
+              >
+                <h3
+                  className="text-sm font-semibold mb-1 transition-colors duration-200"
+                  style={{ color: "var(--text-primary)" }}
+                >
+                  {tool.title}
+                </h3>
+                <p
+                  className="text-xs leading-relaxed text-pretty"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  {tool.desc}
+                </p>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* ============================================================ */}
         {/* 推荐工具（商业化模块）                                          */}
         {/* ============================================================ */}
         <hr className="reveal-section" style={{ borderColor: "var(--border)" }} />
@@ -294,7 +353,7 @@ export default function LandingPage() {
           className="pt-10 pb-16 reveal-section"
           style={{ contentVisibility: "auto" }}
           ref={(el) => {
-            sectionRefs.current[3] = el;
+            sectionRefs.current[4] = el;
           }}
         >
           <h2
@@ -324,7 +383,7 @@ export default function LandingPage() {
           className="pt-10 pb-12 reveal-section"
           style={{ contentVisibility: "auto" }}
           ref={(el) => {
-            sectionRefs.current[4] = el;
+            sectionRefs.current[5] = el;
           }}
         >
           <h2
@@ -413,7 +472,7 @@ export default function LandingPage() {
           className="pt-10 pb-16 reveal-section"
           style={{ contentVisibility: "auto" }}
           ref={(el) => {
-            sectionRefs.current[5] = el;
+            sectionRefs.current[6] = el;
           }}
         >
           <h2
@@ -687,7 +746,7 @@ export default function LandingPage() {
       <FooterBar
         animate
         sectionRef={(el) => {
-          sectionRefs.current[6] = el;
+          sectionRefs.current[7] = el;
         }}
       />
     </div>

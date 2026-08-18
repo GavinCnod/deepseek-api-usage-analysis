@@ -24,9 +24,18 @@ const translations = {
     footer: {
       text: "Deepseek AI Usage Analytics Dashboard by Gavin & Mindrose Team · Data processed locally in your browser · ",
       version: "Version",
+      toolsLabel: "Tools",
       relatedTools: "Related Tools",
       sisterProject: "Agnes AI Usage Analytics",
       visitSisterRepo: "Agnes Repo",
+    },
+    notFound: {
+      title: "Page not found",
+      desc: "The page you are looking for doesn't exist or has been moved. Let's get you back on track.",
+      backHome: "Back to Home",
+      viewBlog: "Read the Blog",
+      tools: "Explore the Tools",
+      switchLanguage: "中文",
     },
     dropzone: {
       processing: "Processing CSVs…",
@@ -307,12 +316,12 @@ const translations = {
       article1Title:
         "The Ultimate Guide to DeepSeek API Context Caching (2026)",
       article1Desc:
-        "Learn how DeepSeek's prefix-matching disk caching works, why your cache hit rate might be lower than expected, and 5 prompt engineering techniques to maximize savings.",
+        "Learn how DeepSeek's prefix-matching disk caching works, why your cache hit rate is lower than expected, and 5 ways to maximize savings.",
       article1Tags: "Caching, Cost Optimization, DeepSeek, Token Cost",
       article2Title:
         "Top 5 DeepSeek API Cost Optimization & Observability Tools",
       article2Desc:
-        "A comprehensive comparison of the best tools for monitoring and optimizing DeepSeek API costs — from real-time observability platforms to privacy-first CSV analyzers.",
+        "The best tools for monitoring and optimizing DeepSeek API costs — from real-time observability platforms to privacy-first CSV analyzers.",
       article2Tags: "Tools, Comparison, Cost Optimization, DeepSeek, Token Cost",
       article3Title:
         "DeepSeek vs OpenAI vs Claude: 2026 API Pricing Compared",
@@ -327,7 +336,7 @@ const translations = {
       article5Title:
         "DeepSeek Changed Its CSV Export Format (Aug 2026)",
       article5Desc:
-        "DeepSeek's billing CSV export changed: utc_date became start_time_iso timestamps, filenames are date-range based. Every change explained, already supported.",
+        "DeepSeek's billing CSV export changed — utc_date became start_time_iso, filenames are date-range based. Every change explained, already supported.",
       article5Tags: "DeepSeek, CSV Format, Export, Announcement, Cost Tracking",
       article6Title:
         "GPT-5.6 Luna vs DeepSeek V4 Flash: 2026 Best-Value LLMs",
@@ -561,6 +570,13 @@ const translations = {
       howItWorksStep3Title: "3. View Analytics",
       howItWorksStep3Desc:
         "Instantly see cost charts, per-key breakdowns, cache hit analysis, usage trends, and custom project groupings — all processed locally in your browser.",
+      toolsTitle: "Explore the Tool Series",
+      toolsCostTrackerDesc:
+        "Track every cent of your DeepSeek API spend by day, model, and API key.",
+      toolsCacheDesc:
+        "Measure and improve your cache hit rate to cut API costs.",
+      toolsCalculatorDesc:
+        "Estimate monthly costs for your exact workload and model mix.",
       qaTitle: "Frequently Asked Questions",
       qaQ1: "Is my data uploaded to any server?",
       qaA1: "No. All CSV parsing and cost computation runs entirely in your browser. Your data never leaves your device.",
@@ -629,9 +645,18 @@ const translations = {
     footer: {
       text: "DeepSeek API 用量分析仪表盘 · 数据仅在浏览器本地处理 · ",
       version: "版本",
+      toolsLabel: "工具",
       relatedTools: "姊妹工具",
       sisterProject: "Agnes AI 用量分析器",
       visitSisterRepo: "Agnes AI 仓库",
+    },
+    notFound: {
+      title: "页面未找到",
+      desc: "您访问的页面不存在或已被移动，让我们带你回到正轨。",
+      backHome: "返回首页",
+      viewBlog: "阅读博客",
+      tools: "探索工具",
+      switchLanguage: "EN",
     },
     dropzone: {
       processing: "正在处理 CSV…",
@@ -1164,6 +1189,13 @@ const translations = {
       howItWorksStep3Title: "3. 查看分析",
       howItWorksStep3Desc:
         "即刻查看费用图表、各 Key 用量明细、缓存命中分析、使用趋势和自定义项目分组 — 所有数据在浏览器本地处理。",
+      toolsTitle: "探索工具系列",
+      toolsCostTrackerDesc:
+        "按天、模型和 API Key 追踪 DeepSeek 支出的每一分钱。",
+      toolsCacheDesc:
+        "测量并提升缓存命中率，显著降低 API 成本。",
+      toolsCalculatorDesc:
+        "按你的实际用量与模型组合估算月度费用。",
       qaTitle: "常见问题",
       qaQ1: "我的数据会上传到服务器吗？",
       qaA1: "不会。所有 CSV 解析和费用计算均在您的浏览器中完成，数据不会离开您的设备。",

@@ -199,6 +199,18 @@ export function CostTrackerPage() {
                       </Link>
                     </span>
                   )}
+                  {idx === 3 && (
+                    <span className="block mt-2">
+                      <Link
+                        href={buildLocalePath("/deepseek-api-pricing-calculator", locale)}
+                        className="inline-flex items-center gap-1 font-medium hover:underline"
+                        style={{ color: "var(--accent)" }}
+                      >
+                        {locale === "zh" ? "估算各模型组合的月度成本" : "Estimate monthly costs for any model mix"}
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    </span>
+                  )}
                 </p>
               </div>
             ))}

@@ -11,6 +11,7 @@ import {
   GAVIN_LINKEDIN_URL,
   MINDROSE_SITE_URL,
 } from "@/lib/authors";
+import { getBlogArticleDefinition, type BlogArticleSlug } from "@/lib/blogArticles";
 import { buildLocaleUrl } from "@/lib/localeRouting";
 import { LOGO_IMAGE_URL } from "@/lib/site";
 import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
@@ -20,7 +21,7 @@ import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterPro
 /* ------------------------------------------------------------------ */
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.9.2";
+const APP_VERSION = "0.9.3";
 
 /** SoftwareApplication Schema 翻译 */
 const softwareAppSchema: Record<
@@ -300,6 +301,60 @@ export function buildArticleJsonLd(
 /* ------------------------------------------------------------------ */
 /*  子页面专属 JSON-LD                                                   */
 /* ------------------------------------------------------------------ */
+
+/**
+ * 根据 locale 生成博客索引 Blog + ItemList JSON-LD
+ *
+ * 为 /blog 与 /zh/blog 提供 Blog 聚合结构化数据，
+ * 每条博客文章同时出现在 blogPost 数组与 ItemList 中，便于搜索引擎建立站点内容结构。
+ */
+export function buildBlogIndexJsonLd(locale: Locale): Record<string, unknown> {
+  const blog = translations[locale].blogIndex;
+  const slugs: BlogArticleSlug[] = [
+    "deepseek-context-caching-guide",
+    "deepseek-cost-optimization-tools",
+    "openai-claude-vs-deepseek-cost-comparison",
+    "opencode-go-cheapest-deepseek-v4-flash",
+    "deepseek-csv-export-format-changed-aug-2026",
+    "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
+  ];
+  const titles: Record<BlogArticleSlug, string> = {
+    "deepseek-context-caching-guide": blog.article1Title,
+    "deepseek-cost-optimization-tools": blog.article2Title,
+    "openai-claude-vs-deepseek-cost-comparison": blog.article3Title,
+    "opencode-go-cheapest-deepseek-v4-flash": blog.article4Title,
+    "deepseek-csv-export-format-changed-aug-2026": blog.article5Title,
+    "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions": blog.article6Title,
+  };
+  const blogUrl = buildLocaleUrl(locale, "/blog");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: blog.pageTitle,
+    url: blogUrl,
+    inLanguage: locale,
+    description: blog.pageSubtitle,
+    blogPost: slugs.map((slug) => {
+      const def = getBlogArticleDefinition(slug);
+      return {
+        "@type": "BlogPosting",
+        headline: titles[slug],
+        url: buildLocaleUrl(locale, def.pathname),
+        datePublished: def.publishedTime,
+      };
+    }),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: slugs.map((slug, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: titles[slug],
+        url: buildLocaleUrl(locale, getBlogArticleDefinition(slug).pathname),
+      })),
+    },
+  };
+}
 
 /**
  * 生成 CostTracker 页面的 FAQPage JSON-LD

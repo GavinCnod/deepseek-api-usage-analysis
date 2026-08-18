@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useTranslation } from "@/i18n";
 import { buildLocalePath } from "@/lib/localeRouting";
 import { getBlogArticleDefinition } from "@/lib/blogArticles";
+import { buildBlogIndexJsonLd } from "@/lib/schema";
+import JsonLd from "@/components/JsonLd";
 import TitleBar from "@/components/TitleBar";
 import FooterBar from "@/components/FooterBar";
 import RecommendedToolsSection from "@/components/RecommendedToolsSection";
@@ -57,6 +59,7 @@ export default function BlogIndex() {
 
   return (
     <div className="min-h-screen" style={{ background: "var(--bg)" }}>
+      <JsonLd data={buildBlogIndexJsonLd(locale)} />
       <TitleBar />
 
       <div className="max-w-3xl mx-auto px-6 py-8">
