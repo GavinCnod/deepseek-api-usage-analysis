@@ -17,7 +17,9 @@ import {
   MODEL_NAMES,
   MODEL_PRICING,
   MODEL_PRICING_PATHS,
+  MODEL_VENDOR,
   type ModelKey,
+  type PriceCell,
 } from "@/lib/modelPricing";
 import { getModelPricingContent } from "@/lib/content/modelPricingContent";
 import {
@@ -26,14 +28,14 @@ import {
   type GlossarySlug,
 } from "@/lib/content/glossaryContent";
 import { LOGO_IMAGE_URL } from "@/lib/site";
-import { agnesProject, deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
+import { deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
 
 /* ------------------------------------------------------------------ */
 /*  多语言翻译映射                                                       */
 /* ------------------------------------------------------------------ */
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.10.1";
+const APP_VERSION = "0.10.2";
 
 /** SoftwareApplication Schema 翻译 */
 const softwareAppSchema: Record<
@@ -98,6 +100,12 @@ export function buildSoftwareAppJsonLd(locale: Locale): Record<string, unknown> 
       price: "0",
       priceCurrency: "USD",
     },
+    publisher: {
+      "@type": "Organization",
+      "@id": "https://mindrose.xyz/#organization",
+      name: "MindRose Team",
+      url: MINDROSE_SITE_URL,
+    },
   };
 }
 
@@ -120,130 +128,52 @@ export function buildFaqJsonLd(locale: Locale): Record<string, unknown> {
   };
 }
 
-/**
- * BreadcrumbList JSON-LD Schema 翻译
- *
- * 面包屑导航的多语言名称映射。
- */
-const breadcrumbSchema: Record<
-  Locale,
-  {
-    home: string;
-    guideline: string;
-    privacy: string;
-    terms: string;
-    changelog: string;
-    author: string;
-  }
-> = {
-  en: {
-    home: "DeepSeek API Usage Analytics Dashboard",
-    guideline: "User Guide",
-    privacy: "Privacy Policy",
-    terms: "Terms of Use",
-    changelog: "Changelog",
-    author: "Author",
-  },
-  zh: {
-    home: "DeepSeek API 用量分析仪表盘",
-    guideline: "使用指南",
-    privacy: "隐私政策",
-    terms: "使用条款",
-    changelog: "更新日志",
-    author: "作者",
-  },
-};
-
-/**
- * 根据 locale 生成 BreadcrumbList JSON-LD
- *
- * 包含站点所有主要页面的面包屑导航，
- * 帮助搜索引擎理解站点层级结构。
- */
-export function buildBreadcrumbJsonLd(locale: Locale): Record<string, unknown> {
-  const t = breadcrumbSchema[locale];
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: t.home,
-        item: buildLocaleUrl(locale, "/"),
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: t.guideline,
-        item: buildLocaleUrl(locale, "/guideline"),
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: t.privacy,
-        item: buildLocaleUrl(locale, "/privacy"),
-      },
-      {
-        "@type": "ListItem",
-        position: 4,
-        name: t.terms,
-        item: buildLocaleUrl(locale, "/terms"),
-      },
-      {
-        "@type": "ListItem",
-        position: 5,
-        name: t.changelog,
-        item: buildLocaleUrl(locale, "/changelog"),
-      },
-      {
-        "@type": "ListItem",
-        position: 6,
-        name: t.author,
-        item: buildAuthorPageUrl(locale),
-      },
-    ],
-  };
-}
-
 /** Organization Schema 翻译 */
-const organizationSchema: Record<Locale, { name: string; description: string }> = {
+const organizationSchema: Record<Locale, { description: string }> = {
   en: {
-    name: "DeepSeek API Usage Analytics Dashboard by Gavin & Mindrose Team",
     description:
-      "Free, open-source, browser-side dashboard for DeepSeek API usage analytics. Drop your monthly CSVs and get instant cost analysis.",
+      "MindRose Team builds free, open-source, browser-side analytics tools for DeepSeek and AI API usage. All CSV parsing runs locally in your browser.",
   },
   zh: {
-    name: "DeepSeek API 用量分析仪表盘 by Gavin & Mindrose Team",
     description:
-      "免费、开源、纯浏览器端的 DeepSeek API 用量分析仪表盘。拖拽月度 CSV 即可获取即时费用分析。",
+      "MindRose 团队打造免费、开源、纯浏览器端的 DeepSeek 与 AI API 用量分析工具，所有 CSV 解析均在本地完成。",
   },
 };
 
 /**
  * 根据 locale 生成 Organization JSON-LD
  *
- * 帮助 Google 建立品牌实体识别（Knowledge Panel），
- * 通过 sameAs 链接关联 GitHub 等外部平台。
+ * 代表真实发布实体 MindRose Team，帮助 Google 建立品牌实体识别，
+ * 通过 sameAs 关联官网与 GitHub 等外部平台。
  */
 export function buildOrganizationJsonLd(locale: Locale): Record<string, unknown> {
   const t = organizationSchema[locale];
   const sameAs = Array.from(
     new Set([
+      MINDROSE_SITE_URL,
       deepseekProject.githubUrl,
-      agnesProject.siteUrl,
     ])
   );
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: t.name,
-    url: buildLocaleUrl(locale, "/"),
+    "@id": "https://mindrose.xyz/#organization",
+    name: "MindRose Team",
+    url: MINDROSE_SITE_URL,
     logo: LOGO_IMAGE_URL,
     description: t.description,
     inLanguage: locale,
     sameAs,
-    brand: TOOL_SERIES_NAME,
+    contactPoint: {
+      "@type": "ContactPoint",
+      email: "hello@mindrose.xyz",
+      contactType: "customer support",
+      availableLanguage: ["en", "zh"],
+    },
+    brand: {
+      "@type": "Brand",
+      name: TOOL_SERIES_NAME,
+    },
   };
 }
 
@@ -472,8 +402,48 @@ export function buildCacheAnalyzerSoftwareAppJsonLd(locale: Locale): Record<stri
  *
  * 每个模型独立定价落地页注入一套结构化数据：
  * - FAQPage 复用页面可见的 FAQ 文案，保证一致
- * - Product + Offer 表达该模型的公开 API 价格
+ * - Product + AggregateOffer 完整表达该模型 input/output/cache 三档公开价格，
+ *   并通过 availableAtOrFrom 明确价格归属厂商，避免被误认为本站售卖
  */
+
+/** 三档计价单元的多语言标签。 */
+const priceTierLabels = {
+  input: { en: "Input tokens", zh: "输入 tokens" },
+  output: { en: "Output tokens", zh: "输出 tokens" },
+  cacheHit: { en: "Cached input tokens", zh: "缓存命中输入 tokens" },
+} as const;
+
+type PriceTierKey = keyof typeof priceTierLabels;
+
+/** 取计价单元的头条价格：固定价取原值，高峰/闲时取高峰价。 */
+function priceCellHeadline(cell: PriceCell): number {
+  return typeof cell === "number" ? cell : cell.peak;
+}
+
+/** 生成某档价的「每百万 token」说明文案（DeepSeek 补充高峰价标注）。 */
+function buildPriceTierDescription(
+  key: PriceTierKey,
+  hasOffPeak: boolean,
+  locale: Locale
+): string {
+  const unit =
+    locale === "zh"
+      ? {
+          input: "每百万输入 token",
+          output: "每百万输出 token",
+          cacheHit: "每百万缓存命中输入 token",
+        }
+      : {
+          input: "per million input tokens",
+          output: "per million output tokens",
+          cacheHit: "per million cached input tokens",
+        };
+  const base = unit[key];
+  return hasOffPeak
+    ? `${base}（${locale === "zh" ? "高峰价" : "peak-hour list price"}）`
+    : base;
+}
+
 export function buildModelPricingJsonLd(
   modelKey: ModelKey,
   locale: Locale
@@ -483,6 +453,15 @@ export function buildModelPricingJsonLd(
   const url = buildLocaleUrl(locale, pathname);
   const name = MODEL_NAMES[modelKey][locale];
   const pricing = MODEL_PRICING[modelKey];
+  const vendor = MODEL_VENDOR[modelKey];
+  const hasOffPeak = typeof pricing.input !== "number";
+
+  const tiers: { key: PriceTierKey; cell: PriceCell }[] = [
+    { key: "input", cell: pricing.input },
+    { key: "output", cell: pricing.output },
+    { key: "cacheHit", cell: pricing.cacheHit },
+  ];
+  const rates = tiers.map((t) => priceCellHeadline(t.cell));
 
   return {
     "@context": "https://schema.org",
@@ -496,20 +475,30 @@ export function buildModelPricingJsonLd(
     })),
     about: {
       "@type": "Product",
+      "@id": `${url}#model`,
       name,
       url,
       description: content.description[locale],
       inLanguage: locale,
+      brand: { "@type": "Brand", name: vendor.name },
       offers: {
-        "@type": "Offer",
-        price: String(
-          typeof pricing.input === "number" ? pricing.input : pricing.input.peak
-        ),
+        "@type": "AggregateOffer",
         priceCurrency: pricing.currency,
-        description:
-          pricing.currency === "CNY"
-            ? "per million tokens, peak-hour list price"
-            : "per million tokens, standard-tier list price",
+        lowPrice: String(Math.min(...rates)),
+        highPrice: String(Math.max(...rates)),
+        offerCount: tiers.length,
+        priceSpecification: tiers.map((t) => ({
+          "@type": "UnitPriceSpecification",
+          name: priceTierLabels[t.key][locale],
+          price: String(priceCellHeadline(t.cell)),
+          priceCurrency: pricing.currency,
+          description: buildPriceTierDescription(t.key, hasOffPeak, locale),
+        })),
+        availableAtOrFrom: {
+          "@type": "Place",
+          name: vendor.name,
+          url: vendor.pricingUrl,
+        },
       },
     },
   };

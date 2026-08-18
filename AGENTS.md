@@ -13,7 +13,7 @@ Client-only analytics dashboard for DeepSeek platform CSV/ZIP exports. Apple-min
 - `npm run dev` — dev server on :3000. The script passes `--webpack`: Next 16 defaults to Turbopack; this repo pins webpack, so keep the flag.
 - `npm run build` — static export to `out/` (`output: "export"` in `next.config.ts`) — also type-checks the app.
 - `npm run lint` — ESLint (flat config `eslint.config.mjs`, eslint-config-next).
-- `npm test` — Vitest. **49 tests across 7 files** in `src/__tests__/` (analytics, schema, sitemap, localeRouting, DataContext, DropZone, parser). Older "50 tests"/"90 tests"/BlogIndex claims are stale — do not repeat them.
+- `npm test` — Vitest. **50 tests across 7 files** in `src/__tests__/` (analytics, schema, sitemap, localeRouting, DataContext, DropZone, parser). Older "49 tests"/"90 tests"/BlogIndex claims are stale — do not repeat them.
 - `npx vitest run src/__tests__/<file>` — single test file.
 - `npx tsc --noEmit` — standalone typecheck (no dedicated npm script).
 - `npm run start` does not serve the static build; preview `out/` with a static host (e.g. `npx serve out`).

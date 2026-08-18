@@ -266,6 +266,15 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.10.2** (2026-08-18)
+
+*Fixed*
+- Homepage BreadcrumbList JSON-LD removed — the landing page is a single-page dashboard, not a multi-level hierarchy, so the breadcrumb schema misled search engines about the site structure.
+- Organization JSON-LD corrected to the real publisher — it now identifies MindRose Team (name/url/@id = mindrose.xyz, contactPoint hello@mindrose.xyz) and is linked from the `SoftwareApplication` `publisher` field, so Google's Knowledge Panel no longer associates this site with DeepSeek itself.
+
+*Improved*
+- Model pricing pages upgraded to a full `AggregateOffer` — each of the 8 per-model pricing pages now emits `lowPrice`/`highPrice`/`offerCount`, three `UnitPriceSpecification` tiers (input / output / cached input tokens, peak-hour list price for DeepSeek), and `availableAtOrFrom` pointing at the vendor's official pricing page.
+
 **v0.10.1** (2026-08-18)
 
 *Improved*
@@ -508,6 +517,15 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.10.2**（2026-08-18）
+
+*修复*
+- 移除首页 BreadcrumbList JSON-LD — 落地页是单页仪表盘而非多级层级结构，面包屑 Schema 会误导搜索引擎对站点结构的理解。
+- Organization JSON-LD 修正为真实发布者 — 现标识 MindRose Team（name/url/@id = mindrose.xyz，contactPoint hello@mindrose.xyz），并从 `SoftwareApplication` 的 `publisher` 字段关联，避免 Google 知识面板将本站与 DeepSeek 本体混淆。
+
+*改进*
+- 模型定价页升级为完整 `AggregateOffer` — 8 个单模型定价页现输出 `lowPrice`/`highPrice`/`offerCount`、三档 `UnitPriceSpecification`（输入 / 输出 / 缓存命中输入 tokens，DeepSeek 标注高峰价），并通过 `availableAtOrFrom` 指向厂商官方定价页。
 
 **v0.10.1**（2026-08-18）
 

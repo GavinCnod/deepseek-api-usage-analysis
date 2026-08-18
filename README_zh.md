@@ -40,14 +40,14 @@
 - **多月支持** — 一次拖入多个月份文件；根据文件名模式自动配对并拼接（兼容 `amount-{年份}-{月份}.csv` 与日期区间式 `amount-2026-08-01_2026-08-17.csv` 两种命名）。同时支持 ZIP 压缩包直接上传 — 无需解压，直接将 DeepSeek 平台导出的 ZIP 文件拖入页面即可。
 - **Apple 极简设计** — 冷灰纸质感底、大量留白、「无卡片」通栏模块布局、细横线分割、5rem Hero 大数字、弥散阴影
 - **100% 隐私** — 所有 CSV 解析（Papa Parse）、ZIP 解压（JSZip）和费用计算均在浏览器客户端完成；项目配置仅存储于浏览器的 localStorage 中
-- **SEO 优化** — 服务端渲染元数据（规范 URL、OpenGraph 含 `alternateLocale` en/zh、Twitter 卡片）、JSON-LD 结构化数据（`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`，双语，通过可复用 `<JsonLd />` 组件渲染）、robots.txt + sitemap.xml（每路由 en + zh 双语条目）、`<noscript>` 爬虫回退内容、支持锚点链接的落地页板块、`llms.txt` 面向 LLM 的站点描述
+- **SEO 优化** — 服务端渲染元数据（规范 URL、OpenGraph 含 `alternateLocale` en/zh、Twitter 卡片）、JSON-LD 结构化数据（`SoftwareApplication` + `FAQPage` + `Organization`，双语，通过可复用 `<JsonLd />` 组件渲染）、robots.txt + sitemap.xml（每路由 en + zh 双语条目）、`<noscript>` 爬虫回退内容、支持锚点链接的落地页板块、`llms.txt` 面向 LLM 的站点描述
 - **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 FooterBar（「姊妹工具」行）、LandingPage（专属区段）以及 Organization JSON-LD Schema 中。
 - **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.10.1 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.10.2 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
-- **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、包含所有子页面的扩展 `BreadcrumbList`、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
+- **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
 - **社区友好** — `CONTRIBUTING.md`、`CODE_OF_CONDUCT.md`、Issue 模板（Bug 报告 + 功能请求）和 Pull Request 模板，欢迎贡献者
 - **错误韧性** — 优雅处理 ZIP/CSV 处理失败，显示用户可见的错误信息并支持重试；DataContext 解析器崩溃保护
 - **无障碍** — 所有图表具有描述性 `aria-label` 属性；响应式 Hero 文字从移动端的 `text-5xl` 缩放至桌面的 `text-[5rem]`；数据为空时显示空状态提示
@@ -165,7 +165,7 @@ src/
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.10.1 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.10.2 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
@@ -211,7 +211,7 @@ src/
     ├── parser.ts             # CSV 解析管线
     ├── concatFiles.ts        # 多月 CSV/ZIP 配对、解压与拼接 + 50MB 大小限制
     ├── format.ts             # 本地化格式函数
-    ├── schema.ts             # JSON-LD 结构化数据（SoftwareApplication + FAQPage + BreadcrumbList + Organization，双语）
+    ├── schema.ts             # JSON-LD 结构化数据（SoftwareApplication + FAQPage + Organization，双语）
     ├── DataContext.tsx       # 数据状态 + 模型筛选
     ├── ProjectConfigContext.tsx # 自定义项目分组配置（拖拽分配，localStorage 持久化）
     ├── ThemeContext.tsx      # 主题状态 + useTheme Hook
@@ -237,7 +237,7 @@ src/
     └── routeMetadata.ts      # 路由级元数据构建器：buildHomeMetadata()、buildGuidelineMetadata() 等（含 buildModelPricingMetadata、buildGlossaryMetadata，共 18 个构建器）
 ├── __tests__/
 │   ├── analytics.test.ts       # trackEvent 单元测试
-│   ├── schema.test.ts          # Organization + BreadcrumbList Schema 测试
+│   ├── schema.test.ts          # Organization + 模型定价 Schema 测试
 │   ├── sitemap.test.ts         # Sitemap lastModified 差异化测试
 │   ├── localeRouting.test.ts   # URL 路由辅助函数（13 个测试用例）
 │   ├── DataContext.test.tsx    # loadFiles 错误处理测试
@@ -263,7 +263,7 @@ src/
 本应用为客户端渲染的静态 SPA 实现了多层 SEO 策略：
 
 - **generateMetadata()** — 动态服务端渲染元数据：规范 URL、OpenGraph（标题、描述、图片）、Twitter 卡片、hreflang 语言标注（en/zh）、robots 指令
-- **JSON-LD 结构化数据** — `SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization` 双语 Schema（英文和中文，共 8 个 script 标签），构建时通过 `layout.tsx` 中的 `<script type="application/ld+json">` 注入；`Organization` Schema 帮助 Google 建立品牌知识面板。程序化页面各自追加结构化数据：模型定价页输出 `Product` + `FAQPage`，Glossary 页输出 `Article` + `FAQPage`
+- **JSON-LD 结构化数据** — `SoftwareApplication` + `FAQPage` + `Organization` 双语 Schema，构建时通过可复用 `<JsonLd />` 组件注入；`Organization` Schema 标识真实发布者（MindRose Team）并帮助 Google 建立品牌知识面板。程序化页面各自追加结构化数据：模型定价页输出 `Product` + `AggregateOffer` + `FAQPage`（含 `availableAtOrFrom` 厂商归属），Glossary 页输出 `Article` + `FAQPage`
 - **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含全部公开路由（首页、操作手册、隐私、条款、更新日志、3 个工具落地页、6 篇博客、作者、8 个模型定价页、3 个 Glossary 页），每路由 en + zh 双语条目并附 `alternates.languages`；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
 - **程序化 SEO 页面** — 8 个单模型定价页（`/deepseek-v4-flash-pricing`、`/gpt-5.6-luna-pricing` 等）与 3 个 Glossary 页（`/what-is-deepseek-cache-hit-rate`、`/what-is-deepseek-context-caching`、`/what-is-deepseek-off-peak-pricing`），均双语镜像、含每页独立文案、FAQ 与 JSON-LD；模型定价页从共享 `MODEL_PRICING` 配置实时渲染价格表（唯一事实来源，与价格计算器不漂移）
 - **`<noscript>` 回退** — `LandingContent.tsx` 输出关键落地页内容（使用说明、常见问题、关于），供不执行 JavaScript 的爬虫抓取；`PrivacyContent.tsx`、`TermsContent.tsx`、`ChangelogContent.tsx`、`ModelPricingContent.tsx` 和 `GlossaryContent.tsx` 为各自页面提供双语 `<noscript>` 回退内容（EEAT 信任信号）
@@ -289,6 +289,17 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.10.2
+
+**修复：**
+
+- 移除首页 BreadcrumbList JSON-LD — 落地页是单页仪表盘而非多级层级结构，面包屑 Schema 会误导搜索引擎对站点结构的理解。
+- Organization JSON-LD 修正为真实发布者 — 原 Schema 使用 DeepSeek 品牌的名称/网址；现改为标识 MindRose Team（name/url/@id = mindrose.xyz，contactPoint hello@mindrose.xyz），并从 `SoftwareApplication` 的 `publisher` 字段关联，避免 Google 知识面板将本站与 DeepSeek 本体混淆。
+
+**改进：**
+
+- 模型定价页升级为完整 `AggregateOffer` — 8 个单模型定价页现输出 `lowPrice`/`highPrice`/`offerCount` 及三档 `UnitPriceSpecification`（输入 / 输出 / 缓存命中输入 tokens，DeepSeek 标注高峰价），并通过 `availableAtOrFrom` 指向厂商官方定价页，避免搜索引擎将所列价格误读为本站在售商品。
 
 ### v0.10.1
 

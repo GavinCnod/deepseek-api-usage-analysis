@@ -4,7 +4,6 @@ import Dashboard from "@/components/Dashboard";
 import JsonLd from "@/components/JsonLd";
 import { buildHomeMetadata } from "@/lib/routeMetadata";
 import {
-  buildBreadcrumbJsonLd,
   buildFaqJsonLd,
   buildOrganizationJsonLd,
   buildSoftwareAppJsonLd,
@@ -25,7 +24,6 @@ export default function Home() {
     <>
       <JsonLd data={buildSoftwareAppJsonLd("en")} />
       <JsonLd data={buildFaqJsonLd("en")} />
-      <JsonLd data={buildBreadcrumbJsonLd("en")} />
       <JsonLd data={buildOrganizationJsonLd("en")} />
       <Dashboard />
     </>

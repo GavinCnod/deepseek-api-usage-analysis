@@ -22,7 +22,7 @@
 - [Blog: DeepSeek CSV Export Format Change](https://deepseek-usage.xyz/blog/deepseek-csv-export-format-changed-aug-2026) — DeepSeek changed its usage CSV export format (utc_date → start_time_iso/end_time_iso); what changed and how to read it
 - [Blog: 2026 Value Champions](https://deepseek-usage.xyz/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions) — GPT-5.6 Luna & DeepSeek V4 Flash as the best-value LLMs of 2026, plus a tier-by-tier model selection framework
 - [User Guide](https://deepseek-usage.xyz/guideline) — Bilingual step-by-step usage documentation with annotated screenshots
-- [Changelog](https://deepseek-usage.xyz/changelog) — Complete version history from v0.1.0 to v0.10.1
+- [Changelog](https://deepseek-usage.xyz/changelog) — Complete version history from v0.1.0 to v0.10.2
 - [Author](https://deepseek-usage.xyz/author) — Gavin Chen's profile page with bio, skills, and social links
 - [Privacy Policy](https://deepseek-usage.xyz/privacy) — How your data is handled, bilingual legal text (7 sections)
 - [Terms of Use](https://deepseek-usage.xyz/terms) — Legal terms and disclaimers, bilingual (8 sections)
@@ -38,7 +38,7 @@
 
 ## Optional
 
-- [Complete Documentation (llms-full.txt)](https://deepseek-usage.xyz/llms-full.txt) — Full bilingual site content: How It Works, FAQ, About, Privacy Policy, Terms of Use, and complete version history (v0.1.0–v0.10.1)
+- [Complete Documentation (llms-full.txt)](https://deepseek-usage.xyz/llms-full.txt) — Full bilingual site content: How It Works, FAQ, About, Privacy Policy, Terms of Use, and complete version history (v0.1.0–v0.10.2)
 
 ## About
 

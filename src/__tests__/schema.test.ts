@@ -2,81 +2,49 @@ import { describe, it, expect } from "vitest";
 import {
   buildArticleJsonLd,
   buildOrganizationJsonLd,
-  buildBreadcrumbJsonLd,
   buildFaqJsonLd,
+  buildModelPricingJsonLd,
 } from "@/lib/schema";
 import { getBlogArticleLocaleMeta } from "@/lib/blogArticles";
+import { getModelPricingContent } from "@/lib/content/modelPricingContent";
 import translations from "@/i18n/translations";
 import { buildLocaleUrl } from "@/lib/localeRouting";
+import { MODEL_PRICING, MODEL_VENDOR } from "@/lib/modelPricing";
 import { OG_IMAGE_URL } from "@/lib/site";
 
 describe("buildOrganizationJsonLd", () => {
-  it("returns valid Organization schema for English", () => {
+  it("represents the real publisher entity for English", () => {
     const result = buildOrganizationJsonLd("en");
 
     expect(result["@context"]).toBe("https://schema.org");
     expect(result["@type"]).toBe("Organization");
-    expect(result.name).toContain("DeepSeek");
-    expect(result.url).toContain("deepseek-usage.xyz");
+    expect(result.name).toBe("MindRose Team");
+    expect(result["@id"]).toBe("https://mindrose.xyz/#organization");
+    expect(result.url).toBe("https://mindrose.xyz");
     expect(result.logo).toContain("ds-usage-logo.png");
     expect(result.sameAs).toEqual(
       expect.arrayContaining([
+        "https://mindrose.xyz",
         "https://github.com/GavinCnod/deepseek-api-usage-analysis",
       ])
     );
+
+    const contactPoint = result.contactPoint as Record<string, unknown>;
+    expect(contactPoint["@type"]).toBe("ContactPoint");
+    expect(contactPoint.email).toBe("hello@mindrose.xyz");
+
+    const brand = result.brand as Record<string, unknown>;
+    expect(brand["@type"]).toBe("Brand");
   });
 
-  it("returns valid Organization schema for Chinese", () => {
+  it("keeps a localized description for Chinese", () => {
     const result = buildOrganizationJsonLd("zh");
 
-    expect(result["@context"]).toBe("https://schema.org");
     expect(result["@type"]).toBe("Organization");
-    expect(result.name).toContain("DeepSeek");
+    expect(result.name).toBe("MindRose Team");
     // Chinese version should contain Chinese characters
-    expect(result.name).toContain("用量分析");
-  });
-});
-
-describe("buildBreadcrumbJsonLd", () => {
-  it("returns 6 breadcrumb items for English", () => {
-    const result = buildBreadcrumbJsonLd("en");
-    const items = result.itemListElement as Array<Record<string, unknown>>;
-
-    expect(result["@context"]).toBe("https://schema.org");
-    expect(result["@type"]).toBe("BreadcrumbList");
-    expect(items).toHaveLength(6);
-
-    expect(items[0].position).toBe(1);
-    expect(items[0].name).toBe("DeepSeek API Usage Analytics Dashboard");
-
-    expect(items[1].position).toBe(2);
-    expect(items[1].name).toBe("User Guide");
-    expect((items[1].item as string)).toContain("/guideline");
-
-    expect(items[2].position).toBe(3);
-    expect(items[2].name).toBe("Privacy Policy");
-
-    expect(items[3].position).toBe(4);
-    expect(items[3].name).toBe("Terms of Use");
-
-    expect(items[4].position).toBe(5);
-    expect(items[4].name).toBe("Changelog");
-
-    expect(items[5].position).toBe(6);
-    expect(items[5].name).toBe("Author");
-    expect((items[5].item as string)).toContain("/author");
-  });
-
-  it("returns 6 breadcrumb items for Chinese", () => {
-    const result = buildBreadcrumbJsonLd("zh");
-    const items = result.itemListElement as Array<Record<string, unknown>>;
-
-    expect(items).toHaveLength(6);
-    expect(items[1].name).toBe("使用指南");
-    expect(items[2].name).toBe("隐私政策");
-    expect(items[3].name).toBe("使用条款");
-    expect(items[4].name).toBe("更新日志");
-    expect(items[5].name).toBe("作者");
+    expect(result.description).toContain("本地");
+    expect(result.inLanguage).toBe("zh");
   });
 });
 
@@ -134,5 +102,74 @@ describe("buildArticleJsonLd", () => {
     const author = result.author as Record<string, unknown>;
     expect(author["@id"]).toBe(buildLocaleUrl("en", "/author"));
     expect(author.name).toBe(meta.author);
+  });
+});
+
+describe("buildModelPricingJsonLd", () => {
+  it("keeps the visible FAQ intact and builds a full AggregateOffer for a peak/off-peak model", () => {
+    const result = buildModelPricingJsonLd("v4Flash", "en");
+    const items = result.mainEntity as Array<Record<string, unknown>>;
+    const content = getModelPricingContent("v4Flash");
+
+    expect(result["@type"]).toBe("FAQPage");
+    expect(items).toHaveLength(content.faq.en.length);
+    expect(result.url).toContain("/deepseek-v4-flash-pricing");
+    expect(result.inLanguage).toBe("en");
+
+    const product = result.about as Record<string, unknown>;
+    expect(product["@type"]).toBe("Product");
+    expect(product.name).toBe("DeepSeek V4 Flash");
+    expect((product.brand as Record<string, unknown>).name).toBe(
+      MODEL_VENDOR.v4Flash.name
+    );
+
+    const offers = product.offers as Record<string, unknown>;
+    expect(offers["@type"]).toBe("AggregateOffer");
+    expect(offers.priceCurrency).toBe("CNY");
+    expect(offers.lowPrice).toBe("0.1");
+    expect(offers.highPrice).toBe("9");
+    expect(offers.offerCount).toBe(3);
+
+    const specs = offers.priceSpecification as Array<Record<string, unknown>>;
+    expect(specs).toHaveLength(3);
+    expect(specs.map((s) => s.price)).toEqual(["3", "9", "0.1"]);
+    expect(specs[0].description).toContain("per million input tokens");
+    expect(specs[0].description).toContain("peak");
+
+    const from = offers.availableAtOrFrom as Record<string, unknown>;
+    expect(from["@type"]).toBe("Place");
+    expect(from.name).toBe(MODEL_VENDOR.v4Flash.name);
+    expect(from.url).toBe(MODEL_VENDOR.v4Flash.pricingUrl);
+  });
+
+  it("reflects flat list prices without off-peak notes for competitor models", () => {
+    const result = buildModelPricingJsonLd("gpt56Luna", "en");
+    const product = result.about as Record<string, unknown>;
+    const offers = product.offers as Record<string, unknown>;
+    const specs = offers.priceSpecification as Array<Record<string, unknown>>;
+
+    expect(offers.priceCurrency).toBe("USD");
+    expect(offers.lowPrice).toBe("0.02");
+    expect(offers.highPrice).toBe("1.2");
+    expect(specs.map((s) => s.price)).toEqual(["0.2", "1.2", "0.02"]);
+    expect(specs[0].description).not.toContain("peak");
+    expect((product.brand as Record<string, unknown>).name).toBe(
+      MODEL_VENDOR.gpt56Luna.name
+    );
+    expect(MODEL_PRICING.gpt56Luna.currency).toBe("USD");
+  });
+
+  it("localizes FAQ copy and prices for Chinese", () => {
+    const result = buildModelPricingJsonLd("v4Pro", "zh");
+    const items = result.mainEntity as Array<Record<string, unknown>>;
+    const product = result.about as Record<string, unknown>;
+    const offers = product.offers as Record<string, unknown>;
+
+    expect(result.inLanguage).toBe("zh");
+    expect(items.length).toBeGreaterThan(0);
+    expect(offers.priceCurrency).toBe("CNY");
+    expect(offers.lowPrice).toBe("0.3");
+    expect(offers.highPrice).toBe("27");
+    expect(result.url).toContain("/zh/deepseek-v4-pro-pricing");
   });
 });

@@ -33,6 +33,36 @@ export type ModelKey =
 /** 人民币兑美元参考汇率。 */
 export const CNY_PER_USD = 6.9;
 
+/** 模型所属厂商与其官方定价页（JSON-LD 归因使用）。 */
+export const MODEL_VENDOR: Record<
+  ModelKey,
+  { name: string; pricingUrl: string }
+> = {
+  v4Flash: {
+    name: "DeepSeek",
+    pricingUrl: "https://api-docs.deepseek.com/quick_start/pricing",
+  },
+  v4Pro: {
+    name: "DeepSeek",
+    pricingUrl: "https://api-docs.deepseek.com/quick_start/pricing",
+  },
+  gpt56Sol: { name: "OpenAI", pricingUrl: "https://openai.com/api/pricing/" },
+  gpt56Terra: { name: "OpenAI", pricingUrl: "https://openai.com/api/pricing/" },
+  gpt56Luna: { name: "OpenAI", pricingUrl: "https://openai.com/api/pricing/" },
+  claudeOpus5: {
+    name: "Anthropic",
+    pricingUrl: "https://www.anthropic.com/pricing",
+  },
+  claudeSonnet5: {
+    name: "Anthropic",
+    pricingUrl: "https://www.anthropic.com/pricing",
+  },
+  claudeHaiku45: {
+    name: "Anthropic",
+    pricingUrl: "https://www.anthropic.com/pricing",
+  },
+};
+
 /**
  * DeepSeek 定价 (CNY/百万 tokens，按高峰/闲时) + 竞品定价 (USD/百万 tokens)
  *

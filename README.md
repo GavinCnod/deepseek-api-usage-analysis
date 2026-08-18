@@ -40,14 +40,14 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **Multi-month support** — Drag multiple months at once; files auto-pair by filename pattern (both `amount-{year}-{month}.csv` and date-range `amount-2026-08-01_2026-08-17.csv` naming) and concatenate. Also supports ZIP archives directly — no extraction needed; drag DeepSeek platform ZIP exports straight onto the page.
 - **Apple-minimalist design** — Cold gray paper-texture background, generous whitespace, "no-card" full-width modules, thin horizontal dividers, 5rem hero numbers, diffuse shadows
 - **100% private** — All CSV parsing (Papa Parse), ZIP extraction (JSZip), and cost computation runs client-side; project configuration stored in your browser's localStorage only
-- **SEO optimized** — Server-rendered metadata (canonical URLs, OpenGraph with `alternateLocale` en/zh, Twitter cards), JSON-LD structured data (`SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization`, bilingual, rendered via reusable `<JsonLd />` component), robots.txt + sitemap.xml (bilingual en/zh entries per route), `<noscript>` crawler fallback content, anchor-linkable landing page sections, `llms.txt` for LLM-friendly site description
+- **SEO optimized** — Server-rendered metadata (canonical URLs, OpenGraph with `alternateLocale` en/zh, Twitter cards), JSON-LD structured data (`SoftwareApplication` + `FAQPage` + `Organization`, bilingual, rendered via reusable `<JsonLd />` component), robots.txt + sitemap.xml (bilingual en/zh entries per route), `<noscript>` crawler fallback content, anchor-linkable landing page sections, `llms.txt` for LLM-friendly site description
 - **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the FooterBar ("Related Tools" row), LandingPage (dedicated section), and Organization JSON-LD schema.
 - **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.10.1) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.10.2) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
-- **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, expanded `BreadcrumbList` with all sub-pages, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
+- **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
 - **Community ready** — `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, Issue templates (bug report + feature request), and Pull Request template to welcome contributors
 - **Error resilience** — Graceful error handling for ZIP/CSV processing failures with user-visible error messages and retry capability; parser crash protection in DataContext
 - **Accessibility** — All charts have descriptive `aria-label` attributes; responsive hero text scales from `text-5xl` on mobile to `text-[5rem]` on desktop; empty-state messages when filtered data is zero
@@ -87,7 +87,7 @@ npm install
 npm run dev        # Dev server at localhost:3000
 npm run build      # Static export → out/
 npm run lint       # ESLint
-npm test           # Vitest (49 tests)
+npm test           # Vitest (50 tests)
 ```
 
 ### Tech Stack
@@ -165,7 +165,7 @@ src/
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.10.1, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.10.2, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
@@ -211,7 +211,7 @@ src/
     ├── parser.ts             # CSV parsing pipeline
     ├── concatFiles.ts        # Multi-month CSV/ZIP pairing, extraction & concat + 50MB size limit
     ├── format.ts             # Locale-aware formatters
-    ├── schema.ts             # JSON-LD structured data (SoftwareApplication + FAQPage + BreadcrumbList + Organization, bilingual)
+    ├── schema.ts             # JSON-LD structured data (SoftwareApplication + FAQPage + Organization, bilingual)
     ├── DataContext.tsx       # Data state + model filter
     ├── ProjectConfigContext.tsx # Custom project grouping config (drag-and-drop, localStorage persistence)
     ├── ThemeContext.tsx      # Theme state + useTheme hook
@@ -237,7 +237,7 @@ src/
     └── routeMetadata.ts      # Route-specific metadata builders: buildHomeMetadata(), buildGuidelineMetadata(), etc. (buildModelPricingMetadata, buildGlossaryMetadata, 18 builders total)
 ├── __tests__/
 │   ├── analytics.test.ts       # trackEvent unit tests
-│   ├── schema.test.ts          # Organization + BreadcrumbList schema tests
+│   ├── schema.test.ts          # Organization + model pricing schema tests
 │   ├── sitemap.test.ts         # Sitemap lastModified differentiation tests
 │   ├── localeRouting.test.ts   # URL routing helpers (13 tests)
 │   ├── DataContext.test.tsx    # loadFiles error handling tests
@@ -263,7 +263,7 @@ The dashboard follows an **Apple-minimalist** design language driven entirely by
 The app implements a multi-layered SEO strategy for a client-rendered static SPA:
 
 - **generateMetadata()** — Dynamic server-rendered metadata: canonical URL, OpenGraph (title, description, image), Twitter card, hreflang alternates (en/zh), robots directives
-- **JSON-LD structured data** — `SoftwareApplication` + `FAQPage` + `BreadcrumbList` + `Organization` schemas in both English and Chinese (8 total script tags), injected at build time via `<script type="application/ld+json">` in `layout.tsx`; `Organization` schema enables Google Knowledge Panel brand recognition. Programmatic pages add their own: model pricing pages emit `Product` + `FAQPage`, glossary pages emit `Article` + `FAQPage`.
+- **JSON-LD structured data** — `SoftwareApplication` + `FAQPage` + `Organization` schemas in both English and Chinese, injected at build time via the reusable `<JsonLd />` component; the `Organization` schema identifies the real publisher (MindRose Team) and enables Google Knowledge Panel brand recognition. Programmatic pages add their own: model pricing pages emit `Product` + `AggregateOffer` + `FAQPage` (with `availableAtOrFrom` vendor attribution), glossary pages emit `Article` + `FAQPage`.
 - **robots.txt + sitemap.xml** — Generated at build time via Next.js 16 `MetadataRoute` conventions; sitemap includes every public route (home, guideline, privacy, terms, changelog, 3 tool landing pages, 6 blog articles, author, 8 model pricing pages, 3 glossary pages) with en + zh bilingual entries and `alternates.languages`; site URL from `NEXT_PUBLIC_SITE_URL` env var
 - **Programmatic SEO pages** — 8 per-model pricing pages (`/deepseek-v4-flash-pricing`, `/gpt-5.6-luna-pricing`, etc.) and 3 glossary pages (`/what-is-deepseek-cache-hit-rate`, `/what-is-deepseek-context-caching`, `/what-is-deepseek-off-peak-pricing`), each EN/ZH mirrored with unique per-page copy, FAQ, and JSON-LD; model pricing pages render live price tables from the shared `MODEL_PRICING` config (single source of truth, no drift with the Pricing Calculator)
 - **`<noscript>` fallback** — `LandingContent.tsx` outputs key landing page content (How It Works, FAQ, About) for crawlers that don't execute JavaScript; `PrivacyContent.tsx`, `TermsContent.tsx`, `ChangelogContent.tsx`, `ModelPricingContent.tsx`, and `GlossaryContent.tsx` provide bilingual `<noscript>` fallbacks for their pages (EEAT trust signals)
@@ -289,6 +289,17 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.10.2
+
+**Fixed:**
+
+- Homepage BreadcrumbList JSON-LD removed — the landing page is a single-page dashboard, not a multi-level hierarchy, so the breadcrumb schema misled search engines about the site structure.
+- Organization JSON-LD corrected to the real publisher — the schema previously used a DeepSeek-branded name/URL; it now identifies MindRose Team (name/url/@id = mindrose.xyz, contactPoint hello@mindrose.xyz) and is linked from the `SoftwareApplication` `publisher` field, so Google's Knowledge Panel no longer associates this site with DeepSeek itself.
+
+**Improved:**
+
+- Model pricing pages upgraded to a full `AggregateOffer` — each of the 8 per-model pricing pages now emits `lowPrice`/`highPrice`/`offerCount` plus three `UnitPriceSpecification` tiers (input / output / cached input tokens, peak-hour list price for DeepSeek) and `availableAtOrFrom` pointing at the vendor's official pricing page, so search engines no longer read the listed prices as offers sold by this site.
 
 ### v0.10.1
 

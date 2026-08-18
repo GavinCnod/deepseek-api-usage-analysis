@@ -51,6 +51,26 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.10.2",
+    date: "2026-08-18",
+    fixed: [
+      {
+        en: "Homepage BreadcrumbList JSON-LD removed — the landing page is a single-page dashboard, not a multi-level hierarchy, so the breadcrumb schema misled search engines about the site structure.",
+        zh: "移除首页 BreadcrumbList JSON-LD — 落地页是单页仪表盘而非多级层级结构，面包屑 Schema 会误导搜索引擎对站点结构的理解。",
+      },
+      {
+        en: "Organization JSON-LD corrected to the real publisher — the schema previously used a DeepSeek-branded name/URL; it now identifies MindRose Team (name/url/@id = mindrose.xyz, contactPoint hello@mindrose.xyz) and is linked from the `SoftwareApplication` `publisher` field, so Google's Knowledge Panel no longer associates this site with DeepSeek itself.",
+        zh: "Organization JSON-LD 修正为真实发布者 — 原 Schema 使用 DeepSeek 品牌的名称/网址；现改为标识 MindRose Team（name/url/@id = mindrose.xyz，contactPoint hello@mindrose.xyz），并从 `SoftwareApplication` 的 `publisher` 字段关联，避免 Google 知识面板将本站与 DeepSeek 本体混淆。",
+      },
+    ],
+    improved: [
+      {
+        en: "Model pricing pages upgraded to a full `AggregateOffer` — each of the 8 per-model pricing pages now emits `lowPrice`/`highPrice`/`offerCount` plus three `UnitPriceSpecification` tiers (input / output / cached input tokens, peak-hour list price for DeepSeek) and `availableAtOrFrom` pointing at the vendor's official pricing page, so search engines no longer read the listed prices as offers sold by this site.",
+        zh: "模型定价页升级为完整 `AggregateOffer` — 8 个单模型定价页现输出 `lowPrice`/`highPrice`/`offerCount` 及三档 `UnitPriceSpecification`（输入 / 输出 / 缓存命中输入 tokens，DeepSeek 标注高峰价），并通过 `availableAtOrFrom` 指向厂商官方定价页，避免搜索引擎将所列价格误读为本站在售商品。",
+      },
+    ],
+  },
+  {
     version: "v0.10.1",
     date: "2026-08-18",
     improved: [

@@ -4,7 +4,6 @@ import Dashboard from "@/components/Dashboard";
 import JsonLd from "@/components/JsonLd";
 import { buildHomeMetadata } from "@/lib/routeMetadata";
 import {
-  buildBreadcrumbJsonLd,
   buildFaqJsonLd,
   buildOrganizationJsonLd,
   buildSoftwareAppJsonLd,
@@ -25,7 +24,6 @@ export default function ZhHomePage() {
     <>
       <JsonLd data={buildSoftwareAppJsonLd("zh")} />
       <JsonLd data={buildFaqJsonLd("zh")} />
-      <JsonLd data={buildBreadcrumbJsonLd("zh")} />
       <JsonLd data={buildOrganizationJsonLd("zh")} />
       <Dashboard />
     </>
