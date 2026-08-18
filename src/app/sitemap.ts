@@ -11,6 +11,10 @@
  */
 import type { MetadataRoute } from "next";
 import { buildLocaleAlternates, buildLocaleUrl } from "@/lib/localeRouting";
+import {
+  getBlogArticleDefinition,
+  type BlogArticleSlug,
+} from "@/lib/blogArticles";
 
 /** 静态导出兼容：标记此路由在构建时静态生成 */
 export const dynamic = "force-static";
@@ -25,6 +29,11 @@ interface SitemapRouteConfig {
 
 /** 构建时统一的当前构建日期。 */
 const buildDate = new Date();
+
+/** 博客文章真实发布日期（来自 blogArticles.ts 配置，避免与构建日期混淆）。 */
+function blogArticleDate(slug: BlogArticleSlug): Date {
+  return new Date(getBlogArticleDefinition(slug).publishedTime);
+}
 
 /** 公开页面路由清单。 */
 const ROUTES: SitemapRouteConfig[] = [
@@ -90,37 +99,37 @@ const ROUTES: SitemapRouteConfig[] = [
   },
   {
     pathname: "/blog/deepseek-context-caching-guide",
-    lastModified: buildDate,
+    lastModified: blogArticleDate("deepseek-context-caching-guide"),
     changeFrequency: "monthly",
     priority: 0.6,
   },
   {
     pathname: "/blog/deepseek-cost-optimization-tools",
-    lastModified: buildDate,
+    lastModified: blogArticleDate("deepseek-cost-optimization-tools"),
     changeFrequency: "monthly",
     priority: 0.6,
   },
   {
     pathname: "/blog/openai-claude-vs-deepseek-cost-comparison",
-    lastModified: buildDate,
+    lastModified: blogArticleDate("openai-claude-vs-deepseek-cost-comparison"),
     changeFrequency: "monthly",
     priority: 0.6,
   },
   {
     pathname: "/blog/opencode-go-cheapest-deepseek-v4-flash",
-    lastModified: buildDate,
+    lastModified: blogArticleDate("opencode-go-cheapest-deepseek-v4-flash"),
     changeFrequency: "monthly",
     priority: 0.6,
   },
   {
     pathname: "/blog/deepseek-csv-export-format-changed-aug-2026",
-    lastModified: buildDate,
+    lastModified: blogArticleDate("deepseek-csv-export-format-changed-aug-2026"),
     changeFrequency: "weekly",
     priority: 0.6,
   },
   {
     pathname: "/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
-    lastModified: buildDate,
+    lastModified: blogArticleDate("gpt-5.6-luna-vs-deepseek-v4-flash-value-champions"),
     changeFrequency: "weekly",
     priority: 0.6,
   },

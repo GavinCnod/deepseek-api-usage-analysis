@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { useData, ALL_MODELS } from "@/lib/DataContext";
 import { useTranslation } from "@/i18n";
 import { MAX_UPLOAD_SIZE_BYTES } from "@/lib/concatFiles";
@@ -10,14 +11,19 @@ import FooterBar from "./FooterBar";
 import RecommendedToolsSection from "./RecommendedToolsSection";
 import LandingPage from "./LandingPage";
 import KPICards from "./KPICards";
-import OverviewView from "./OverviewView";
 import KeyView from "./KeyView";
-import CacheView from "./CacheView";
-import TrendsView from "./TrendsView";
 import ProjectView from "./ProjectView";
 import ErrorDisplay, { WarningBanner } from "./ErrorDisplay";
 import ShareButton from "./ShareButton";
 import type { ShareTab } from "@/lib/shareCardData";
+
+/**
+ * 图表视图（依赖 ECharts，~1.4MB）按需加载：
+ * 仅在用户上传数据并进入仪表盘后才拉取，避免拖累落地页首屏 JS。
+ */
+const OverviewView = dynamic(() => import("./OverviewView"), { ssr: false });
+const CacheView = dynamic(() => import("./CacheView"), { ssr: false });
+const TrendsView = dynamic(() => import("./TrendsView"), { ssr: false });
 
 type Tab = "overview" | "projects" | "keys" | "cache" | "trends";
 

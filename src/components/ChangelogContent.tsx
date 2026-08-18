@@ -7,11 +7,12 @@
  *
  * 浏览器（JS 开启时）不会渲染 <noscript> 内部内容，
  * 实际的交互式内容由 ChangelogPage.tsx 客户端组件负责渲染。
+ *
+ * 仅输出当前路由语言的内容，避免在单一页面中出现双语重复文本。
  */
-import translations from "@/i18n/translations";
+"use client";
 
-const en = translations.en.changelog;
-const zh = translations.zh.changelog;
+import { useTranslation } from "@/i18n";
 
 /**
  * 简化版更新日志数据 — 仅包含版本号和日期作为摘要
@@ -20,6 +21,9 @@ const zh = translations.zh.changelog;
  * 此处提供版本概览供爬虫抓取，展示项目持续维护的活跃度。
  */
 const VERSION_SUMMARY = [
+  { version: "v0.9.2", date: "2026-08-18" },
+  { version: "v0.9.1", date: "2026-08-17" },
+  { version: "v0.9.0", date: "2026-08-17" },
   { version: "v0.8.0", date: "2026-08-17" },
   { version: "v0.7.0", date: "2026-08-13" },
   { version: "v0.6.6", date: "2026-07-19" },
@@ -46,11 +50,14 @@ const VERSION_SUMMARY = [
 ];
 
 /**
- * 按类别统计各版本的变更条目数（英文）
+ * 按类别统计各版本的变更条目数（语言无关）
  *
  * 爬虫可通过此数据了解每次发布的范围和规模。
  */
-const VERSION_STATS_EN = [
+const VERSION_STATS = [
+  { version: "v0.9.2", added: 1, improved: 5 },
+  { version: "v0.9.1", added: 1, improved: 1 },
+  { version: "v0.9.0", added: 2, improved: 1, fixed: 1 },
   { version: "v0.8.0", added: 1, fixed: 1 },
   { version: "v0.7.0", added: 2, improved: 3 },
   { version: "v0.6.6", improved: 3 },
@@ -77,54 +84,31 @@ const VERSION_STATS_EN = [
 ];
 
 export default function ChangelogContent() {
+  const { locale, t } = useTranslation();
+  const c = t.changelog;
+  const separator = locale === "zh" ? "，" : ", ";
+
   return (
     <noscript>
-      {/* 英文版 */}
-      <section lang="en">
-        <h1>{en.pageTitle}</h1>
-        <p>{translations.en.changelog.lastUpdated}</p>
-        <p>{translations.en.changelog.intro}</p>
+      <section lang={locale}>
+        <h2>{c.pageTitle}</h2>
+        <p>{c.lastUpdated}</p>
+        <p>{c.intro}</p>
 
         <ol>
           {VERSION_SUMMARY.map((v, i) => {
-            const stats = VERSION_STATS_EN[i];
+            const stats = VERSION_STATS[i];
             const summary: string[] = [];
-            if (stats?.added) summary.push(`${en.added}: ${stats.added}`);
-            if (stats?.improved) summary.push(`${en.improved}: ${stats.improved}`);
-            if (stats?.fixed) summary.push(`${en.fixed}: ${stats.fixed}`);
-            if (stats?.dependencies) summary.push(`${en.dependencies}: ${stats.dependencies}`);
+            if (stats?.added) summary.push(`${c.added}: ${stats.added}`);
+            if (stats?.improved) summary.push(`${c.improved}: ${stats.improved}`);
+            if (stats?.fixed) summary.push(`${c.fixed}: ${stats.fixed}`);
+            if (stats?.dependencies) summary.push(`${c.dependencies}: ${stats.dependencies}`);
 
             return (
               <li key={v.version}>
                 <strong>{v.version}</strong>
                 {v.date && ` — ${v.date}`}
-                {summary.length > 0 && ` · ${summary.join(", ")}`}
-              </li>
-            );
-          })}
-        </ol>
-      </section>
-
-      {/* 中文版 */}
-      <section lang="zh">
-        <h1>{zh.pageTitle}</h1>
-        <p>{translations.zh.changelog.lastUpdated}</p>
-        <p>{translations.zh.changelog.intro}</p>
-
-        <ol>
-          {VERSION_SUMMARY.map((v, i) => {
-            const stats = VERSION_STATS_EN[i];
-            const summary: string[] = [];
-            if (stats?.added) summary.push(`${zh.added}: ${stats.added}`);
-            if (stats?.improved) summary.push(`${zh.improved}: ${stats.improved}`);
-            if (stats?.fixed) summary.push(`${zh.fixed}: ${stats.fixed}`);
-            if (stats?.dependencies) summary.push(`${zh.dependencies}: ${stats.dependencies}`);
-
-            return (
-              <li key={v.version}>
-                <strong>{v.version}</strong>
-                {v.date && ` — ${v.date}`}
-                {summary.length > 0 && ` · ${summary.join("，")}`}
+                {summary.length > 0 && ` · ${summary.join(separator)}`}
               </li>
             );
           })}

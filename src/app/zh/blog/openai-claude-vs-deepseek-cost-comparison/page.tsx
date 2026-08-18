@@ -44,7 +44,7 @@ export default function ZhArticleOpenAiPage() {
           slug: "deepseek-cost-optimization-tools",
         }}
         nextPost={{
-          title: "全球最便宜的 DeepSeek V4 Flash，就在 OpenCode Go（每月 $10）",
+          title: "OpenCode Go 上的 DeepSeek V4 Flash：每月 $10 最便宜前沿模型",
           slug: "opencode-go-cheapest-deepseek-v4-flash",
         }}
       />

@@ -70,7 +70,7 @@
       ]
     },
     {
-      "source": "/(ds-usage-logo.*|favicon.ico|llms.txt|sitemap.xml|robots.txt)",
+      "source": "/(ds-usage-logo.*|og-image.png|og_image.png|favicon.ico|llms.txt|sitemap.xml|robots.txt)",
       "headers": [
         {
           "key": "Cache-Control",

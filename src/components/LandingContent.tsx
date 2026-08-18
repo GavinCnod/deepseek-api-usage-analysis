@@ -3,185 +3,98 @@
  *
  * 将 How It Works、FAQ、About 的文字内容以纯 HTML 形式输出，
  * 包裹在 <noscript> 中。这样即使在不执行 JavaScript 的爬虫环境中，
- * 搜索引擎也能抓取到完整的中英双语页面内容。
+ * 搜索引擎也能抓取到完整页面内容。
  *
  * 浏览器（JS 开启时）不会渲染 <noscript> 内部内容，
  * 实际的交互式内容由 LandingPage.tsx 客户端组件负责渲染。
+ *
+ * 仅输出当前路由语言的内容，避免在单一页面中出现双语重复文本。
  */
-import translations from "@/i18n/translations";
+"use client";
+
+import { useTranslation } from "@/i18n";
 import { buildLocalePath } from "@/lib/localeRouting";
 
-/** 英文字符串（与 <html lang="en"> 初始值一致） */
-const en = translations.en;
-const zh = translations.zh;
-const EN_AUTHOR_PATH = buildLocalePath("/author", "en");
-const ZH_AUTHOR_PATH = buildLocalePath("/author", "zh");
-
 export default function LandingContent() {
+  const { locale, t } = useTranslation();
+  const authorPath = buildLocalePath("/author", locale);
+
+  const steps = [
+    { title: t.landing.howItWorksStep1Title, desc: t.landing.howItWorksStep1Desc },
+    { title: t.landing.howItWorksStep2Title, desc: t.landing.howItWorksStep2Desc },
+    { title: t.landing.howItWorksStep3Title, desc: t.landing.howItWorksStep3Desc },
+  ];
+
+  const qaItems = [
+    { q: t.landing.qaQ1, a: t.landing.qaA1 },
+    { q: t.landing.qaQ2, a: t.landing.qaA2 },
+    { q: t.landing.qaQ3, a: t.landing.qaA3 },
+    { q: t.landing.qaQ4, a: t.landing.qaA4 },
+    { q: t.landing.qaQ5, a: t.landing.qaA5 },
+    { q: t.landing.qaQ6, a: t.landing.qaA6 },
+    { q: t.landing.qaQ7, a: t.landing.qaA7 },
+    { q: t.landing.qaQ8, a: t.landing.qaA8 },
+    { q: t.landing.qaQ9, a: t.landing.qaA9 },
+  ];
+
+  const aboutSections = [
+    { title: t.landing.aboutWhyTitle, desc: t.landing.aboutWhyDesc },
+    { title: t.landing.aboutPrivacyTitle, desc: t.landing.aboutPrivacyDesc },
+    { title: t.landing.aboutMindRoseTitle, desc: t.landing.aboutMindRoseDesc },
+    {
+      title: t.landing.aboutContactTitle,
+      desc: t.landing.aboutContactDesc,
+    },
+  ];
+
   return (
     <noscript>
-      {/* ============================================================ */}
-      {/* 使用说明 — 英文版                                                  */}
-      {/* ============================================================ */}
-      <section lang="en">
-        <h1 className="sr-only">{en.meta.title}</h1>
-        <h2>{en.landing.howItWorksTitle}</h2>
+      <section lang={locale}>
+        {/* noscript 内不输出 H1：主内容 H1 已在静态 HTML 中，避免重复 */}
+        <h2>{t.app.title}</h2>
+
+        <h2>{t.landing.howItWorksTitle}</h2>
         <div>
-          <div>
-            <span>1</span>
-            <h3>{en.landing.howItWorksStep1Title}</h3>
-            <p>{en.landing.howItWorksStep1Desc}</p>
+          {steps.map((step, i) => (
+            <div key={i}>
+              <span>{i + 1}</span>
+              <h3>{step.title}</h3>
+              <p>{step.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2>{t.landing.qaTitle}</h2>
+        <div>
+          {qaItems.map((item, i) => (
+            <div key={i}>
+              <h3>{item.q}</h3>
+              <p>{item.a}</p>
+            </div>
+          ))}
+        </div>
+
+        <h2>{t.landing.aboutSectionTitle}</h2>
+        {aboutSections.map((section, i) => (
+          <div key={i}>
+            <h3>{section.title}</h3>
+            <p>{section.desc}</p>
           </div>
-          <div>
-            <span>2</span>
-            <h3>{en.landing.howItWorksStep2Title}</h3>
-            <p>{en.landing.howItWorksStep2Desc}</p>
-          </div>
-          <div>
-            <span>3</span>
-            <h3>{en.landing.howItWorksStep3Title}</h3>
-            <p>{en.landing.howItWorksStep3Desc}</p>
-          </div>
-        </div>
-      </section>
+        ))}
 
-      {/* 使用说明 — 中文版 */}
-      <section lang="zh">
-        <h1 className="sr-only">{zh.meta.title}</h1>
-        <h2>{zh.landing.howItWorksTitle}</h2>
-        <div>
-          <div>
-            <span>1</span>
-            <h3>{zh.landing.howItWorksStep1Title}</h3>
-            <p>{zh.landing.howItWorksStep1Desc}</p>
-          </div>
-          <div>
-            <span>2</span>
-            <h3>{zh.landing.howItWorksStep2Title}</h3>
-            <p>{zh.landing.howItWorksStep2Desc}</p>
-          </div>
-          <div>
-            <span>3</span>
-            <h3>{zh.landing.howItWorksStep3Title}</h3>
-            <p>{zh.landing.howItWorksStep3Desc}</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* 常见问题 — 英文版                                                  */}
-      {/* ============================================================ */}
-      <section lang="en">
-        <h2>{en.landing.qaTitle}</h2>
-        <div>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => {
-            const qKey = `qaQ${n}` as keyof typeof en.landing;
-            const aKey = `qaA${n}` as keyof typeof en.landing;
-            return (
-              <div key={n}>
-                <h3>{en.landing[qKey]}</h3>
-                <p>{en.landing[aKey]}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* 常见问题 — 中文版 */}
-      <section lang="zh">
-        <h2>{zh.landing.qaTitle}</h2>
-        <div>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => {
-            const qKey = `qaQ${n}` as keyof typeof zh.landing;
-            const aKey = `qaA${n}` as keyof typeof zh.landing;
-            return (
-              <div key={n}>
-                <h3>{zh.landing[qKey]}</h3>
-                <p>{zh.landing[aKey]}</p>
-              </div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/* 关于我们 — 英文版                                                  */}
-      {/* ============================================================ */}
-      <section lang="en">
-        <h2>{en.landing.aboutSectionTitle}</h2>
-
-        <div>
-          <h3>{en.landing.aboutWhyTitle}</h3>
-          <p>{en.landing.aboutWhyDesc}</p>
-        </div>
-
-        <div>
-          <h3>{en.landing.aboutPrivacyTitle}</h3>
-          <p>{en.landing.aboutPrivacyDesc}</p>
-        </div>
-
-        <div>
-          <h3>{en.landing.aboutMindRoseTitle}</h3>
-          <p>{en.landing.aboutMindRoseDesc}</p>
-        </div>
-
-        <div>
-          <h3>{en.landing.aboutContactTitle}</h3>
-          <p>{en.landing.aboutContactDesc}</p>
-          <p>{en.landing.aboutContactService}</p>
-          <p>
-            {en.landing.aboutContactCTA}{" "}
-            <a href="mailto:hello@mindrose.xyz">hello@mindrose.xyz</a>
-          </p>
-        </div>
+        <p>{t.landing.aboutContactService}</p>
+        <p>
+          {t.landing.aboutContactCTA}{" "}
+          <a href="mailto:hello@mindrose.xyz">hello@mindrose.xyz</a>
+        </p>
 
         <p>
-          <a href={EN_AUTHOR_PATH}>{en.author.pageTitle}</a>
+          <a href={authorPath}>{t.author.pageTitle}</a>
         </p>
 
         <p>
           <a href="https://github.com/GavinCnod/deepseek-api-usage-analysis">
-            {en.landing.aboutGitHubLabel}
-          </a>
-        </p>
-      </section>
-
-      {/* 关于我们 — 中文版 */}
-      <section lang="zh">
-        <h2>{zh.landing.aboutSectionTitle}</h2>
-
-        <div>
-          <h3>{zh.landing.aboutWhyTitle}</h3>
-          <p>{zh.landing.aboutWhyDesc}</p>
-        </div>
-
-        <div>
-          <h3>{zh.landing.aboutPrivacyTitle}</h3>
-          <p>{zh.landing.aboutPrivacyDesc}</p>
-        </div>
-
-        <div>
-          <h3>{zh.landing.aboutMindRoseTitle}</h3>
-          <p>{zh.landing.aboutMindRoseDesc}</p>
-        </div>
-
-        <div>
-          <h3>{zh.landing.aboutContactTitle}</h3>
-          <p>{zh.landing.aboutContactDesc}</p>
-          <p>{zh.landing.aboutContactService}</p>
-          <p>
-            {zh.landing.aboutContactCTA}{" "}
-            <a href="mailto:hello@mindrose.xyz">hello@mindrose.xyz</a>
-          </p>
-        </div>
-
-        <p>
-          <a href={ZH_AUTHOR_PATH}>{zh.author.pageTitle}</a>
-        </p>
-
-        <p>
-          <a href="https://github.com/GavinCnod/deepseek-api-usage-analysis">
-            {zh.landing.aboutGitHubLabel}
+            {t.landing.aboutGitHubLabel}
           </a>
         </p>
       </section>

@@ -93,11 +93,16 @@ export function buildLocaleUrl(locale: Locale, pathname: string = "/"): string {
 
 /**
  * 构建 canonical / hreflang 所需的语言映射。
+ *
+ * 附加 `x-default` 指向英文默认版本，作为语言切换/默认落地页的兜底声明。
  */
-export function buildLocaleAlternates(pathname: string): Record<Locale, string> {
+export function buildLocaleAlternates(
+  pathname: string
+): Record<Locale | "x-default", string> {
   return {
     en: buildLocaleUrl("en", pathname),
     zh: buildLocaleUrl("zh", pathname),
+    "x-default": buildLocaleUrl("en", pathname),
   };
 }
 

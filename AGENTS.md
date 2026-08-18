@@ -13,14 +13,14 @@ Client-only analytics dashboard for DeepSeek platform CSV/ZIP exports. Apple-min
 - `npm run dev` — dev server on :3000. The script passes `--webpack`: Next 16 defaults to Turbopack; this repo pins webpack, so keep the flag.
 - `npm run build` — static export to `out/` (`output: "export"` in `next.config.ts`) — also type-checks the app.
 - `npm run lint` — ESLint (flat config `eslint.config.mjs`, eslint-config-next).
-- `npm test` — Vitest. **47 tests across 7 files** in `src/__tests__/` (analytics, schema, sitemap, localeRouting, DataContext, DropZone, parser). Older "50 tests"/"90 tests"/BlogIndex claims are stale — do not repeat them.
+- `npm test` — Vitest. **48 tests across 7 files** in `src/__tests__/` (analytics, schema, sitemap, localeRouting, DataContext, DropZone, parser). Older "50 tests"/"90 tests"/BlogIndex claims are stale — do not repeat them.
 - `npx vitest run src/__tests__/<file>` — single test file.
 - `npx tsc --noEmit` — standalone typecheck (no dedicated npm script).
 - `npm run start` does not serve the static build; preview `out/` with a static host (e.g. `npx serve out`).
 
 ## Architecture rules (things you'd otherwise get wrong)
 
-- **Everything is client-side**: all components are `"use client"`, no SSR/RSC dynamic rendering. `generateMetadata`, `robots.ts`, `sitemap.ts`, and the `<noscript>` fallbacks are the only server/build-time code paths.
+- **Everything is client-side**: all components are `"use client"`, no SSR/RSC dynamic rendering. `generateMetadata`, `robots.ts`, `sitemap.ts`, and the `<noscript>` fallbacks are the only server/build-time code paths. The `*Content.tsx` `<noscript>` fallbacks are client components (they read the locale from the i18n context) but are still pre-rendered into static HTML per route at build time — keep them single-language, one H1 per page.
 - **Bilingual mirroring is mandatory**: every route in `src/app/(site)/` must be mirrored under `src/app/zh/` with localized metadata. Adding a page = both `page.tsx` files + `sitemap.ts` entry + translation keys + footer nav link.
 - **i18n is a custom React context** (`src/i18n/`), not next-intl. Keys are **flat 2-level** `group.keyName` in `translations.ts` — do NOT nest deeper; the type system flattens leaf keys to `string`. Always add both `en` and `zh`.
 - **Theming**: all colors are CSS custom properties in `src/app/globals.css` — never hardcode hex in components. New variables go in BOTH `:root, .light` AND `.dark` blocks.

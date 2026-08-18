@@ -39,8 +39,8 @@ export default function Page() {
       <BlogArticlePage
         meta={meta}
         content={{ en, zh }}
-        prevPost={{ title: "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go", slug: "opencode-go-cheapest-deepseek-v4-flash" }}
-        nextPost={{ title: "The 2026 Value Champions: GPT-5.6 Luna & DeepSeek V4 Flash — and the Best Model for Every Budget", slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions" }}
+        prevPost={{ title: "DeepSeek V4 Flash on OpenCode Go: $10/Mo Cheapest Frontier", slug: "opencode-go-cheapest-deepseek-v4-flash" }}
+        nextPost={{ title: "GPT-5.6 Luna vs DeepSeek V4 Flash: 2026 Best-Value LLMs", slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions" }}
       />
     </>
   );

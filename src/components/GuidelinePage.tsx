@@ -83,6 +83,8 @@ function parseContent(raw: string): Section[] {
 
   let currentSection: Section | null = null;
   let currentBlocks: ContentBlock[] = [];
+  /** 首个 `## ` 小节之前的区块（通常是文档标题 H1），先暂存以免被丢弃 */
+  let pendingIntro: ContentBlock[] = [];
   let i = 0;
 
   /** 用标题文本派生一个 HTML 安全的 anchor ID */
@@ -109,6 +111,8 @@ function parseContent(raw: string): Section[] {
       if (currentSection) {
         currentSection.blocks = currentBlocks;
         sections.push(currentSection);
+      } else if (currentBlocks.length > 0) {
+        pendingIntro = currentBlocks;
       }
       const title = line.replace(/^##\s+/, "").trim();
       const anchorId = toAnchorId(title);
@@ -253,8 +257,10 @@ function parseContent(raw: string): Section[] {
 
   // flush last section
   if (currentSection) {
-    currentSection.blocks = currentBlocks;
+    currentSection.blocks = [...pendingIntro, ...currentBlocks];
     sections.push(currentSection);
+  } else if (pendingIntro.length > 0) {
+    sections.push({ title: "", anchorId: "", blocks: pendingIntro });
   }
 
   return sections;
@@ -757,7 +763,7 @@ function getManualContent(locale: string): string {
 function getManualContentZh(): string {
   return `# DeepSeek API 用量分析仪表盘 — 用户操作手册
 
-> 版本：v0.8.0 | 适用语言：中文 / English | 最后更新：2026-08-17
+> 版本：v0.9.2 | 适用语言：中文 / English | 最后更新：2026-08-18
 
 ---
 
@@ -774,6 +780,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 **核心特点**：所有数据解析和图表渲染均在您的浏览器本地完成，CSV 文件不会上传到任何服务器，保障您的账单数据隐私。
 
 > **[截图占位 - 01]**
+> *仪表盘首页概览：落地页包含上传区域、使用说明与功能介绍*
 
 ---
 
@@ -791,6 +798,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 > **请注意**：ZIP 可以直接拖入上传区域，无需手动解压。两个 CSV 文件缺一不可——如果缺少 cost 文件，费用相关的图表将无法生成。
 
 > **[截图占位 - 02]**
+> *在 DeepSeek 平台用量页面导出月度数据，下载含 amount 与 cost CSV 的 ZIP 压缩包*
 
 ### 2.2 上传文件
 
@@ -803,6 +811,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 > **支持同时上传多个月份**：一次性拖入所有月份的 ZIP（或 CSV）文件，系统会自动解压 ZIP、按文件名配对（兼容日期区间式如 \`amount-2026-08-01_2026-08-17.csv\` + \`cost-2026-08-01_2026-08-17.csv\`，以及旧式 \`amount-2026-5.csv\` + \`cost-2026-5.csv\`）并进行合并。
 
 > **[截图占位 - 03]**
+> *将 ZIP 压缩包或 CSV 文件拖拽到页面中央的上传区域，自动配对并合并月份*
 
 ### 2.3 查看分析结果
 
@@ -829,6 +838,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 导航栏底部有一条细分割线，背景为页面主色调，始终浮动在最上层。
 
 > **[截图占位 - 04]**
+> *顶部导航栏：Logo、应用名称、GitHub 入口、语言切换与主题切换*
 
 ---
 
@@ -837,6 +847,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 上传 CSV 文件成功解析后，页面自动从落地页切换到仪表盘视图。
 
 > **[截图占位 - 16]**
+> *上传 CSV 成功解析后自动进入的仪表盘总览界面*
 
 ---
 
@@ -853,6 +864,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 - **清除**（红色文字）：清空当前所有数据，返回落地页
 
 > **[截图占位 - 17]**
+> *仪表盘顶部操作栏：文件名标签与加载其他文件、清除按钮*
 
 ---
 
@@ -890,6 +902,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 | **活跃 API Key** | 数字，无副行 |
 
 > **[截图占位 - 20]**
+> *KPI 指标卡：总费用、总 Token 数、缓存命中率与活跃 API Key 数量*
 
 ---
 
@@ -945,6 +958,7 @@ Apple 风格下划线标签，5 个标签页：
 - 交互：悬停高亮显示标签
 
 > **[截图占位 - 23]**
+> *总览视图：每日费用柱状图与各 API Key 费用环形图*
 
 ---
 
@@ -972,6 +986,7 @@ Apple 风格下划线标签，5 个标签页：
 表格行 hover 时有极淡的背景色变化。
 
 > **[截图占位 - 24]**
+> *按 Key 视图：各 API Key 的 Token、费用、缓存命中率与请求数明细表格*
 
 ---
 
@@ -1002,6 +1017,7 @@ Apple 风格下划线标签，5 个标签页：
 - 「在 DeepSeek API 调用中启用提示缓存以降低费用。」提示文字
 
 > **[截图占位 - 26]**
+> *缓存视图：每日缓存命中率趋势图与各 Key 命中/未命中堆叠柱状图*
 
 ---
 
@@ -1026,8 +1042,10 @@ Apple 风格下划线标签，5 个标签页：
 - 日期超过 30 天时启用内置缩放
 
 > **[截图占位 - 28]**
+> *趋势视图：多指标折线图展示每日费用或 Token 变化趋势*
 
 > **[截图占位 - 29]**
+> *趋势视图：切换至缓存命中率或请求次数指标后的折线图*
 
 ---
 
@@ -1035,7 +1053,6 @@ Apple 风格下划线标签，5 个标签页：
 
 将 API Key 按自定义项目分组汇总分析，适合多项目团队按业务线查看用量。
 
-> **[截图占位 - 30]**
 
 #### Hero 数字
 
@@ -1216,7 +1233,7 @@ Apple 风格下划线标签，5 个标签页：
 function getManualContentEn(): string {
   return `# DeepSeek API Usage Analytics Dashboard — User Guide
 
-> Version: v0.8.0 | Language: English / 中文 | Last Updated: 2026-08-17
+> Version: v0.9.2 | Language: English / 中文 | Last Updated: 2026-08-18
 
 ---
 
@@ -1233,6 +1250,7 @@ The DeepSeek API Usage Analytics Dashboard is a **purely browser-side** data vis
 **Key Feature**: All data parsing and chart rendering happens locally in your browser. CSV files are never uploaded to any server, ensuring your billing data privacy.
 
 > **[截图占位 - 01]**
+> *Dashboard homepage overview: landing page with upload area, how-it-works and features*
 
 ---
 
@@ -1250,6 +1268,7 @@ The DeepSeek API Usage Analytics Dashboard is a **purely browser-side** data vis
 > **Note**: The ZIP can be dragged directly into the upload area — no manual extraction needed. Both CSV files are required. Without the cost file, cost-related charts cannot be generated.
 
 > **[截图占位 - 02]**
+> *Export monthly data from the DeepSeek Platform usage page — downloads a ZIP with amount and cost CSVs*
 
 ### 2.2 Upload Files
 
@@ -1262,6 +1281,7 @@ The DeepSeek API Usage Analytics Dashboard is a **purely browser-side** data vis
 > **Multi-month support**: Drag in all monthly ZIP (or CSV) files at once — the system auto-extracts ZIPs, pairs files by filename (both date-range naming like \`amount-2026-08-01_2026-08-17.csv\` + \`cost-2026-08-01_2026-08-17.csv\` and legacy \`amount-2026-5.csv\` + \`cost-2026-5.csv\`), and merges them.
 
 > **[截图占位 - 03]**
+> *Drag the ZIP archive or CSV files onto the upload area — months are auto-paired and merged*
 
 ### 2.3 View Analytics
 
@@ -1288,6 +1308,7 @@ The top navigation bar is fixed at the top of the page and shared between the la
 The navigation bar has a thin bottom border and floats above all content.
 
 > **[截图占位 - 04]**
+> *Top navigation bar: logo, app name, GitHub link, language and theme switchers*
 
 ---
 
@@ -1296,6 +1317,7 @@ The navigation bar has a thin bottom border and floats above all content.
 After CSV files are successfully parsed, the page automatically switches from the landing page to the dashboard view.
 
 > **[截图占位 - 16]**
+> *Dashboard overview shown after CSV files are successfully parsed*
 
 ---
 
@@ -1312,6 +1334,7 @@ Located at the top of the page, with two sections:
 - **Clear** (red text): Clears all current data and returns to the landing page
 
 > **[截图占位 - 17]**
+> *Action bar: filename label plus Load Different Files and Clear buttons*
 
 ---
 
@@ -1349,6 +1372,7 @@ Visual style: light amber background + amber border + amber text.
 | **Active API Keys** | Count, no subtitle |
 
 > **[截图占位 - 20]**
+> *KPI cards: total cost, total tokens, cache hit rate, and active API keys*
 
 ---
 
@@ -1404,6 +1428,7 @@ Visual: rounded pill group, selected item has dark fill + white text, unselected
 - Interaction: hover highlights labels
 
 > **[截图占位 - 23]**
+> *Overview view: daily cost bar chart and cost-by-key donut chart*
 
 ---
 
@@ -1431,6 +1456,7 @@ Full-width table with the following columns:
 Table rows have a subtle background color change on hover.
 
 > **[截图占位 - 24]**
+> *By Key view: per-key table with tokens, cost, cache hit rate, and requests*
 
 ---
 
@@ -1461,6 +1487,7 @@ Table rows have a subtle background color change on hover.
 - "Enable prompt caching in your DeepSeek API calls to reduce costs." hint text
 
 > **[截图占位 - 26]**
+> *Cache view: daily cache hit rate trend and per-key hits vs misses stacked chart*
 
 ---
 
@@ -1485,8 +1512,10 @@ Table rows have a subtle background color change on hover.
 - Built-in zoom enabled when date range exceeds 30 days
 
 > **[截图占位 - 28]**
+> *Trends view: multi-metric line chart for daily cost or token trends*
 
 > **[截图占位 - 29]**
+> *Trends view: line chart after switching to cache hit rate or request count metric*
 
 ---
 
@@ -1494,7 +1523,6 @@ Table rows have a subtle background color change on hover.
 
 Group API keys by custom project categories for team-level usage analysis across business lines.
 
-> **[截图占位 - 30]**
 
 #### Hero Number
 

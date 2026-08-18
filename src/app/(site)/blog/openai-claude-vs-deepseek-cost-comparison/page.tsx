@@ -40,7 +40,7 @@ export default function Page() {
         meta={meta}
         content={{ en, zh }}
         prevPost={{ title: "Top 5 DeepSeek API Cost Optimization & Observability Tools", slug: "deepseek-cost-optimization-tools" }}
-        nextPost={{ title: "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go", slug: "opencode-go-cheapest-deepseek-v4-flash" }}
+        nextPost={{ title: "DeepSeek V4 Flash on OpenCode Go: $10/Mo Cheapest Frontier", slug: "opencode-go-cheapest-deepseek-v4-flash" }}
       />
     </>
   );

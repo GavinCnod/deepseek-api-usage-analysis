@@ -136,6 +136,7 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "Claude Pricing",
         "DeepSeek V4 Pro",
         "LLM cost comparison",
+        "LLM pricing comparison",
         "AI pricing 2026",
       ],
       zh: [
@@ -145,6 +146,7 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "Claude 定价",
         "DeepSeek V4 Pro",
         "大模型成本对比",
+        "大模型定价对比",
         "AI 定价 2026",
       ],
     },

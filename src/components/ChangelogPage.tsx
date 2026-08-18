@@ -51,6 +51,38 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.9.2",
+    date: "2026-08-18",
+    added: [
+      {
+        en: "`x-default` hreflang declared on every page — the language-alternates map now includes an `x-default` entry pointing to the English version (in both the HTML `<head>` and the XML sitemap) so search engines have an explicit fallback page for the language selector.",
+        zh: "所有页面新增 `x-default` hreflang 声明 — 语言映射表现包含指向英文版的 `x-default` 条目（HTML `<head>` 与 XML sitemap 同步输出），为搜索引擎提供明确的语言兜底页面。",
+      },
+    ],
+    improved: [
+      {
+        en: "SEO `<noscript>` fallbacks now render a single language — the 8 server-rendered content blocks (landing page, 3 tool landing pages, privacy, terms, changelog, author) no longer duplicate both EN and ZH full text on every page, eliminating cross-language duplicate content; every page now contains exactly one H1.",
+        zh: "SEO `<noscript>` 回退内容改为单语言输出 — 8 个服务端渲染的内容块（落地页、3 个工具落地页、隐私、条款、更新日志、作者）不再在每个页面重复中英双语全文，消除跨语言重复内容，且每个页面现在只包含一个 H1。",
+      },
+      {
+        en: "Page titles and meta descriptions optimized — homepage and all 6 blog posts trimmed to ≤62-character titles; 5 overlong meta descriptions reduced from 184–253 characters to 148–166 characters for cleaner SERP display. Keyword ownership also differentiated between the Pricing Calculator (interactive estimation tool) and the OpenAI-vs-DeepSeek comparison article.",
+        zh: "页面标题与元描述优化 — 首页与全部 6 篇博客文章标题精简至 62 字符以内；5 条过长的 meta description 从 184–253 字符压缩到 148–166 字符，改善搜索结果展示。同时明确了定价计算器（交互式估算工具）与 OpenAI vs DeepSeek 对比文章的关键词归属，避免相互蚕食。",
+      },
+      {
+        en: "ECharts now lazy-loaded — the ~1.4 MB chart library (plus the ShareCard) is fetched on demand after CSV upload instead of being bundled into the landing page, cutting initial page JS from ~2.3 MB to ~1 MB.",
+        zh: "ECharts 改为按需加载 — 约 1.4 MB 的图表库（含分享卡片）改为上传 CSV 后再拉取，不再打包进落地页首屏，首屏 JS 从约 2.3 MB 降至约 1 MB。",
+      },
+      {
+        en: "User Guide screenshot accessibility — all 12 screenshots now ship descriptive bilingual alt text and captions, and a parser bug that silently dropped the guide's document title (H1) was fixed.",
+        zh: "操作手册截图可访问性 — 12 张截图补充了描述性双语 alt 与图注，并修复了解析器静默丢弃手册文档标题（H1）的隐藏 bug。",
+      },
+      {
+        en: "Sitemap accuracy — blog post `lastModified` values now reflect real publish dates (from `blogArticles.ts`) instead of the build date, and `og-image.png` was added to the vercel.json caching rule.",
+        zh: "Sitemap 准确性 — 博客文章 `lastModified` 改用真实发布日期（取自 `blogArticles.ts`）而非构建日期；`og-image.png` 已加入 vercel.json 缓存规则。",
+      },
+    ],
+  },
+  {
     version: "v0.9.1",
     date: "2026-08-17",
     added: [

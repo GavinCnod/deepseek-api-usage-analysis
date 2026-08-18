@@ -40,11 +40,11 @@ export default function ZhArticleCsvFormatPage() {
         meta={meta}
         content={{ en, zh }}
         prevPost={{
-          title: "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go",
+          title: "DeepSeek V4 Flash on OpenCode Go: $10/Mo Cheapest Frontier",
           slug: "opencode-go-cheapest-deepseek-v4-flash",
         }}
         nextPost={{
-          title: "2026 年性价比之王：GPT-5.6 Luna 与 DeepSeek V4 Flash——每个预算档位的最优模型选择",
+          title: "2026 性价比之王：GPT-5.6 Luna vs DeepSeek V4 Flash",
           slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
         }}
       />

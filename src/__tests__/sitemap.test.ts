@@ -80,10 +80,12 @@ describe("sitemap", () => {
     expect(englishBlog.alternates?.languages).toEqual({
       en: "https://deepseek-usage.xyz/blog",
       zh: "https://deepseek-usage.xyz/zh/blog",
+      "x-default": "https://deepseek-usage.xyz/blog",
     });
     expect(chineseBlog.alternates?.languages).toEqual({
       en: "https://deepseek-usage.xyz/blog",
       zh: "https://deepseek-usage.xyz/zh/blog",
+      "x-default": "https://deepseek-usage.xyz/blog",
     });
   });
 });

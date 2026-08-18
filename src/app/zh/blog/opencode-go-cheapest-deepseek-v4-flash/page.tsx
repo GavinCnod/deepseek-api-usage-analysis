@@ -40,11 +40,11 @@ export default function ZhArticleOpencodeGoPage() {
         meta={meta}
         content={{ en, zh }}
         prevPost={{
-          title: "OpenAI GPT vs Claude vs DeepSeek V4 Pro: A Developer's Cost-Benefit Analysis",
+          title: "DeepSeek vs OpenAI vs Claude: 2026 API Pricing Compared",
           slug: "openai-claude-vs-deepseek-cost-comparison",
         }}
         nextPost={{
-          title: "DeepSeek Changed Its Usage CSV Export Format — What's New & How to Read It",
+          title: "DeepSeek Changed Its CSV Export Format (Aug 2026)",
           slug: "deepseek-csv-export-format-changed-aug-2026",
         }}
       />

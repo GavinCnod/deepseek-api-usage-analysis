@@ -39,7 +39,7 @@ export default function Page() {
       <BlogArticlePage
         meta={meta}
         content={{ en, zh }}
-        prevPost={{ title: "DeepSeek Changed Its Usage CSV Export Format — What's New & How to Read It", slug: "deepseek-csv-export-format-changed-aug-2026" }}
+        prevPost={{ title: "DeepSeek Changed Its CSV Export Format (Aug 2026)", slug: "deepseek-csv-export-format-changed-aug-2026" }}
       />
     </>
   );

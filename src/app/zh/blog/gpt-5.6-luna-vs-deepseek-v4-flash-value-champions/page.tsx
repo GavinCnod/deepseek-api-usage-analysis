@@ -40,7 +40,7 @@ export default function ZhArticleValueChampionsPage() {
         meta={meta}
         content={{ en, zh }}
         prevPost={{
-          title: "DeepSeek 改了用量导出 CSV 格式 — 变了什么？免费仪表盘已适配",
+          title: "DeepSeek 更改了 CSV 导出格式（2026 年 8 月）",
           slug: "deepseek-csv-export-format-changed-aug-2026",
         }}
       />

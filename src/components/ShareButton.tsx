@@ -8,8 +8,11 @@
  */
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import type { ShareTab } from "@/lib/shareCardData";
-import ShareModal from "./ShareModal";
+
+/** ShareModal 依赖 ECharts 生成分享卡片，仅在用户打开分享弹窗时按需加载。 */
+const ShareModal = dynamic(() => import("./ShareModal"), { ssr: false });
 
 // ============================================================================
 // Props

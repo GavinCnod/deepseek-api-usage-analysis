@@ -39,8 +39,8 @@ export default function Page() {
       <BlogArticlePage
         meta={meta}
         content={{ en, zh }}
-        prevPost={{ title: "OpenAI GPT vs Claude vs DeepSeek V4 Pro: A Developer's Cost-Benefit Analysis", slug: "openai-claude-vs-deepseek-cost-comparison" }}
-        nextPost={{ title: "DeepSeek Changed Its Usage CSV Export Format — What's New & How to Read It", slug: "deepseek-csv-export-format-changed-aug-2026" }}
+        prevPost={{ title: "DeepSeek vs OpenAI vs Claude: 2026 API Pricing Compared", slug: "openai-claude-vs-deepseek-cost-comparison" }}
+        nextPost={{ title: "DeepSeek Changed Its CSV Export Format (Aug 2026)", slug: "deepseek-csv-export-format-changed-aug-2026" }}
       />
     </>
   );

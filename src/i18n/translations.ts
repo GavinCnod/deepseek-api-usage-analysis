@@ -315,24 +315,24 @@ const translations = {
         "A comprehensive comparison of the best tools for monitoring and optimizing DeepSeek API costs — from real-time observability platforms to privacy-first CSV analyzers.",
       article2Tags: "Tools, Comparison, Cost Optimization, DeepSeek, Token Cost",
       article3Title:
-        "OpenAI GPT vs Claude vs DeepSeek V4 Pro: A Developer's Cost-Benefit Analysis",
+        "DeepSeek vs OpenAI vs Claude: 2026 API Pricing Compared",
       article3Desc:
-        "Hard numbers on API pricing differences — input costs can differ by 270×. We break down when each model makes economic sense and how to migrate smoothly.",
+        "Hard pricing data on OpenAI GPT, Claude, and DeepSeek V4 Pro — input costs differ up to 270×. When each model makes economic sense, and how to migrate.",
       article3Tags: "Comparison, Pricing, OpenAI, Claude, GPT, Anthropic",
       article4Title:
-        "DeepSeek V4 Flash for $10/Month — the World's Cheapest Frontier Model Is on OpenCode Go",
+        "DeepSeek V4 Flash on OpenCode Go: $10/Mo Cheapest Frontier",
       article4Desc:
-        "The cheapest frontier reasoning model is on OpenCode Go: V4 Flash from $0.43 in / $1.30 out per 1M tokens at peak (half that off-peak), bundled with ~$60 of monthly usage for just $10. Plus why DeepSeek's price hike makes now the time to subscribe.",
+        "DeepSeek V4 Flash from $0.43/$1.30 per 1M tokens (half off-peak) via OpenCode Go's $10/month plan, plus why the price hike means subscribe now.",
       article4Tags: "OpenCode Go, DeepSeek V4 Flash, Pricing, Cost Optimization, Subscription",
       article5Title:
-        "DeepSeek Changed Its Usage CSV Export Format — What's New & How to Read It",
+        "DeepSeek Changed Its CSV Export Format (Aug 2026)",
       article5Desc:
-        "DeepSeek's billing export schema changed: `utc_date` became `start_time_iso` / `end_time_iso` timestamps and filenames are now date-range based. We break down every column change and show how to read the new format — and how our free dashboard already supports it.",
+        "DeepSeek's billing CSV export changed: utc_date became start_time_iso timestamps, filenames are date-range based. Every change explained, already supported.",
       article5Tags: "DeepSeek, CSV Format, Export, Announcement, Cost Tracking",
       article6Title:
-        "The 2026 Value Champions: GPT-5.6 Luna & DeepSeek V4 Flash — and the Best Model for Every Budget",
+        "GPT-5.6 Luna vs DeepSeek V4 Flash: 2026 Best-Value LLMs",
       article6Desc:
-        "Why price stopped being a proxy for quality, how off-peak scheduling and Batch discounts turn scheduling into a cost lever, and a tier-by-tier framework for picking the best-value model in every price band.",
+        "Why price is no longer a quality proxy, how off-peak scheduling cuts costs, and a tier-by-tier framework for the best-value model in every budget band.",
       article6Tags: "Value, Comparison, Pricing, GPT-5.6, DeepSeek, Off-peak, Cost Optimization",
     },
     costTracker: {
@@ -343,6 +343,7 @@ const translations = {
         "Drop your DeepSeek billing CSVs and get instant cost breakdowns by day, model, and API key — all processed locally in your browser. No signup, no server upload.",
       cta: "Analyze My Costs Now",
       privacyBadge: "100% Private — data never leaves your browser",
+      featuresTitle: "Features",
       feature1Title: "Daily Cost Breakdown",
       feature1Desc:
         "See exactly how much you spent each day with an interactive bar chart. Spot anomalies and spending spikes at a glance.",
@@ -364,7 +365,7 @@ const translations = {
       recommendedUsingTools: "Recommended Tools We ARE USING",
       recommendedUsingDes:
         "We are using these tools ourselves for Development / Deployment. Check out for more details.",
-        useCasesTitle: "Real Usage Scenarios",
+      useCasesTitle: "Real Usage Scenarios",
       useCase1Title: "Finance or ops review",
       useCase1Desc:
         "Upload the monthly export before invoice review. The dashboard highlights daily spikes, zero-cost anomalies, and which keys drove the change.",
@@ -917,24 +918,24 @@ const translations = {
         "深度盘点主流 DeepSeek API 监控与优化工具——从实时可观测性平台到隐私优先的 CSV 分析器，全面对比。",
       article2Tags: "工具, 对比, 成本优化, DeepSeek, Token成本",
       article3Title:
-        "OpenAI GPT vs Claude vs DeepSeek V4 Pro：开发者成本收益分析",
+        "DeepSeek vs OpenAI vs Claude：2026 API 定价对比",
       article3Desc:
-        "硬核 API 定价数据对比——输入成本差距可达 270 倍。分析各模型的经济适用场景，以及如何平滑迁移。",
+        "OpenAI GPT、Claude 与 DeepSeek V4 Pro 硬核定价对比——输入成本差距可达 270 倍。分析各模型的经济适用场景与平滑迁移方法。",
       article3Tags: "对比, 定价, OpenAI, Claude, GPT, Anthropic",
       article4Title:
-        "全球最便宜的 DeepSeek V4 Flash，就在 OpenCode Go（每月 $10）",
+        "OpenCode Go 上的 DeepSeek V4 Flash：每月 $10 最便宜前沿模型",
       article4Desc:
-        "最便宜的前沿推理模型就在 OpenCode Go：V4 Flash 高峰价输入 $0.43 / 输出 $1.30 每百万 Token（闲时减半），每月 $10 即含约 $60 用量。附上为何 DeepSeek 涨价让现在订阅更值得。",
+        "DeepSeek V4 Flash 高峰输入 $0.43 / 输出 $1.30 每百万 Token（闲时减半），含在 OpenCode Go 每月 $10 套餐中。附 DeepSeek 涨价前的订阅建议。",
       article4Tags: "OpenCode Go, DeepSeek V4 Flash, 定价, 成本优化, 订阅",
       article5Title:
-        "DeepSeek 改了用量导出 CSV 格式 — 变了什么？免费仪表盘已适配",
+        "DeepSeek 更改了 CSV 导出格式（2026 年 8 月）",
       article5Desc:
-        "DeepSeek 账单导出字段变更：`utc_date` 改为 `start_time_iso` / `end_time_iso` 时间戳，文件名也变成日期区间式。我们逐列拆解新格式、教你如何阅读，并告诉你免费仪表盘已全面支持。",
+        "DeepSeek 账单 CSV 导出格式变更：utc_date 改为 start_time_iso 时间戳，文件名变为日期区间式——逐项解读，免费仪表盘已全面适配。",
       article5Tags: "DeepSeek, CSV 格式, 导出, 公告, 成本追踪",
       article6Title:
-        "2026 年性价比之王：GPT-5.6 Luna 与 DeepSeek V4 Flash——每个预算档位的最优模型选择",
+        "2026 性价比之王：GPT-5.6 Luna vs DeepSeek V4 Flash",
       article6Desc:
-        "为什么价格不再是质量的代理指标？闲时调度与 Batch 五折如何把排班变成成本杠杆？一份分档选择框架，帮你选出每个价格档位里性价比最高的模型。",
+        "为什么价格不再是质量代理？闲时调度如何变成成本杠杆？一份分档框架，帮你选出每个价格档位里性价比最高的模型。",
       article6Tags: "性价比, 对比, 定价, GPT-5.6, DeepSeek, 闲时, 成本优化",
     },
     costTracker: {
@@ -945,6 +946,7 @@ const translations = {
         "拖入 DeepSeek 账单 CSV，即刻获取按日、按模型、按 API Key 分类的费用明细 — 所有数据在浏览器本地处理。无需注册，无需上传。",
       cta: "立即分析费用",
       privacyBadge: "100% 隐私 — 数据绝不离开你的浏览器",
+      featuresTitle: "功能特点",
       feature1Title: "每日费用明细",
       feature1Desc:
         "通过交互式柱状图精确查看每日支出。一眼发现异常消费和费用尖峰。",

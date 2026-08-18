@@ -57,7 +57,7 @@ export function buildHomeMetadata(locale: Locale): Metadata {
   return buildLocalizedPageMetadata(locale, {
     pathname: "/",
     title: {
-      en: "DeepSeek API Cost Tracker & Usage Analytics — Free CSV Dashboard",
+      en: "DeepSeek API Cost Tracker — Free CSV Usage Dashboard",
       zh: "DeepSeek API 费用追踪器与用量分析 — 免费 CSV 仪表盘",
     },
     description: {
@@ -100,7 +100,7 @@ export function buildGuidelineMetadata(locale: Locale): Metadata {
       zh: "DeepSeek API 用量分析仪表盘 — 用户指南",
     },
     description: {
-      en: "Complete user guide for the DeepSeek API Usage Analytics Dashboard. Learn how to export CSVs, upload files, and navigate all dashboard views with step-by-step instructions and screenshots.",
+      en: "Complete user guide for the DeepSeek API Usage Analytics Dashboard — export CSVs, upload files, and navigate all views with step-by-step instructions and screenshots.",
       zh: "DeepSeek API 用量分析仪表盘完整用户指南。通过分步说明和截图了解如何导出 CSV、上传文件以及浏览所有仪表盘视图。",
     },
     keywords: {
@@ -222,7 +222,7 @@ export function buildCostTrackerMetadata(locale: Locale): Metadata {
       zh: "DeepSeek API 费用追踪器 — 免费 CSV 仪表盘 | 无需注册",
     },
     description: {
-      en: "Free DeepSeek API cost tracker. Upload billing CSVs and instantly see daily costs, per-key attribution, cache hit rates, and project breakdowns — all processed locally in your browser.",
+      en: "Free DeepSeek API cost tracker. Upload billing CSVs for daily costs, per-key attribution, cache hit rates, and project breakdowns — processed locally in your browser.",
       zh: "免费 DeepSeek API 费用追踪器。上传账单 CSV，即时查看每日费用、按 Key 归因、缓存命中率和项目拆分——全部在浏览器本地处理。",
     },
     keywords: {
@@ -292,27 +292,27 @@ export function buildPricingCalculatorMetadata(locale: Locale): Metadata {
   return buildLocalizedPageMetadata(locale, {
     pathname: "/deepseek-api-pricing-calculator",
     title: {
-      en: "DeepSeek API Pricing Calculator — Compare Model Costs Instantly",
+      en: "DeepSeek API Pricing Calculator — Compare 2026 Costs",
       zh: "DeepSeek API 价格计算器 — 即时比较模型成本",
     },
     description: {
-      en: "Estimate your DeepSeek API costs with an interactive pricing calculator. Compare V4 Flash, V4 Pro, GPT, Claude models side by side. Adjust token counts and cache hit rate assumptions.",
-      zh: "使用交互式价格计算器估算 DeepSeek API 成本。横向比较 V4 Flash、V4 Pro、GPT、Claude 全系模型定价，调整 Token 数量与缓存命中率假设。",
+      en: "Estimate your own DeepSeek API costs with an interactive calculator — adjust tokens, model, and cache hit rate for instant monthly estimates for your workload.",
+      zh: "使用交互式价格计算器按你自己的用量估算 DeepSeek API 成本——调整 Token 数量、模型与缓存命中率，即时得到月度费用估算。",
     },
     keywords: {
       en: [
         "DeepSeek API pricing calculator",
         "DeepSeek token calculator",
         "DeepSeek cost estimate",
-        "DeepSeek vs OpenAI cost",
-        "LLM pricing comparison",
+        "DeepSeek V4 Flash price",
+        "LLM pricing tool",
       ],
       zh: [
         "DeepSeek API 价格计算器",
         "DeepSeek Token 计算器",
         "DeepSeek 成本估算",
-        "DeepSeek vs OpenAI 成本",
-        "大模型定价对比",
+        "DeepSeek V4 Flash 价格",
+        "大模型定价工具",
       ],
     },
     imageAlt: {
