@@ -51,6 +51,12 @@ export default function BlogIndex() {
       slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions" as const,
       tags: t.blogIndex.article6Tags.split(", "),
     },
+    {
+      title: t.blogIndex.article7Title,
+      description: t.blogIndex.article7Desc,
+      slug: "deepseek-api-price-history-2025-2026" as const,
+      tags: t.blogIndex.article7Tags.split(", "),
+    },
   ].sort((a, b) =>
     getBlogArticleDefinition(b.slug).publishedTime.localeCompare(
       getBlogArticleDefinition(a.slug).publishedTime

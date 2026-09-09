@@ -18,7 +18,7 @@ This project uses Next.js 16 App Router with route groups and bilingual mirrorin
 | `src/lib/localeRouting.ts` | URL-level i18n routing helpers (`/zh` prefix logic) |
 | `src/lib/site.ts` | Site constants (`SITE_URL`, `SITE_NAME`, image URLs) |
 | `src/lib/pageMetadata.ts` | `buildLocalizedPageMetadata()` — canonical, alternates, OG, Twitter, keywords, author |
-| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 6 articles, 8 model pricing pages via `buildModelPricingMetadata`, 3 glossary pages via `buildGlossaryMetadata`) |
+| `src/lib/routeMetadata.ts` | Per-route `generateMetadata()` builders (home, guideline, privacy, terms, changelog, cost-tracker, cache-analyzer, pricing-calculator, author, blog index, 7 articles, 8 model pricing pages via `buildModelPricingMetadata`, 3 glossary pages via `buildGlossaryMetadata`) |
 | `src/lib/blogArticles.ts` | Blog article definitions (slug, pathname, titleKey, descriptionKey, keywords, publishedTime) |
 | `src/lib/content.ts` | Article content type definitions (`ArticleSection[]`, `ContentBlock`, `PricingRow`) |
 | `src/lib/content/articleCaching.ts` | Article 1 content (context caching guide) |

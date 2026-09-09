@@ -126,13 +126,13 @@ describe("buildModelPricingJsonLd", () => {
     const offers = product.offers as Record<string, unknown>;
     expect(offers["@type"]).toBe("AggregateOffer");
     expect(offers.priceCurrency).toBe("CNY");
-    expect(offers.lowPrice).toBe("0.1");
-    expect(offers.highPrice).toBe("9");
+    expect(offers.lowPrice).toBe("0.04");
+    expect(offers.highPrice).toBe("8");
     expect(offers.offerCount).toBe(3);
 
     const specs = offers.priceSpecification as Array<Record<string, unknown>>;
     expect(specs).toHaveLength(3);
-    expect(specs.map((s) => s.price)).toEqual(["3", "9", "0.1"]);
+    expect(specs.map((s) => s.price)).toEqual(["2", "8", "0.04"]);
     expect(specs[0].description).toContain("per million input tokens");
     expect(specs[0].description).toContain("peak");
 

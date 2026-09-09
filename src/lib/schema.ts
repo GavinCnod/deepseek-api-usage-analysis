@@ -35,7 +35,7 @@ import { deepseekProject, TOOL_SERIES_NAME } from "@/lib/sisterProjects";
 /* ------------------------------------------------------------------ */
 
 /** 应用版本号，与 package.json 保持同步 */
-const APP_VERSION = "0.10.2";
+const APP_VERSION = "0.11.0";
 
 /** SoftwareApplication Schema 翻译 */
 const softwareAppSchema: Record<
@@ -259,6 +259,7 @@ export function buildBlogIndexJsonLd(locale: Locale): Record<string, unknown> {
     "opencode-go-cheapest-deepseek-v4-flash",
     "deepseek-csv-export-format-changed-aug-2026",
     "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
+    "deepseek-api-price-history-2025-2026",
   ];
   const titles: Record<BlogArticleSlug, string> = {
     "deepseek-context-caching-guide": blog.article1Title,
@@ -267,6 +268,7 @@ export function buildBlogIndexJsonLd(locale: Locale): Record<string, unknown> {
     "opencode-go-cheapest-deepseek-v4-flash": blog.article4Title,
     "deepseek-csv-export-format-changed-aug-2026": blog.article5Title,
     "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions": blog.article6Title,
+    "deepseek-api-price-history-2025-2026": blog.article7Title,
   };
   const blogUrl = buildLocaleUrl(locale, "/blog");
 

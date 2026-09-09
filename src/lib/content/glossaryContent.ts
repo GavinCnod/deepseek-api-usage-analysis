@@ -92,8 +92,8 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
       zh: "什么是 DeepSeek 缓存命中率？",
     },
     definition: {
-      en: "DeepSeek cache hit rate is the share of your input tokens that are billed at the reduced cache-hit price instead of the full input price — the higher the better, since cached input costs as little as 1/30 of the uncached rate.",
-      zh: "DeepSeek 缓存命中率是输入 token 中按「缓存命中」低价而非全价计费的比例——越高越好，因为缓存命中输入最低仅需未命中单价的 1/30。",
+      en: "DeepSeek cache hit rate is the share of your input tokens that are billed at the reduced cache-hit price instead of the full input price — the higher the better, since cached input costs as little as 1/50 of the uncached rate.",
+      zh: "DeepSeek 缓存命中率是输入 token 中按「缓存命中」低价而非全价计费的比例——越高越好，因为缓存命中输入最低仅需未命中单价的 1/50。",
     },
     sections: {
       en: [
@@ -101,7 +101,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
           heading: "How it's measured",
           paragraphs: [
             "DeepSeek's usage exports include two input-token rows per request: input_cache_hit_tokens and input_cache_miss_tokens. The cache hit rate is simply cache hits divided by total input tokens (hits + misses).",
-            "A hit rate of 50% means half of your input tokens rode the cached lane. Because DeepSeek bills cache hits at roughly 1/30 of the uncached rate, that single number has an outsized effect on your bill: raising it from 20% to 60% can cut input costs by more than half.",
+            "A hit rate of 50% means half of your input tokens rode the cached lane. Because DeepSeek bills cache hits at roughly 1/50 of the uncached rate, that single number has an outsized effect on your bill: raising it from 20% to 60% can cut input costs by more than half.",
           ],
         },
         {
@@ -124,7 +124,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
           heading: "如何计算",
           paragraphs: [
             "DeepSeek 的用量导出会为每个请求包含两行输入 token 数据：input_cache_hit_tokens（缓存命中）与 input_cache_miss_tokens（缓存未命中）。缓存命中率就是缓存命中量除以总输入 token（命中 + 未命中）。",
-            "命中率 50% 意味着一半输入 token 走了缓存通道。由于 DeepSeek 对缓存命中按未命中价的约 1/30 计费，这一个数字对账单的影响极其显著：从 20% 提升到 60%，输入成本可降低一半以上。",
+            "命中率 50% 意味着一半输入 token 走了缓存通道。由于 DeepSeek 对缓存命中按未命中价的约 1/50 计费，这一个数字对账单的影响极其显著：从 20% 提升到 60%，输入成本可降低一半以上。",
           ],
         },
         {
@@ -147,7 +147,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
       en: [
         {
           q: "Is a higher DeepSeek cache hit rate always better?",
-          a: "Yes — cached input tokens are billed at about 1/30 of the uncached rate, so every percentage point of hit rate reduces your input cost. There's no downside to a higher rate; the only question is how to structure prompts to reach it.",
+          a: "Yes — cached input tokens are billed at about 1/50 of the uncached rate, so every percentage point of hit rate reduces your input cost. There's no downside to a higher rate; the only question is how to structure prompts to reach it.",
         },
         {
           q: "What is a good DeepSeek cache hit rate?",
@@ -161,7 +161,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
       zh: [
         {
           q: "DeepSeek 缓存命中率越高越好吗？",
-          a: "是——缓存命中输入按未命中价的约 1/30 计费，命中率每提高一个百分点都在降低输入成本。更高的命中率没有坏处，唯一的问题是能否通过 prompt 结构达成。",
+          a: "是——缓存命中输入按未命中价的约 1/50 计费，命中率每提高一个百分点都在降低输入成本。更高的命中率没有坏处，唯一的问题是能否通过 prompt 结构达成。",
         },
         {
           q: "多少算健康的 DeepSeek 缓存命中率？",
@@ -180,8 +180,8 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
       zh: "什么是 DeepSeek 上下文缓存？— 如何降低 API 成本",
     },
     description: {
-      en: "DeepSeek context caching reuses computation for repeated prompt prefixes, billing cached input at 1/30 of the normal rate. Learn how prefix matching works and how to exploit it.",
-      zh: "DeepSeek 上下文缓存复用重复 prompt 前缀的计算结果，缓存命中输入按普通价的 1/30 计费。了解前缀匹配机制与利用方法。",
+      en: "DeepSeek context caching reuses computation for repeated prompt prefixes, billing cached input at 1/50 of the normal rate. Learn how prefix matching works and how to exploit it.",
+      zh: "DeepSeek 上下文缓存复用重复 prompt 前缀的计算结果，缓存命中输入按普通价的 1/50 计费。了解前缀匹配机制与利用方法。",
     },
     keywords: {
       en: ["what is DeepSeek context caching", "DeepSeek context caching", "DeepSeek disk caching", "DeepSeek prompt caching", "how DeepSeek caching works", "DeepSeek cache hit price"],
@@ -192,8 +192,8 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
       zh: "什么是 DeepSeek 上下文缓存？",
     },
     definition: {
-      en: "DeepSeek context caching (also called disk caching) stores the computation for prompt prefixes and reuses it on matching requests, billing cached input at about 1/30 of the normal input price.",
-      zh: "DeepSeek 上下文缓存（也称磁盘缓存）会存储 prompt 前缀的计算结果并在匹配请求时复用，缓存命中输入按普通输入价的约 1/30 计费。",
+      en: "DeepSeek context caching (also called disk caching) stores the computation for prompt prefixes and reuses it on matching requests, billing cached input at about 1/50 of the normal input price.",
+      zh: "DeepSeek 上下文缓存（也称磁盘缓存）会存储 prompt 前缀的计算结果并在匹配请求时复用，缓存命中输入按普通输入价的约 1/50 计费。",
     },
     sections: {
       en: [
@@ -207,7 +207,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         {
           heading: "The pricing difference",
           paragraphs: [
-            "As of August 2026, DeepSeek V4 Flash charges ¥3.00 per million input tokens for cache misses at peak, but only ¥0.10 per million for cache hits — a 96.7% discount. For V4 Pro the ratio is identical: ¥9.00 miss vs ¥0.30 hit at peak. Off-peak, both are halved again.",
+            "As of September 10, 2026, DeepSeek V4 Flash charges ¥2.00 per million input tokens for cache misses at peak (¥1.00 off-peak), but only ¥0.04 per million for cache hits (¥0.02 off-peak) — a 98% discount. For V4 Pro the ratio is roughly the same: ¥9.00 miss vs ¥0.30 hit at peak. Off-peak, both are halved again.",
             "This makes caching the single biggest cost lever in DeepSeek's billing model. A stable system prompt plus reusable context is effectively free to send, while unique one-off prompts pay full input price.",
           ],
         },
@@ -230,7 +230,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         {
           heading: "价格差异有多大",
           paragraphs: [
-            "截至 2026 年 8 月，DeepSeek V4 Flash 缓存未命中输入高峰价 ¥3.00/百万，而缓存命中仅 ¥0.10/百万——折扣高达 96.7%。V4 Pro 比例相同：高峰 ¥9.00 未命中 vs ¥0.30 命中。闲时两者再减半。",
+            "截至 2026 年 9 月 10 日，DeepSeek V4 Flash 缓存未命中输入高峰价 ¥2.00/百万（闲时 ¥1.00），而缓存命中仅 ¥0.04/百万（闲时 ¥0.02）——折扣高达 98%。V4 Pro 比例大致相同：高峰 ¥9.00 未命中 vs ¥0.30 命中。闲时两者再减半。",
             "这让缓存成为 DeepSeek 计费模型中最大的成本杠杆。稳定的 system prompt 加上可复用上下文几乎等于免费发送，而一次性独有 prompt 则按全价计费。",
           ],
         },
@@ -251,7 +251,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         },
         {
           q: "How much does DeepSeek context caching save?",
-          a: "Cached input is billed at about 1/30 of the uncached input rate — a ~96.7% discount. On a high-hit-rate workload this can cut total input cost by more than half.",
+          a: "Cached input is billed at about 1/50 of the uncached input rate — a ~98% discount. On a high-hit-rate workload this can cut total input cost by more than half.",
         },
         {
           q: "Does changing my system prompt break the cache?",
@@ -265,7 +265,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         },
         {
           q: "DeepSeek 上下文缓存能省多少钱？",
-          a: "缓存命中输入按未命中输入的约 1/30 计费——约 96.7% 的折扣。在高命中率负载下，可令总输入成本降低一半以上。",
+          a: "缓存命中输入按未命中输入的约 1/50 计费——约 98% 的折扣。在高命中率负载下，可令总输入成本降低一半以上。",
         },
         {
           q: "修改 system prompt 会破坏缓存吗？",
@@ -307,14 +307,14 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         {
           heading: "Which models and prices it applies to",
           paragraphs: [
-            "Off-peak pricing applies to DeepSeek's own models, which carry a peak/off-peak price pair: V4 Flash (¥3.00 → ¥1.50 input, ¥9.00 → ¥4.50 output at peak/off-peak) and V4 Pro (¥9.00 → ¥4.50 input, ¥27.00 → ¥13.50 output). Cache-hit input is likewise halved (¥0.10 → ¥0.05 for Flash).",
+            "Off-peak pricing applies to DeepSeek's own models, which carry a peak/off-peak price pair: V4 Flash (¥2.00 → ¥1.00 input, ¥8.00 → ¥4.00 output at peak/off-peak) and V4 Pro (¥9.00 → ¥4.50 input, ¥27.00 → ¥13.50 output). Cache-hit input is likewise halved (¥0.04 → ¥0.02 for Flash).",
             "Competitor models billed through other providers follow their own pricing; DeepSeek's off-peak discount is specific to DeepSeek-owned models.",
           ],
         },
         {
           heading: "How to use it",
           paragraphs: [
-            "Move batch jobs, cron workloads, and nightly summarization pipelines to off-peak hours. A nightly pipeline generating 100M output tokens on V4 Flash costs ¥900 at peak — or ¥450 after 8 PM. Same tokens, same model, zero code changes, one scheduling tweak.",
+            "Move batch jobs, cron workloads, and nightly summarization pipelines to off-peak hours. A nightly pipeline generating 100M output tokens on V4 Flash costs ¥800 at peak — or ¥400 after 8 PM. Same tokens, same model, zero code changes, one scheduling tweak.",
             "Interactive traffic naturally lands in peak windows; if you can't shift the traffic itself, consider caching to offset the input-side peak cost. Off-peak scheduling and a high cache hit rate are the two biggest levers on a DeepSeek bill.",
           ],
         },
@@ -330,14 +330,14 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         {
           heading: "适用哪些模型和价格",
           paragraphs: [
-            "闲时定价适用于 DeepSeek 自有模型，它们带有高峰/闲时价格对：V4 Flash（高峰 ¥3.00 → 闲时 ¥1.50 输入，¥9.00 → ¥4.50 输出）与 V4 Pro（¥9.00 → ¥4.50 输入，¥27.00 → ¥13.50 输出）。缓存命中输入同样减半（Flash ¥0.10 → ¥0.05）。",
+            "闲时定价适用于 DeepSeek 自有模型，它们带有高峰/闲时价格对：V4 Flash（高峰 ¥2.00 → 闲时 ¥1.00 输入，¥8.00 → ¥4.00 输出）与 V4 Pro（¥9.00 → ¥4.50 输入，¥27.00 → ¥13.50 输出）。缓存命中输入同样减半（Flash ¥0.04 → ¥0.02）。",
             "通过其他服务商计费的竞品模型按各自的定价执行；DeepSeek 的闲时折扣仅适用于 DeepSeek 自有模型。",
           ],
         },
         {
           heading: "如何利用",
           paragraphs: [
-            "把批量任务、cron 工作负载和夜间摘要流水线移到闲时。一个每晚在 V4 Flash 上生成 1 亿输出 token 的流水线，高峰需 ¥900——晚 8 点后只要 ¥450。同样的 token、同样的模型、零代码改动，只需一次调度调整。",
+            "把批量任务、cron 工作负载和夜间摘要流水线移到闲时。一个每晚在 V4 Flash 上生成 1 亿输出 token 的流水线，高峰需 ¥800——晚 8 点后只要 ¥400。同样的 token、同样的模型、零代码改动，只需一次调度调整。",
             "交互式流量天然集中在高峰窗口；如果流量本身无法挪动，可以考虑用缓存来对冲输入侧的峰值成本。闲时调度与高缓存命中率是 DeepSeek 账单上最大的两个杠杆。",
           ],
         },
@@ -355,7 +355,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         },
         {
           q: "How much can I save by running at off-peak?",
-          a: "50% off every billable rate. A nightly 100M-output-token V4 Flash job costs ¥900 at peak but ¥450 off-peak — the same tokens at half the price.",
+          a: "50% off every billable rate. A nightly 100M-output-token V4 Flash job costs ¥800 at peak but ¥400 off-peak — the same tokens at half the price.",
         },
       ],
       zh: [
@@ -369,7 +369,7 @@ export const GLOSSARY_CONTENT: Record<GlossarySlug, GlossaryPageContent> = {
         },
         {
           q: "闲时运行能省多少？",
-          a: "所有可计费费率一律 5 折。一个每晚生成 1 亿输出 token 的 V4 Flash 任务，高峰 ¥900，闲时只要 ¥450——同样的 token，一半的价格。",
+          a: "所有可计费费率一律 5 折。一个每晚生成 1 亿输出 token 的 V4 Flash 任务，高峰 ¥800，闲时只要 ¥400——同样的 token，一半的价格。",
         },
       ],
     },

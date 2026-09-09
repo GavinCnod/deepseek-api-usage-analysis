@@ -70,9 +70,9 @@ export const MODEL_VENDOR: Record<
  */
 export const MODEL_PRICING: Record<ModelKey, ModelPricing> = {
   v4Flash: {
-    input: { peak: 3.0, offpeak: 1.5 },
-    output: { peak: 9.0, offpeak: 4.5 },
-    cacheHit: { peak: 0.1, offpeak: 0.05 },
+    input: { peak: 2.0, offpeak: 1.0 },
+    output: { peak: 8.0, offpeak: 4.0 },
+    cacheHit: { peak: 0.04, offpeak: 0.02 },
     currency: "CNY",
   },
   v4Pro: {

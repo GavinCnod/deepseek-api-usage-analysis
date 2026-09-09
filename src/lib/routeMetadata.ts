@@ -620,3 +620,30 @@ export function buildArticleValueChampionsMetadata(locale: Locale): Metadata {
     modifiedTime: article.modifiedTime,
   });
 }
+
+/**
+ * 构建文章《DeepSeek Pricing History》的 metadata。
+ */
+export function buildArticlePricingHistoryMetadata(locale: Locale): Metadata {
+  const article = getBlogArticleLocaleMeta("deepseek-api-price-history-2025-2026", locale);
+  const enArticle = getBlogArticleLocaleMeta("deepseek-api-price-history-2025-2026", "en");
+  const zhArticle = getBlogArticleLocaleMeta("deepseek-api-price-history-2025-2026", "zh");
+
+  return buildBlogArticleMetadata(locale, {
+    pathname: article.pathname,
+    title: {
+      en: enArticle.title,
+      zh: zhArticle.title,
+    },
+    description: {
+      en: enArticle.description,
+      zh: zhArticle.description,
+    },
+    keywords: {
+      en: enArticle.keywords,
+      zh: zhArticle.keywords,
+    },
+    publishedTime: article.publishedTime,
+    modifiedTime: article.modifiedTime,
+  });
+}

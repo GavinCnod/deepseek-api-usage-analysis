@@ -7,7 +7,7 @@ import sitemap from "@/app/sitemap";
 describe("sitemap", () => {
   it("返回完整的双语条目集合", () => {
     const entries = sitemap();
-    expect(entries.length).toBe(54);
+    expect(entries.length).toBe(56);
   });
 
   it("包含新增的模型定价页与 Glossary 页", () => {

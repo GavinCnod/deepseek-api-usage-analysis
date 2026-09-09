@@ -51,6 +51,20 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.11.0",
+    date: "2026-09-09",
+    improved: [
+      {
+        en: "DeepSeek V4 Flash pricing updated to the September 10, 2026 repricing — off-peak is now ¥1.00 input / ¥4.00 output / ¥0.02 cached input per million tokens, with peak at double that (¥2.00 / ¥8.00 / ¥0.04). The shared `MODEL_PRICING` config, pricing calculator, all 8 model pricing pages, glossary pages, and their JSON-LD were updated in one place; the cache-hit discount note now reads 1/50 (98%) instead of 1/30.",
+        zh: "DeepSeek V4 Flash 定价更新至 2026 年 9 月 10 日新价格——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02 每百万 token，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。共享 `MODEL_PRICING` 配置、价格计算器、全部 8 个模型定价页、术语页及其 JSON-LD 已在一处同步；缓存命中折扣说明由 1/30 更新为 1/50（98%）。",
+      },
+      {
+        en: "New blog article — \"DeepSeek's Pricing History: From V3 to the Sep 2026 V4 Flash Cut\" (`/blog/deepseek-api-price-history-2025-2026`) with bilingual EN/ZH content and a timeline pricing table. It traces DeepSeek pricing from 2024's disk caching and V3, through R1 and the 2025 off-peak discounts and V3.2-Exp cut, to the 2026 V4 Flash/Pro layering and peak/off-peak system, closing on the September 10, 2026 Flash repricing. Wired into the blog index, sitemap, prev/next chain, and SEO metadata.",
+        zh: "发布新博客文章——《DeepSeek 定价史：从 V3 到 2026 年 9 月 V4 Flash 降价》（`/zh/blog/deepseek-api-price-history-2025-2026`），含中英双语内容与时间线价格表。文章梳理了 DeepSeek 自 2024 年磁盘缓存与 V3、走过 R1 与 2025 年闲时折扣及 V3.2-Exp 降价、演进到 2026 年 V4 Flash/Pro 分层与高峰闲时体系，最终落在 2026 年 9 月 10 日 Flash 调价。已完整接入博客首页、sitemap、前后篇链与 SEO 元数据。",
+      },
+    ],
+  },
+  {
     version: "v0.10.2",
     date: "2026-08-18",
     fixed: [

@@ -54,7 +54,7 @@ const FAQ: Record<ModelKey, { en: ModelFaqItem[]; zh: ModelFaqItem[] }> = {
     en: [
       {
         q: "What is the price of DeepSeek V4 Flash per million tokens?",
-        a: "DeepSeek V4 Flash bills ¥3.00 per million input tokens and ¥9.00 per million output tokens at peak hours (Beijing 09:00–12:00 and 14:00–18:00). Off-peak hours are 50% off: ¥1.50 input / ¥4.50 output. Cached input is charged at ¥0.10 peak / ¥0.05 off-peak — about 1/30 of the uncached rate.",
+        a: "DeepSeek V4 Flash bills ¥2.00 per million input tokens and ¥8.00 per million output tokens at peak hours (Beijing 09:00–12:00 and 14:00–18:00). Off-peak hours are 50% off: ¥1.00 input / ¥4.00 output. Cached input is charged at ¥0.04 peak / ¥0.02 off-peak — about 1/50 of the uncached rate.",
       },
       {
         q: "Is DeepSeek V4 Flash actually cheap enough for production workloads?",
@@ -62,13 +62,13 @@ const FAQ: Record<ModelKey, { en: ModelFaqItem[]; zh: ModelFaqItem[] }> = {
       },
       {
         q: "How do DeepSeek peak and off-peak prices work for V4 Flash?",
-        a: "DeepSeek splits the day in half: peak hours are Beijing time 09:00–12:00 and 14:00–18:00 and bill at full price; everything else is billed at 50% off. A nightly batch job generating 100M output tokens costs ¥900 at peak but only ¥450 after 8 PM — same tokens, zero code changes.",
+        a: "DeepSeek splits the day in half: peak hours are Beijing time 09:00–12:00 and 14:00–18:00 and bill at full price; everything else is billed at 50% off. A nightly batch job generating 100M output tokens costs ¥800 at peak but only ¥400 after 8 PM — same tokens, zero code changes.",
       },
     ],
     zh: [
       {
         q: "DeepSeek V4 Flash 每百万 token 多少钱？",
-        a: "DeepSeek V4 Flash 高峰时段（北京时间 09:00–12:00 与 14:00–18:00）输入 ¥3.00/百万、输出 ¥9.00/百万；闲时减半，输入 ¥1.50、输出 ¥4.50。缓存命中输入仅 ¥0.10/百万（闲时 ¥0.05），约为未命中单价的 1/30。",
+        a: "DeepSeek V4 Flash 高峰时段（北京时间 09:00–12:00 与 14:00–18:00）输入 ¥2.00/百万、输出 ¥8.00/百万；闲时减半，输入 ¥1.00、输出 ¥4.00。缓存命中输入仅 ¥0.04/百万（闲时 ¥0.02），约为未命中单价的 1/50。",
       },
       {
         q: "DeepSeek V4 Flash 真的便宜到能支撑生产环境吗？",
@@ -76,7 +76,7 @@ const FAQ: Record<ModelKey, { en: ModelFaqItem[]; zh: ModelFaqItem[] }> = {
       },
       {
         q: "V4 Flash 的高峰/闲时定价如何影响成本？",
-        a: "DeepSeek 把一天分成两半：高峰时段为北京时间 09:00–12:00 和 14:00–18:00，按全价计费；其余时间一律 5 折。每晚批量任务生成 1 亿输出 token，高峰需 ¥900，晚 8 点后只要 ¥450——同样的 token，零代码改动。",
+        a: "DeepSeek 把一天分成两半：高峰时段为北京时间 09:00–12:00 和 14:00–18:00，按全价计费；其余时间一律 5 折。每晚批量任务生成 1 亿输出 token，高峰需 ¥800，晚 8 点后只要 ¥400——同样的 token，零代码改动。",
       },
     ],
   },
@@ -300,8 +300,8 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
       zh: "DeepSeek V4 Flash API 价格 (2026) — 每百万 Token 单价",
     },
     description: {
-      en: "DeepSeek V4 Flash API pricing as of 2026: ¥3.00 input / ¥9.00 output per million tokens at peak, 50% off off-peak, ¥0.10 cached input. 1M context, 96% cache hit rate.",
-      zh: "DeepSeek V4 Flash API 价格（2026 最新）：高峰输入 ¥3.00/百万、输出 ¥9.00/百万，闲时 5 折，缓存命中输入 ¥0.10/百万。100 万上下文，96% 缓存命中率。",
+      en: "DeepSeek V4 Flash API pricing as of September 2026: ¥2.00 input / ¥8.00 output per million tokens at peak, 50% off off-peak, ¥0.04 cached input. 1M context, 96% cache hit rate.",
+      zh: "DeepSeek V4 Flash API 价格（2026 年 9 月最新）：高峰输入 ¥2.00/百万、输出 ¥8.00/百万，闲时 5 折，缓存命中输入 ¥0.04/百万。100 万上下文，96% 缓存命中率。",
     },
     keywords: {
       en: ["DeepSeek V4 Flash price", "DeepSeek V4 Flash pricing", "DeepSeek V4 Flash cost", "DeepSeek V4 Flash per million tokens", "DeepSeek V4 Flash API price 2026"],
@@ -309,8 +309,8 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     heroTitle: { en: "DeepSeek V4 Flash API Pricing", zh: "DeepSeek V4 Flash API 定价" },
     heroSubtitle: {
-      en: "¥3.00 input · ¥9.00 output per 1M tokens at peak — 50% off off-peak. The most-used coding model on Earth.",
-      zh: "高峰 ¥3.00 输入 · ¥9.00 输出/百万 token — 闲时 5 折。全球使用率最高的编程模型。",
+      en: "¥2.00 input · ¥8.00 output per 1M tokens at peak — 50% off off-peak. The most-used coding model on Earth.",
+      zh: "高峰 ¥2.00 输入 · ¥8.00 输出/百万 token — 闲时 5 折。全球使用率最高的编程模型。",
     },
     intro: {
       en: "DeepSeek V4 Flash has quietly become the most-used coding model on Earth — on OpenCode Go it holds a 69% token share. It combines a 1M-token context window, a 96% real-world cache-hit rate, and a reasoning score that rivals flagship models, at prices that make it the default workhorse for high-volume AI workloads.",
@@ -318,30 +318,30 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     facts: {
       en: [
-        { title: "96% cache hit rate", desc: "Real-world cache-hit rates on OpenCode Go sit at 96%, so most input rides the cached lane at ¥0.10/1M peak." },
+        { title: "96% cache hit rate", desc: "Real-world cache-hit rates on OpenCode Go sit at 96%, so most input rides the cached lane at ¥0.04/1M peak." },
         { title: "1M token context", desc: "A 1M-token context window lets whole codebases and long conversations fit in a single request." },
         { title: "100/100 reasoning", desc: "Normalized reasoning score of 100/100 — it reasons like a flagship model at a fraction of the price." },
       ],
       zh: [
-        { title: "96% 缓存命中率", desc: "OpenCode Go 上的真实缓存命中率达 96%，大部分输入走缓存通道，高峰仅 ¥0.10/百万。" },
+        { title: "96% 缓存命中率", desc: "OpenCode Go 上的真实缓存命中率达 96%，大部分输入走缓存通道，高峰仅 ¥0.04/百万。" },
         { title: "100 万上下文", desc: "100 万 token 上下文窗口，整个代码库和长对话都能放进一次请求。" },
         { title: "100/100 推理", desc: "标准化推理分数 100/100——以零头的价格给出旗舰级的推理能力。" },
       ],
     },
     bestForTitle: { en: "Best for", zh: "适合场景" },
     bestFor: {
-      en: "High-volume coding agents, batch summarization, RAG pipelines, and any repetitive workflow where cost per token matters more than absolute ceiling. Still ~3× cheaper than V4 Pro at every hour, it's the best everyday agent model on the market.",
-      zh: "高并发编程 agent、批量摘要、RAG 流水线，以及任何「每 token 成本比绝对上限更重要」的重复工作流。每小时的单价仍比 V4 Pro 便宜约 3 倍，是当前市场上最好的日常 agent 模型。",
+      en: "High-volume coding agents, batch summarization, RAG pipelines, and any repetitive workflow where cost per token matters more than absolute ceiling. Still ~4× cheaper than V4 Pro on input (and ~3.4× on output) at every hour, it's the best everyday agent model on the market.",
+      zh: "高并发编程 agent、批量摘要、RAG 流水线，以及任何「每 token 成本比绝对上限更重要」的重复工作流。输入仍比 V4 Pro 便宜约 4 倍（输出约 3.4 倍），是当前市场上最好的日常 agent 模型。",
     },
     pricingNoteTitle: { en: "Peak / off-peak billing", zh: "高峰 / 闲时计费" },
     pricingNote: {
-      en: "Peak hours are Beijing time 09:00–12:00 and 14:00–18:00 and bill at full price; everything else is 50% off. Cached input is billed at 1/30 of the uncached rate (¥0.10 vs ¥3.00 at peak).",
-      zh: "高峰时段为北京时间 09:00–12:00 和 14:00–18:00，按全价计费；其余时间一律 5 折。缓存命中输入按未命中价的 1/30 计费（高峰 ¥0.10 vs ¥3.00）。",
+      en: "Peak hours are Beijing time 09:00–12:00 and 14:00–18:00 and bill at full price; everything else is 50% off. Cached input is billed at 1/50 of the uncached rate (¥0.04 vs ¥2.00 at peak).",
+      zh: "高峰时段为北京时间 09:00–12:00 和 14:00–18:00，按全价计费；其余时间一律 5 折。缓存命中输入按未命中价的 1/50 计费（高峰 ¥0.04 vs ¥2.00）。",
     },
     vsTitle: { en: "V4 Flash vs the competition", zh: "V4 Flash 与竞品对比" },
     vs: {
-      en: "At off-peak rates, V4 Flash output costs ¥4.50 ($0.65) per million tokens — lower than GPT-5.6 Luna's $1.20 and a fraction of V4 Pro's ¥27.00 peak. It wins on cached input economics and context length against both OpenAI and Anthropic.",
-      zh: "闲时价下，V4 Flash 输出 ¥4.50（约 $0.65）/百万——低于 GPT-5.6 Luna 的 $1.20，更远低于 V4 Pro 高峰的 ¥27.00。在缓存输入经济和上下文长度上均优于 OpenAI 与 Anthropic 的同类模型。",
+      en: "At off-peak rates, V4 Flash output costs ¥4.00 ($0.58) per million tokens — lower than GPT-5.6 Luna's $1.20 and a fraction of V4 Pro's ¥8.00 peak. It wins on cached input economics and context length against both OpenAI and Anthropic.",
+      zh: "闲时价下，V4 Flash 输出 ¥4.00（约 $0.58）/百万——低于 GPT-5.6 Luna 的 $1.20，更远低于 V4 Pro 高峰的 ¥8.00。在缓存输入经济和上下文长度上均优于 OpenAI 与 Anthropic 的同类模型。",
     },
     faq: FAQ.v4Flash,
   },
@@ -371,18 +371,18 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
       en: [
         { title: "o1-level thinking", desc: "Thinking Mode produces chain-of-thought reasoning comparable to OpenAI o1-class models." },
         { title: "1M token context", desc: "Long-context tasks, whole-repo coding, and deep agent workflows fit comfortably." },
-        { title: "3× Flash ceiling", desc: "About 3× V4 Flash at every hour — the extra quality is for the hard 10% of requests." },
+        { title: "~3.5× Flash output", desc: "About 3.5× V4 Flash on output (4.5× on input) at every hour — the extra quality is for the hard 10% of requests." },
       ],
       zh: [
         { title: "o1 级思考", desc: "思考模式能产生媲美 OpenAI o1 级模型的链式推理。" },
         { title: "100 万上下文", desc: "长上下文任务、整仓编程和深度 agent 工作流都能从容应对。" },
-        { title: "Flash 的 3 倍上限", desc: "每小时约是 V4 Flash 的 3 倍——多花的钱用于最难的那 10% 请求。" },
+        { title: "Flash 输出 ~3.5 倍", desc: "输出约为 V4 Flash 的 3.5 倍（输入约 4.5 倍）——多花的钱用于最难的那 10% 请求。" },
       ],
     },
     bestForTitle: { en: "Best for", zh: "适合场景" },
     bestFor: {
-      en: "Complex reasoning pipelines, whole-repo code generation, and production workloads where structured, verifiable output offsets the 3× price delta over V4 Flash.",
-      zh: "复杂推理流水线、整仓代码生成，以及「结构化、可验证输出能抵消相对 V4 Flash 3 倍差价」的生产负载。",
+      en: "Complex reasoning pipelines, whole-repo code generation, and production workloads where structured, verifiable output offsets the ~3.5× price delta over V4 Flash.",
+      zh: "复杂推理流水线、整仓代码生成，以及「结构化、可验证输出能抵消相对 V4 Flash 约 3.5 倍差价」的生产负载。",
     },
     pricingNoteTitle: { en: "Peak / off-peak billing", zh: "高峰 / 闲时计费" },
     pricingNote: {
@@ -437,7 +437,7 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     pricingNoteTitle: { en: "Billing notes", zh: "计费说明" },
     pricingNote: {
-      en: "Published API pricing as of August 2026, standard tier, USD per million tokens. GPT-5.6 models all qualify for the 50% Batch API discount for offline workloads.",
+      en: "Published API pricing as of September 2026, standard tier, USD per million tokens. GPT-5.6 models all qualify for the 50% Batch API discount for offline workloads.",
       zh: "2026 年 8 月发布的标准档 API 价格，USD/百万 token。GPT-5.6 全系适用离线负载的 50% Batch API 折扣。",
     },
     vsTitle: { en: "Sol vs the competition", zh: "Sol 与竞品对比" },
@@ -488,7 +488,7 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     pricingNoteTitle: { en: "Billing notes", zh: "计费说明" },
     pricingNote: {
-      en: "Published API pricing as of August 2026, standard tier, USD per million tokens. Qualifies for OpenAI's 50% Batch API discount on offline workloads.",
+      en: "Published API pricing as of September 2026, standard tier, USD per million tokens. Qualifies for OpenAI's 50% Batch API discount on offline workloads.",
       zh: "2026 年 8 月发布的标准档 API 价格，USD/百万 token。适用 OpenAI 离线负载的 50% Batch API 折扣。",
     },
     vsTitle: { en: "Terra vs the competition", zh: "Terra 与竞品对比" },
@@ -539,13 +539,13 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     pricingNoteTitle: { en: "Billing notes", zh: "计费说明" },
     pricingNote: {
-      en: "Published API pricing as of August 2026, standard tier, USD per million tokens. Also qualifies for the 50% Batch API discount — Luna at $0.60 output per million tokens is nearly free for offline jobs.",
+      en: "Published API pricing as of September 2026, standard tier, USD per million tokens. Also qualifies for the 50% Batch API discount — Luna at $0.60 output per million tokens is nearly free for offline jobs.",
       zh: "2026 年 8 月发布的标准档 API 价格，USD/百万 token。同样适用 50% Batch 折扣——Luna 离线任务输出仅 $0.60/百万，近乎免费。",
     },
     vsTitle: { en: "Luna vs the competition", zh: "Luna 与竞品对比" },
     vs: {
-      en: "Luna's $1.20 output undercuts DeepSeek V4 Flash's ¥9.00 peak ($1.30), but loses to V4 Flash's ¥4.50 off-peak ($0.65). The winner depends on your schedule — Luna assumes mostly uncached input, Flash assumes cache hits and off-peak scheduling.",
-      zh: "Luna 的 $1.20 输出价低于 DeepSeek V4 Flash 高峰 ¥9.00（约 $1.30），但高于 V4 Flash 闲时 ¥4.50（约 $0.65）。胜负取决于你的调度——Luna 假设多为未缓存输入，Flash 假设缓存命中与闲时运行。",
+      en: "Luna's $1.20 output now loses to DeepSeek V4 Flash at every hour — Flash output is ¥8.00 peak ($1.16) and ¥4.00 off-peak ($0.58), both below $1.20, and its cached input economics are far cheaper. Luna only wins if you must stay entirely on OpenAI infrastructure.",
+      zh: "Luna 的 $1.20 输出价现在每个时段都输给 DeepSeek V4 Flash——Flash 输出高峰 ¥8.00（约 $1.16）、闲时 ¥4.00（约 $0.58），均低于 $1.20，且缓存输入经济远更便宜。只有当你必须完全留在 OpenAI 基础设施时，Luna 才有优势。",
     },
     faq: FAQ.gpt56Luna,
   },
@@ -590,7 +590,7 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     pricingNoteTitle: { en: "Billing notes", zh: "计费说明" },
     pricingNote: {
-      en: "Published API pricing as of August 2026, standard tier, USD per million tokens. Anthropic offers a 50% Batch API discount for offline workloads, bringing output to $12.50.",
+      en: "Published API pricing as of September 2026, standard tier, USD per million tokens. Anthropic offers a 50% Batch API discount for offline workloads, bringing output to $12.50.",
       zh: "2026 年 8 月发布的标准档 API 价格，USD/百万 token。Anthropic 对离线负载提供 50% 的 Batch API 折扣，输出可降至 $12.50。",
     },
     vsTitle: { en: "Opus 5 vs the competition", zh: "Opus 5 与竞品对比" },
@@ -641,7 +641,7 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     pricingNoteTitle: { en: "Billing notes", zh: "计费说明" },
     pricingNote: {
-      en: "Published API pricing as of August 2026, standard tier, USD per million tokens. Anthropic offers a 50% Batch API discount for offline workloads.",
+      en: "Published API pricing as of September 2026, standard tier, USD per million tokens. Anthropic offers a 50% Batch API discount for offline workloads.",
       zh: "2026 年 8 月发布的标准档 API 价格，USD/百万 token。Anthropic 对离线负载提供 50% 的 Batch API 折扣。",
     },
     vsTitle: { en: "Sonnet 5 vs the competition", zh: "Sonnet 5 与竞品对比" },
@@ -692,13 +692,13 @@ export const MODEL_PRICING_CONTENT: Record<ModelKey, ModelPricingPageContent> = 
     },
     pricingNoteTitle: { en: "Billing notes", zh: "计费说明" },
     pricingNote: {
-      en: "Published API pricing as of August 2026, standard tier, USD per million tokens. Also qualifies for Anthropic's 50% Batch API discount on offline workloads.",
+      en: "Published API pricing as of September 2026, standard tier, USD per million tokens. Also qualifies for Anthropic's 50% Batch API discount on offline workloads.",
       zh: "2026 年 8 月发布的标准档 API 价格，USD/百万 token。同样适用 Anthropic 离线负载的 50% Batch API 折扣。",
     },
     vsTitle: { en: "Haiku 4.5 vs the competition", zh: "Haiku 4.5 与竞品对比" },
     vs: {
-      en: "At $1.00/$5.00, Haiku 4.5 is more expensive than GPT-5.6 Luna ($0.20/$1.20) and DeepSeek V4 Flash off-peak (¥1.50/¥4.50) — Anthropic's budget tier still carries a premium over the cheapest models on the market.",
-      zh: "在 $1.00/$5.00 的价位上，Haiku 4.5 比 GPT-5.6 Luna（$0.20/$1.20）和 DeepSeek V4 Flash 闲时（¥1.50/¥4.50）更贵——Anthropic 的廉价档仍比市场上最便宜的模型贵一截。",
+      en: "At $1.00/$5.00, Haiku 4.5 is more expensive than GPT-5.6 Luna ($0.20/$1.20) and DeepSeek V4 Flash off-peak (¥1.00/¥4.00) — Anthropic's budget tier still carries a premium over the cheapest models on the market.",
+      zh: "在 $1.00/$5.00 的价位上，Haiku 4.5 比 GPT-5.6 Luna（$0.20/$1.20）和 DeepSeek V4 Flash 闲时（¥1.00/¥4.00）更贵——Anthropic 的廉价档仍比市场上最便宜的模型贵一截。",
     },
     faq: FAQ.claudeHaiku45,
   },

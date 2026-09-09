@@ -8,6 +8,11 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
+            "<strong>Prices updated (Sep 10, 2026):</strong> DeepSeek repriced V4 Flash — off-peak is now ¥1.00 input / ¥4.00 output / ¥0.02 cached input, and peak is double that (¥2.00 / ¥8.00 / ¥0.04). See the current <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash pricing</a>. The comparison below uses the historical rates in effect when this article was written.",
+        },
+        {
+          type: "p",
+          content:
             "Choosing an LLM provider in 2026 is as much an economic decision as a technical one. With DeepSeek V4 Pro delivering flagship-level reasoning at a fraction of the cost, and OpenAI GPT and Anthropic Claude pushing the frontier of agentic capabilities, developers face a real trade-off. Here's the data to help you decide.",
         },
       ],
@@ -114,6 +119,11 @@ export const zh: ArticleContent = {
     {
       heading: "引言",
       blocks: [
+        {
+          type: "p",
+          content:
+            "<strong>价格已更新（2026 年 9 月 10 日）：</strong>DeepSeek 调整了 V4 Flash 定价——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。当前价格见 <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash 定价</a>。下方对比采用本文撰写时生效的历史价格。",
+        },
         {
           type: "p",
           content:

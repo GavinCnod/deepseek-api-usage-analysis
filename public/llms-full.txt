@@ -1,6 +1,6 @@
 # DeepSeek API Usage Analytics Dashboard — Full Content
 
-> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.9.3.
+> A free, privacy-first analytics tool for DeepSeek API users. Drop your monthly ZIP exports or CSV files and get instant cost analytics, cache analysis, and per-key breakdowns. Open source (MIT), bilingual (EN/中文), entirely browser-side. No account, no upload, no database. Built by Gavin Chen & the MindRose team. Version 0.11.0.
 
 ---
 
@@ -266,6 +266,12 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 
 ### English
 
+**v0.11.0** (2026-09-09)
+
+*Improved*
+- DeepSeek V4 Flash pricing updated to the September 10, 2026 repricing — off-peak is now ¥1.00 input / ¥4.00 output / ¥0.02 cached input per million tokens, with peak at double that (¥2.00 / ¥8.00 / ¥0.04). The shared `MODEL_PRICING` config, pricing calculator, all 8 model pricing pages, glossary pages, and their JSON-LD were updated in one place; the cache-hit discount note now reads 1/50 (98%) instead of 1/30.
+- New blog article — "DeepSeek's Pricing History: From V3 to the Sep 2026 V4 Flash Cut" (`/blog/deepseek-api-price-history-2025-2026`) with bilingual EN/ZH content and a timeline pricing table. Historical articles now carry a "prices updated (Sep 10, 2026)" notice linking to the V4 Flash pricing page.
+
 **v0.10.2** (2026-08-18)
 
 *Fixed*
@@ -517,6 +523,12 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 ---
 
 ### 中文
+
+**v0.11.0**（2026-09-09）
+
+*改进*
+- DeepSeek V4 Flash 定价更新至 2026 年 9 月 10 日新价格——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02 每百万 token，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。共享 `MODEL_PRICING` 配置、价格计算器、全部 8 个模型定价页、术语页及其 JSON-LD 已在一处同步；缓存命中折扣说明由 1/30 更新为 1/50（98%）。
+- 发布新博客文章——《DeepSeek 定价史：从 V3 到 2026 年 9 月 V4 Flash 降价》（`/blog/deepseek-api-price-history-2025-2026`），含中英双语内容与时间线价格表。历史文章现带「价格已更新（2026-09-10）」提示并链接到 V4 Flash 定价页。
 
 **v0.10.2**（2026-08-18）
 
@@ -785,6 +797,7 @@ If you have questions about these Terms of Use, please open an issue on our GitH
 - [Blog: DeepSeek V4 Flash on OpenCode Go](https://deepseek-usage.xyz/blog/opencode-go-cheapest-deepseek-v4-flash) — The world's cheapest DeepSeek V4 Flash via OpenCode Go subscription ($10/month, ~$60 of usage)
 - [Blog: DeepSeek CSV Export Format Change](https://deepseek-usage.xyz/blog/deepseek-csv-export-format-changed-aug-2026) — DeepSeek changed its usage CSV export format (utc_date → start_time_iso/end_time_iso, date-range filenames); column-by-column breakdown and how to read it
 - [Blog: 2026 Value Champions](https://deepseek-usage.xyz/blog/gpt-5.6-luna-vs-deepseek-v4-flash-value-champions) — GPT-5.6 Luna & DeepSeek V4 Flash as the best-value LLMs of 2026; why price is no longer a proxy for quality, off-peak scheduling, and the best model for every budget
+- [Blog: DeepSeek Pricing History](https://deepseek-usage.xyz/blog/deepseek-api-price-history-2025-2026) — DeepSeek's pricing arc from 2024 disk caching and V3 through R1, the 2025 off-peak discounts, V3.2-Exp, and the 2026 Flash/Pro peak-off-peak system, closing on the Sep 10, 2026 V4 Flash repricing
 - [User Guide / 用户操作手册](https://deepseek-usage.xyz/guideline) — Bilingual step-by-step documentation with screenshots
 - [Changelog / 更新日志](https://deepseek-usage.xyz/changelog) — Complete version history
 - [Privacy Policy / 隐私政策](https://deepseek-usage.xyz/privacy) — Bilingual legal text

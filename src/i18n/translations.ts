@@ -343,6 +343,11 @@ const translations = {
       article6Desc:
         "Why price is no longer a quality proxy, how off-peak scheduling cuts costs, and a tier-by-tier framework for the best-value model in every budget band.",
       article6Tags: "Value, Comparison, Pricing, GPT-5.6, DeepSeek, Off-peak, Cost Optimization",
+      article7Title:
+        "DeepSeek's Pricing History: From V3 to the Sep 2026 V4 Flash Cut",
+      article7Desc:
+        "How DeepSeek prices swung from V2/V3, through R1 and 2025's off-peak discounts, to the Flash/Pro peak-off-peak system — and what the September 10, 2026 Flash repricing means.",
+      article7Tags: "DeepSeek, Pricing, History, V4 Flash, Off-peak, Cost Optimization",
     },
     costTracker: {
       pageTitle: "DeepSeek API Cost Tracker",
@@ -495,7 +500,7 @@ const translations = {
       inputTokensLabel: "Monthly Input Tokens",
       outputTokensLabel: "Monthly Output Tokens",
       cacheHitRateLabel: "Cache Hit Rate (%)",
-      cacheHitRateHint: "Higher hit rate = lower cost. DeepSeek bills cached input at 1/30 of the uncached input price (peak and off-peak alike).",
+      cacheHitRateHint: "Higher hit rate = lower cost. DeepSeek bills cached input at 1/50 of the uncached input price (peak and off-peak alike).",
       peakShareLabel: "Peak-Hour Share (%)",
       peakShareHint:
         "Peak hours are Beijing time 09:00–12:00 and 14:00–18:00; all other times are off-peak and billed at 50% of the peak price. Nightly batch jobs mostly run off-peak, interactive traffic leans peak.",
@@ -507,7 +512,7 @@ const translations = {
       deepseekV4Pro: "DeepSeek V4 Pro",
       competitorComparison: "Competitor Pricing Comparison",
       comparisonNote:
-        "Based on published API pricing as of August 2026 (USD / 1M tokens, standard tier). GPT-5.6 Luna was cut 80% and Terra 20% on July 30, 2026; OpenAI and Anthropic both offer a 50% Batch API discount for offline workloads. DeepSeek prices are per million tokens in CNY (peak / off-peak). Actual costs vary with usage patterns and caching efficiency.",
+        "Based on published API pricing as of September 2026 (USD / 1M tokens, standard tier). GPT-5.6 Luna was cut 80% and Terra 20% on July 30, 2026; OpenAI and Anthropic both offer a 50% Batch API discount for offline workloads. DeepSeek V4 Flash was repriced on September 10, 2026 (peak ¥2.00 input / ¥8.00 output / ¥0.04 cached, off-peak halved). DeepSeek prices are per million tokens in CNY (peak / off-peak). Actual costs vary with usage patterns and caching efficiency.",
       compModelHeader: "Model",
       compInputPriceHeader: "Input / 1M tokens",
       compOutputPriceHeader: "Output / 1M tokens",
@@ -632,7 +637,7 @@ const translations = {
       outputLabel: "Output",
       cacheHitLabel: "Cache hit",
       cnyNote: "DeepSeek lists official prices in CNY; USD uses ≈ 6.9 exchange rate",
-      updatedAsOf: "Prices as of August 2026",
+      updatedAsOf: "Prices as of September 2026",
       calculatorTitle: "Estimate your exact cost",
       calculatorDesc:
         "Model your own workload — input/output tokens, cache hit rate, and peak-hour share — against any model mix with the interactive pricing calculator.",
@@ -982,8 +987,13 @@ const translations = {
       article6Title:
         "2026 性价比之王：GPT-5.6 Luna vs DeepSeek V4 Flash",
       article6Desc:
-        "为什么价格不再是质量代理？闲时调度如何变成成本杠杆？一份分档框架，帮你选出每个价格档位里性价比最高的模型。",
+        "为什么价格不再是质量的代理指标、如何用闲时调度降低成本，以及每个预算档位的最优模型选择框架。",
       article6Tags: "性价比, 对比, 定价, GPT-5.6, DeepSeek, 闲时, 成本优化",
+      article7Title:
+        "DeepSeek 定价史：从 V3 到 2026 年 9 月 V4 Flash 降价",
+      article7Desc:
+        "DeepSeek 的定价如何从 V2/V3、走过 R1 与 2025 年闲时折扣、演进到今天的 Flash/Pro 高峰闲时体系——以及 2026 年 9 月 10 日 Flash 调价意味着什么。",
+      article7Tags: "DeepSeek, 定价, 历史, V4 Flash, 闲时, 成本优化",
     },
     costTracker: {
       pageTitle: "DeepSeek API 费用追踪器",
@@ -1136,7 +1146,7 @@ const translations = {
       inputTokensLabel: "月输入 Token 量",
       outputTokensLabel: "月输出 Token 量",
       cacheHitRateLabel: "缓存命中率 (%)",
-      cacheHitRateHint: "命中率越高，成本越低。DeepSeek 缓存命中的输入按未命中价格的 1/30 计费（高峰/闲时同比例）。",
+      cacheHitRateHint: "命中率越高，成本越低。DeepSeek 缓存命中的输入按未命中价格的 1/50 计费（高峰/闲时同比例）。",
       peakShareLabel: "忙时占比 (%)",
       peakShareHint:
         "高峰时段为北京时间 9:00–12:00、14:00–18:00；其余均为空闲时段，价格为高峰时段的一半。夜间批量任务大多落在闲时，交互类流量更偏向忙时。",
@@ -1148,7 +1158,7 @@ const translations = {
       deepseekV4Pro: "DeepSeek V4 Pro",
       competitorComparison: "竞品定价对比",
       comparisonNote:
-        "基于 2026 年 8 月公开发布的 API 定价（美元 / 百万 token，标准档）。GPT-5.6 Luna 于 2026 年 7 月 30 日降价 80%、Terra 降价 20%；OpenAI 与 Anthropic 的 Batch API 均为离线任务提供五折优惠。DeepSeek 价格为每百万 Token 人民币（高峰 / 闲时）。实际费用因使用模式和缓存效率而异。",
+        "基于 2026 年 9 月公开发布的 API 定价（美元 / 百万 token，标准档）。GPT-5.6 Luna 于 2026 年 7 月 30 日降价 80%、Terra 降价 20%；OpenAI 与 Anthropic 的 Batch API 均为离线任务提供五折优惠。DeepSeek V4 Flash 于 2026 年 9 月 10 日调整价格（高峰输入 ¥2.00 / 输出 ¥8.00 / 缓存命中 ¥0.04，闲时减半）。DeepSeek 价格为每百万 Token 人民币（高峰 / 闲时）。实际费用因使用模式和缓存效率而异。",
       compModelHeader: "模型",
       compInputPriceHeader: "输入 / 百万 Token",
       compOutputPriceHeader: "输出 / 百万 Token",
@@ -1273,7 +1283,7 @@ const translations = {
       outputLabel: "输出",
       cacheHitLabel: "缓存命中",
       cnyNote: "DeepSeek 官方价格以 CNY 维护，USD 按 ≈ 6.9 汇率折算",
-      updatedAsOf: "价格截至 2026 年 8 月",
+      updatedAsOf: "价格截至 2026 年 9 月",
       calculatorTitle: "估算你的实际成本",
       calculatorDesc:
         "用交互式价格计算器，按你自己的输入/输出 token 量、缓存命中率和高峰占比，对比任意模型组合的成本。",

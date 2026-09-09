@@ -8,6 +8,11 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
+            "<strong>Prices updated (Sep 10, 2026):</strong> DeepSeek repriced V4 Flash — off-peak is now ¥1.00 input / ¥4.00 output / ¥0.02 cached input, and peak is double that (¥2.00 / ¥8.00 / ¥0.04). See the current <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash pricing</a>. The figures below reflect the rates in effect when this article was published.",
+        },
+        {
+          type: "p",
+          content:
             'If you are hunting for the single most cost-effective model for AI coding agents in 2026, look no further than <strong>DeepSeek V4 Flash</strong> — and the best place to get it is <strong>OpenCode Go</strong>. It is the model that quietly became the <strong>most-used coding model on Earth</strong>: on OpenCode Go it holds a <strong>69% token share</strong> and ranked <strong>#01</strong> in the latest week of usage. And here is the kicker: you can run it through OpenCode Go for a flat <strong>$10/month</strong> (first month just <strong>$5</strong>), bundled with about <strong>$60 of usage</strong> every single month.',
         },
         {
@@ -174,6 +179,11 @@ export const zh: ArticleContent = {
     {
       heading: "引言",
       blocks: [
+        {
+          type: "p",
+          content:
+            "<strong>价格已更新（2026 年 9 月 10 日）：</strong>DeepSeek 调整了 V4 Flash 定价——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。当前价格见 <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash 定价</a>。下文数字为本文章发布时生效的价格。",
+        },
         {
           type: "p",
           content:

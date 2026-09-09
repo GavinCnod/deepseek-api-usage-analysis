@@ -8,6 +8,11 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
+            "<strong>Prices updated (Sep 10, 2026):</strong> DeepSeek repriced V4 Flash — off-peak is now ¥1.00 input / ¥4.00 output / ¥0.02 cached input, and peak is double that (¥2.00 / ¥8.00 / ¥0.04). See the current <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash pricing</a>. The comparison below uses the historical rates in effect when this article was written.",
+        },
+        {
+          type: "p",
+          content:
             "For years, the mental model was simple: <strong>cheap models were a compromise</strong> — fine for throwaway tasks, never for real work. In 2026 that rule is dead. The budget tier stopped being a downgrade and became the sensible default, and two models sit at the center of the shift: <strong>GPT-5.6 Luna</strong> and <strong>DeepSeek V4 Flash</strong>. Together they define what 'good enough, at a fraction of the price' actually means — and they are changing how teams budget for AI.",
         },
         {
@@ -162,6 +167,11 @@ export const zh: ArticleContent = {
     {
       heading: "成本曲线刚刚弯了",
       blocks: [
+        {
+          type: "p",
+          content:
+            "<strong>价格已更新（2026 年 9 月 10 日）：</strong>DeepSeek 调整了 V4 Flash 定价——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。当前价格见 <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash 定价</a>。下方对比采用本文撰写时生效的历史价格。",
+        },
         {
           type: "p",
           content:

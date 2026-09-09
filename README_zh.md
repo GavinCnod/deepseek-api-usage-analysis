@@ -44,7 +44,7 @@
 - **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 FooterBar（「姊妹工具」行）、LandingPage（专属区段）以及 Organization JSON-LD Schema 中。
 - **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.10.2 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.11.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
 - **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
@@ -145,7 +145,8 @@ src/
 │   │   │   ├── openai-claude-vs-deepseek-cost-comparison/page.tsx # 博客文章 3
 │   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # 博客文章 4
 │   │   │   ├── deepseek-csv-export-format-changed-aug-2026/page.tsx # 博客文章 5
-│   │   │   └── gpt-5.6-luna-vs-deepseek-v4-flash-value-champions/page.tsx # 博客文章 6
+│   │   │   ├── gpt-5.6-luna-vs-deepseek-v4-flash-value-champions/page.tsx # 博客文章 6
+│   │   │   └── deepseek-api-price-history-2025-2026/page.tsx # 博客文章 7
 │   │   └── author/
 │   │       └── page.tsx          # /author 路由，包含独立 SEO 元数据
 │   ├── zh/               # 中文根布局路由组（镜像所有 (site)/ 路由）
@@ -165,7 +166,7 @@ src/
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.10.2 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.11.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
@@ -264,7 +265,7 @@ src/
 
 - **generateMetadata()** — 动态服务端渲染元数据：规范 URL、OpenGraph（标题、描述、图片）、Twitter 卡片、hreflang 语言标注（en/zh）、robots 指令
 - **JSON-LD 结构化数据** — `SoftwareApplication` + `FAQPage` + `Organization` 双语 Schema，构建时通过可复用 `<JsonLd />` 组件注入；`Organization` Schema 标识真实发布者（MindRose Team）并帮助 Google 建立品牌知识面板。程序化页面各自追加结构化数据：模型定价页输出 `Product` + `AggregateOffer` + `FAQPage`（含 `availableAtOrFrom` 厂商归属），Glossary 页输出 `Article` + `FAQPage`
-- **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含全部公开路由（首页、操作手册、隐私、条款、更新日志、3 个工具落地页、6 篇博客、作者、8 个模型定价页、3 个 Glossary 页），每路由 en + zh 双语条目并附 `alternates.languages`；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
+- **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含全部公开路由（首页、操作手册、隐私、条款、更新日志、3 个工具落地页、7 篇博客、作者、8 个模型定价页、3 个 Glossary 页），每路由 en + zh 双语条目并附 `alternates.languages`；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
 - **程序化 SEO 页面** — 8 个单模型定价页（`/deepseek-v4-flash-pricing`、`/gpt-5.6-luna-pricing` 等）与 3 个 Glossary 页（`/what-is-deepseek-cache-hit-rate`、`/what-is-deepseek-context-caching`、`/what-is-deepseek-off-peak-pricing`），均双语镜像、含每页独立文案、FAQ 与 JSON-LD；模型定价页从共享 `MODEL_PRICING` 配置实时渲染价格表（唯一事实来源，与价格计算器不漂移）
 - **`<noscript>` 回退** — `LandingContent.tsx` 输出关键落地页内容（使用说明、常见问题、关于），供不执行 JavaScript 的爬虫抓取；`PrivacyContent.tsx`、`TermsContent.tsx`、`ChangelogContent.tsx`、`ModelPricingContent.tsx` 和 `GlossaryContent.tsx` 为各自页面提供双语 `<noscript>` 回退内容（EEAT 信任信号）
 - **`llms.txt`** — 面向 LLM 的站点描述，位于 `/llms.txt`，总结应用功能、特性与结构，供 AI 工具使用
@@ -289,6 +290,13 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.11.0
+
+**改进：**
+
+- DeepSeek V4 Flash 定价更新至 2026 年 9 月 10 日新价格——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02 每百万 token，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。共享 `MODEL_PRICING` 配置、价格计算器、全部 8 个模型定价页、术语页及其 JSON-LD 已在一处同步；缓存命中折扣说明由 1/30 更新为 1/50（98%）。
+- 发布新博客文章——《DeepSeek 定价史：从 V3 到 2026 年 9 月 V4 Flash 降价》（`/blog/deepseek-api-price-history-2025-2026`），含中英双语内容与时间线价格表，梳理了从 2024 年磁盘缓存与 V3、走过 R1 与 2025 年闲时折扣及 V3.2-Exp、演进到 2026 年 Flash/Pro 高峰闲时体系的定价史。已完整接入博客首页、sitemap、前后篇链与 SEO 元数据。历史文章现带「价格已更新（2026-09-10）」提示并链接到 V4 Flash 定价页。
 
 ### v0.10.2
 

@@ -14,7 +14,8 @@ export type BlogArticleSlug =
   | "openai-claude-vs-deepseek-cost-comparison"
   | "opencode-go-cheapest-deepseek-v4-flash"
   | "deepseek-csv-export-format-changed-aug-2026"
-  | "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions";
+  | "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions"
+  | "deepseek-api-price-history-2025-2026";
 
 type BlogTitleKey =
   | "article1Title"
@@ -22,14 +23,16 @@ type BlogTitleKey =
   | "article3Title"
   | "article4Title"
   | "article5Title"
-  | "article6Title";
+  | "article6Title"
+  | "article7Title";
 type BlogDescriptionKey =
   | "article1Desc"
   | "article2Desc"
   | "article3Desc"
   | "article4Desc"
   | "article5Desc"
-  | "article6Desc";
+  | "article6Desc"
+  | "article7Desc";
 
 interface BlogArticleDefinition {
   slug: BlogArticleSlug;
@@ -249,6 +252,37 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "大模型成本优化",
         "GPT-5.6 Terra",
         "Claude Sonnet 5",
+      ],
+    },
+  },
+  "deepseek-api-price-history-2025-2026": {
+    slug: "deepseek-api-price-history-2025-2026",
+    pathname: "/blog/deepseek-api-price-history-2025-2026",
+    titleKey: "article7Title",
+    descriptionKey: "article7Desc",
+    author: "Gavin Chen",
+    publishedTime: "2026-09-09T00:00:00.000Z",
+    modifiedTime: "2026-09-09T00:00:00.000Z",
+    dateLabel: {
+      en: "September 9, 2026",
+      zh: "2026 年 9 月 9 日",
+    },
+    keywords: {
+      en: [
+        "DeepSeek pricing history",
+        "DeepSeek price change 2026",
+        "DeepSeek V4 Flash price cut",
+        "DeepSeek V4 Flash September 2026",
+        "DeepSeek off-peak pricing history",
+        "DeepSeek V3 R1 V4 pricing",
+      ],
+      zh: [
+        "DeepSeek 定价历史",
+        "DeepSeek 调价 2026",
+        "DeepSeek V4 Flash 降价",
+        "DeepSeek V4 Flash 2026 年 9 月",
+        "DeepSeek 闲时定价历史",
+        "DeepSeek V3 R1 V4 定价",
       ],
     },
   },

@@ -8,6 +8,11 @@ export const en: ArticleContent = {
         {
           type: "p",
           content:
+            "<strong>Prices updated (Sep 10, 2026):</strong> DeepSeek repriced V4 Flash — off-peak is now ¥1.00 input / ¥4.00 output / ¥0.02 cached input, and peak is double that (¥2.00 / ¥8.00 / ¥0.04). See the current <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash pricing</a>. The numbers below are the historical rates in effect when this guide was published.",
+        },
+        {
+          type: "p",
+          content:
             "If you've been using the DeepSeek API for more than a few weeks, you've probably noticed something: your bill doesn't always match your mental math. You send what feels like a reasonable number of requests, yet the costs climb faster than expected. You're not alone — developers across Reddit, GitHub, and the NVIDIA forums have reported the same issue.",
         },
         {
@@ -138,6 +143,11 @@ export const zh: ArticleContent = {
     {
       heading: "为什么你的 DeepSeek API 账单比预期高？",
       blocks: [
+        {
+          type: "p",
+          content:
+            "<strong>价格已更新（2026 年 9 月 10 日）：</strong>DeepSeek 调整了 V4 Flash 定价——闲时现为输入 ¥1.00 / 输出 ¥4.00 / 缓存命中输入 ¥0.02，高峰为其两倍（¥2.00 / ¥8.00 / ¥0.04）。当前价格见 <a href=\"/deepseek-v4-flash-pricing\">DeepSeek V4 Flash 定价</a>。下文数字为本指南发布时生效的历史价格。",
+        },
         {
           type: "p",
           content:
