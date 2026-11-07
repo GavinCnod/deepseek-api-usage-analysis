@@ -55,8 +55,8 @@ const CHANGELOG_DATA: VersionEntry[] = [
     date: "2026-11-07",
     added: [
       {
-        en: "Web tool billing support — the parser now understands `function_call` rows, the new `name` column, and the `tool-search` / `tool-fetch` charges that DeepSeek added to usage exports in November 2026. Tool calls are attributed per API key, included in total cost, and shown in a dedicated Web Tools filter.",
-        zh: "Web 工具计费支持 — 解析器现可识别 2026 年 11 月 DeepSeek 新增的 `function_call` 行、`name` 列以及 `tool-search` / `tool-fetch` 费用。工具调用按 API Key 归属，计入总费用，并新增独立的 Web Tools 筛选。",
+        en: "Web tool billing support, thanks @ef-umbra — the parser now understands `function_call` rows, the new `name` column, and the `tool-search` / `tool-fetch` charges that DeepSeek added to usage exports in November 2026. Tool calls are attributed per API key, included in total cost, and shown in a dedicated Web Tools filter.",
+        zh: "Web 工具计费支持，感谢 @ef-umbra 的问题反馈和清晰的需求提出 — 解析器现可识别 2026 年 11 月 DeepSeek 新增的 `function_call` 行、`name` 列以及 `tool-search` / `tool-fetch` 费用。工具调用按 API Key 归属，计入总费用，并新增独立的 Web Tools 筛选。",
       },
       {
         en: "Pricing Calculator gains a Search / Fetch monthly estimate — ¥5 per 1,000 successful requests in CNY and $0.75 per 1,000 in USD, with independent call sliders and a combined tool-cost card.",
