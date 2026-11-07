@@ -55,16 +55,22 @@ const translations = {
       activeKeys: "Active API Keys",
       saved: "{tokens} saved",
       models: "{count} model(s)",
+      toolBreakdown: "incl. {cost} web tools · {calls} calls",
     },
     overview: {
       dailyCost: "Daily Cost",
       costByKey: "Cost by API Key",
+      modelCost: "Model tokens",
+      webTools: "Web Tools",
+      toolCalls: "{calls} calls",
+      avgPerCall: "avg {cost}/call",
     },
     trends: {
       dailyCost: "Daily Cost",
       dailyTokens: "Daily Tokens",
       cacheHitRate: "Cache Hit Rate",
       requestCount: "Request Count",
+      toolCalls: "Web Tool Calls",
       heroSubtitle: "Over {days} days",
     },
     cache: {
@@ -75,6 +81,9 @@ const translations = {
       noCacheTitle: "No cache usage detected",
       noCacheHint:
         "Enable prompt caching on your DeepSeek API calls to reduce costs.",
+      noTokenTitle: "No token usage in this view",
+      noTokenHint:
+        "Web tool calls are billed per request and do not produce cache data.",
       hits: "Cache Hits",
       misses: "Cache Misses",
     },
@@ -85,6 +94,7 @@ const translations = {
       cost: "Cost",
       cacheHit: "Cache Hit",
       requests: "Requests",
+      tools: "Web Tools",
       heroSubtitle: "{keys} key(s) · {models} model(s)",
     },
     error: {
@@ -122,7 +132,8 @@ const translations = {
       switchToLight: "Switch to light mode",
     },
     modelFilter: {
-      allModels: "All Models",
+      allModels: "All Usage",
+      webTools: "Web Tools",
     },
     copyToast: {
       copied: "Copied {name} cost",
@@ -348,6 +359,11 @@ const translations = {
       article7Desc:
         "How DeepSeek prices swung from V2/V3, through R1 and 2025's off-peak discounts, to the Flash/Pro peak-off-peak system — and what the September 10, 2026 Flash repricing means.",
       article7Tags: "DeepSeek, Pricing, History, V4 Flash, Off-peak, Cost Optimization",
+      article8Title:
+        "DeepSeek Search & Fetch API: Pricing, function_call CSV Rows, and 7 Real Use Cases",
+      article8Desc:
+        "DeepSeek opened Search & Fetch APIs on October 17, 2026. Here is how function_call rows and the new name column appear in your CSV, what the per-call pricing means, and seven practical use cases.",
+      article8Tags: "DeepSeek, Search API, Fetch API, Billing, CSV, function_call, Web Tools",
     },
     costTracker: {
       pageTitle: "DeepSeek API Cost Tracker",
@@ -508,11 +524,24 @@ const translations = {
       offpeakShort: "Off-peak",
       peakWindowNote: "Peak: Beijing 09–12 & 14–18; off-peak 50% off",
       costEstimateTitle: "Estimated Monthly Cost",
+      toolEstimateTitle: "Search & Fetch Monthly Estimate",
+      toolEstimateDesc:
+        "Search and Fetch are billed per successful request — independent of tokens, cache, and peak hours.",
+      searchCallsLabel: "Monthly Search Calls",
+      fetchCallsLabel: "Monthly Fetch Calls",
+      searchCostLabel: "Search",
+      fetchCostLabel: "Fetch",
+      toolEstimateTotal: "Search & Fetch Total",
+      toolEstimateNote:
+        "Only successful requests are billed. count does not change the per-request price.",
+      perThousandCalls: "per 1,000 calls",
+      modelPlusToolsNote:
+        "Model token estimate and Search / Fetch are separate; add them for the full bill.",
       deepseekV4Flash: "DeepSeek V4 Flash",
       deepseekV4Pro: "DeepSeek V4 Pro",
       competitorComparison: "Competitor Pricing Comparison",
       comparisonNote:
-        "Based on published API pricing as of September 2026 (USD / 1M tokens, standard tier). GPT-5.6 Luna was cut 80% and Terra 20% on July 30, 2026; OpenAI and Anthropic both offer a 50% Batch API discount for offline workloads. DeepSeek V4 Flash was repriced on September 10, 2026 (peak ¥2.00 input / ¥8.00 output / ¥0.04 cached, off-peak halved). DeepSeek prices are per million tokens in CNY (peak / off-peak). Actual costs vary with usage patterns and caching efficiency.",
+        "Model pricing is based on published API pricing as of September 2026 (USD / 1M tokens, standard tier). GPT-5.6 Luna was cut 80% and Terra 20% on July 30, 2026; OpenAI and Anthropic both offer a 50% Batch API discount for offline workloads. DeepSeek V4 Flash was repriced on September 10, 2026 (peak ¥2.00 input / ¥8.00 output / ¥0.04 cached, off-peak halved). DeepSeek prices are per million tokens in CNY (peak / off-peak). Search and Fetch pricing is as of November 2026, billed separately per successful request, and not included in the token estimates.",
       compModelHeader: "Model",
       compInputPriceHeader: "Input / 1M tokens",
       compOutputPriceHeader: "Output / 1M tokens",
@@ -599,6 +628,8 @@ const translations = {
       qaA8: "Yes, each file must be under 50 MB. This prevents malicious ZIP bombs from freezing your browser. DeepSeek monthly usage exports are typically under 1 MB, so this limit should never be an issue for normal use.",
       qaQ9: "Can I group API keys by custom projects?",
       qaA9: "Yes. Switch to the 'By Custom Projects' tab and click the gear icon to open the configuration panel. Drag API key names from the unassigned pool into your custom project groups. Your project configuration is saved in your browser's local storage.",
+      qaQ10: "Why does my total cost include web tool fees?",
+      qaA10: "DeepSeek bills server-side Search and Fetch per successful request (¥5 / $0.75 per 1,000). These charges appear as function_call rows with name=tool-search/tool-fetch and an empty model. The dashboard includes them in total cost and per-key breakdown.",
       sisterBadge: "Sister Project",
       sisterTitle: "Also using Agnes AI API?",
       sisterDesc:
@@ -702,16 +733,22 @@ const translations = {
       activeKeys: "活跃 API Key",
       saved: "节省 {tokens}",
       models: "{count} 个模型",
+      toolBreakdown: "含网页工具 {cost} · {calls} 次",
     },
     overview: {
       dailyCost: "每日费用",
       costByKey: "各 Key 费用分布",
+      modelCost: "模型 Token",
+      webTools: "网页工具",
+      toolCalls: "{calls} 次调用",
+      avgPerCall: "平均 {cost}/次",
     },
     trends: {
       dailyCost: "每日费用",
       dailyTokens: "每日 Token",
       cacheHitRate: "缓存命中率",
       requestCount: "请求次数",
+      toolCalls: "网页工具调用",
       heroSubtitle: "共 {days} 天",
     },
     cache: {
@@ -721,6 +758,8 @@ const translations = {
       hitsVsMisses: "各 Key 缓存命中 / 未命中",
       noCacheTitle: "未检测到缓存使用",
       noCacheHint: "在 DeepSeek API 调用中启用提示缓存以降低费用。",
+      noTokenTitle: "当前视图没有 Token 用量",
+      noTokenHint: "网页工具按次计费，不产生缓存数据。",
       hits: "缓存命中",
       misses: "缓存未命中",
     },
@@ -731,6 +770,7 @@ const translations = {
       cost: "费用",
       cacheHit: "缓存命中",
       requests: "请求数",
+      tools: "网页工具",
       heroSubtitle: "{keys} 个 Key · {models} 个模型",
     },
     error: {
@@ -768,7 +808,8 @@ const translations = {
       switchToLight: "切换至浅色模式",
     },
     modelFilter: {
-      allModels: "全部模型",
+      allModels: "全部用量",
+      webTools: "网页工具",
     },
     copyToast: {
       copied: "已复制 {name} 费用",
@@ -994,6 +1035,11 @@ const translations = {
       article7Desc:
         "DeepSeek 的定价如何从 V2/V3、走过 R1 与 2025 年闲时折扣、演进到今天的 Flash/Pro 高峰闲时体系——以及 2026 年 9 月 10 日 Flash 调价意味着什么。",
       article7Tags: "DeepSeek, 定价, 历史, V4 Flash, 闲时, 成本优化",
+      article8Title:
+        "DeepSeek Search & Fetch API：计费、CSV function_call 与 7 个真实场景",
+      article8Desc:
+        "DeepSeek 于 2026 年 10 月 17 日开放 Search & Fetch API。本文讲清账单 CSV 中 function_call 与 name 列的含义、按次计费规则，以及 7 个真实使用场景。",
+      article8Tags: "DeepSeek, Search API, Fetch API, 计费, CSV, function_call, 网页工具",
     },
     costTracker: {
       pageTitle: "DeepSeek API 费用追踪器",
@@ -1154,11 +1200,24 @@ const translations = {
       offpeakShort: "闲时",
       peakWindowNote: "高峰：北京时间 9–12 点与 14–18 点；闲时半价",
       costEstimateTitle: "预估月度费用",
+      toolEstimateTitle: "Search & Fetch 月度估算",
+      toolEstimateDesc:
+        "Search 与 Fetch 按成功请求次数计费，与 Token、缓存和高峰/闲时无关。",
+      searchCallsLabel: "每月 Search 调用次数",
+      fetchCallsLabel: "每月 Fetch 调用次数",
+      searchCostLabel: "Search",
+      fetchCostLabel: "Fetch",
+      toolEstimateTotal: "Search & Fetch 合计",
+      toolEstimateNote:
+        "仅成功请求计费；count 参数不会改变单次价格。",
+      perThousandCalls: "每 1,000 次",
+      modelPlusToolsNote:
+        "模型 Token 估算与 Search / Fetch 是两笔费用，相加才是完整账单。",
       deepseekV4Flash: "DeepSeek V4 Flash",
       deepseekV4Pro: "DeepSeek V4 Pro",
       competitorComparison: "竞品定价对比",
       comparisonNote:
-        "基于 2026 年 9 月公开发布的 API 定价（美元 / 百万 token，标准档）。GPT-5.6 Luna 于 2026 年 7 月 30 日降价 80%、Terra 降价 20%；OpenAI 与 Anthropic 的 Batch API 均为离线任务提供五折优惠。DeepSeek V4 Flash 于 2026 年 9 月 10 日调整价格（高峰输入 ¥2.00 / 输出 ¥8.00 / 缓存命中 ¥0.04，闲时减半）。DeepSeek 价格为每百万 Token 人民币（高峰 / 闲时）。实际费用因使用模式和缓存效率而异。",
+        "模型价格基于 2026 年 9 月公开发布的 API 定价（美元 / 百万 token，标准档）。GPT-5.6 Luna 于 2026 年 7 月 30 日降价 80%、Terra 降价 20%；OpenAI 与 Anthropic 的 Batch API 均为离线任务提供五折优惠。DeepSeek V4 Flash 于 2026 年 9 月 10 日调整价格（高峰输入 ¥2.00 / 输出 ¥8.00 / 缓存命中 ¥0.04，闲时减半）。DeepSeek 价格为每百万 Token 人民币（高峰 / 闲时）。Search 与 Fetch 价格为 2026 年 11 月官方价，按成功请求单独计费，不包含在 Token 估算中。",
       compModelHeader: "模型",
       compInputPriceHeader: "输入 / 百万 Token",
       compOutputPriceHeader: "输出 / 百万 Token",
@@ -1245,6 +1304,8 @@ const translations = {
       qaA8: "有，单个文件不能超过 50 MB。这是为了防止恶意 ZIP 炸弹导致浏览器卡死。DeepSeek 月度用量导出文件通常小于 1 MB，正常使用不会触发此限制。",
       qaQ9: "可以按自定义项目分组 API Key 吗？",
       qaA9: "可以。切换到「按自定义项目」标签页，点击齿轮图标打开配置面板。将 API Key 从「未分配 Key」区域拖拽到对应的自定义项目分组中即可。项目配置保存在浏览器本地存储中。",
+      qaQ10: "为什么总费用里包含网页工具费用？",
+      qaA10: "DeepSeek 对服务端 Search / Fetch 按成功请求计费（每 1,000 次 ¥5 / $0.75）。账单中表现为 function_call 行，name=tool-search/tool-fetch，model 为空。仪表盘会把这些费用计入总费用和各 Key 明细。",
       sisterBadge: "姊妹项目",
       sisterTitle: "你也在用 Agnes API 吗？",
       sisterDesc:

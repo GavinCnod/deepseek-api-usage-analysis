@@ -57,6 +57,12 @@ export default function BlogIndex() {
       slug: "deepseek-api-price-history-2025-2026" as const,
       tags: t.blogIndex.article7Tags.split(", "),
     },
+    {
+      title: t.blogIndex.article8Title,
+      description: t.blogIndex.article8Desc,
+      slug: "deepseek-search-fetch-api-billing" as const,
+      tags: t.blogIndex.article8Tags.split(", "),
+    },
   ].sort((a, b) =>
     getBlogArticleDefinition(b.slug).publishedTime.localeCompare(
       getBlogArticleDefinition(a.slug).publishedTime

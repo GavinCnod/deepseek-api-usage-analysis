@@ -141,6 +141,12 @@ const ROUTES: SitemapRouteConfig[] = [
     changeFrequency: "weekly",
     priority: 0.6,
   },
+  {
+    pathname: "/blog/deepseek-search-fetch-api-billing",
+    lastModified: blogArticleDate("deepseek-search-fetch-api-billing"),
+    changeFrequency: "weekly",
+    priority: 0.6,
+  },
   ...MODEL_KEYS.map((key) => ({
     pathname: MODEL_PRICING_PATHS[key],
     lastModified: buildDate,

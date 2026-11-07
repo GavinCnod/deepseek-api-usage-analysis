@@ -15,7 +15,8 @@ export type BlogArticleSlug =
   | "opencode-go-cheapest-deepseek-v4-flash"
   | "deepseek-csv-export-format-changed-aug-2026"
   | "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions"
-  | "deepseek-api-price-history-2025-2026";
+  | "deepseek-api-price-history-2025-2026"
+  | "deepseek-search-fetch-api-billing";
 
 type BlogTitleKey =
   | "article1Title"
@@ -24,7 +25,8 @@ type BlogTitleKey =
   | "article4Title"
   | "article5Title"
   | "article6Title"
-  | "article7Title";
+  | "article7Title"
+  | "article8Title";
 type BlogDescriptionKey =
   | "article1Desc"
   | "article2Desc"
@@ -32,7 +34,8 @@ type BlogDescriptionKey =
   | "article4Desc"
   | "article5Desc"
   | "article6Desc"
-  | "article7Desc";
+  | "article7Desc"
+  | "article8Desc";
 
 interface BlogArticleDefinition {
   slug: BlogArticleSlug;
@@ -283,6 +286,41 @@ const BLOG_ARTICLES: Record<BlogArticleSlug, BlogArticleDefinition> = {
         "DeepSeek V4 Flash 2026 年 9 月",
         "DeepSeek 闲时定价历史",
         "DeepSeek V3 R1 V4 定价",
+      ],
+    },
+  },
+  "deepseek-search-fetch-api-billing": {
+    slug: "deepseek-search-fetch-api-billing",
+    pathname: "/blog/deepseek-search-fetch-api-billing",
+    titleKey: "article8Title",
+    descriptionKey: "article8Desc",
+    author: "Gavin Chen",
+    publishedTime: "2026-11-07T00:00:00.000Z",
+    modifiedTime: "2026-11-07T00:00:00.000Z",
+    dateLabel: {
+      en: "November 7, 2026",
+      zh: "2026 年 11 月 7 日",
+    },
+    keywords: {
+      en: [
+        "DeepSeek Search API",
+        "DeepSeek Fetch API",
+        "DeepSeek Search pricing",
+        "DeepSeek function_call",
+        "DeepSeek CSV name column",
+        "DeepSeek web tool billing",
+        "DeepSeek API bill",
+        "DeepSeek Search Fetch tutorial",
+      ],
+      zh: [
+        "DeepSeek Search API",
+        "DeepSeek Fetch API",
+        "DeepSeek 搜索 API 价格",
+        "DeepSeek function_call",
+        "DeepSeek CSV name 列",
+        "DeepSeek 网页工具计费",
+        "DeepSeek API 账单",
+        "DeepSeek 联网搜索",
       ],
     },
   },

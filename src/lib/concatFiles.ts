@@ -9,6 +9,7 @@
  */
 
 import JSZip from "jszip";
+import Papa from "papaparse";
 
 /** 单个文件上传大小上限（50 MB），用于防止 ZIP 炸弹导致浏览器卡死。 */
 export const MAX_UPLOAD_SIZE_BYTES = 50 * 1024 * 1024;
@@ -44,6 +45,70 @@ function stripHeader(text: string): string {
   const idx = text.indexOf("\n");
   if (idx === -1) return "";
   return text.slice(idx + 1);
+}
+
+/**
+ * Join CSV chunks with exactly one line break between them.
+ * `stripHeader` only removes the header text, so the preceding chunk's trailing
+ * newline must be normalized as well.
+ */
+function joinCsvChunks(chunks: string[]): string {
+  return chunks
+    .map((text, index) => {
+      // Normalize CRLF/CR to LF so PapaParse does not detect mixed line endings.
+      const normalized = text.replace(/\r\n/g, "\n").replace(/\r/g, "\n");
+      const body = index === 0 ? normalized : stripHeader(normalized);
+      return body.replace(/\n+$/, "");
+    })
+    .join("\n");
+}
+
+/**
+ * Merge CSV chunks while keeping columns aligned by name.
+ *
+ * DeepSeek's newer amount/cost exports added a `name` column. If a user uploads
+ * September (no `name`) and October (with `name`) together, a naive header strip
+ * would shift every column after `model`. When headers differ, parse each chunk,
+ * build the union of headers, and re-emit normalized rows.
+ */
+export function normalizeCsvChunks(chunks: string[]): string {
+  if (chunks.length === 0) return "";
+
+  const parsed = chunks.map((text) =>
+    Papa.parse<Record<string, string>>(text, {
+      header: true,
+      skipEmptyLines: true,
+      transformHeader: (h) => h.trim(),
+    })
+  );
+
+  const firstFields = parsed[0].meta.fields ?? [];
+  const sameHeaders = parsed.every((p) => {
+    const fields = p.meta.fields ?? [];
+    return (
+      fields.length === firstFields.length &&
+      fields.every((field, index) => field === firstFields[index])
+    );
+  });
+
+  // Fast path: identical headers can be concatenated without re-serializing.
+  if (sameHeaders) {
+    return joinCsvChunks(chunks);
+  }
+
+  const union: string[] = [];
+  for (const p of parsed) {
+    for (const field of p.meta.fields ?? []) {
+      if (!union.includes(field)) union.push(field);
+    }
+  }
+
+  const normalized = parsed.map((p) => {
+    const rows = p.data.map((row) => union.map((field) => row[field] ?? ""));
+    return Papa.unparse({ fields: union, data: rows });
+  });
+
+  return joinCsvChunks(normalized);
 }
 
 /**
@@ -117,16 +182,13 @@ export async function concatMonthlyCSVs(files: CsvLike[]): Promise<ConcatResult>
     const amountChunks: string[] = [];
     const costChunks: string[] = [];
 
-    for (let i = 0; i < pairs.length; i++) {
-      const p = pairs[i];
+    for (const p of pairs) {
       const [amountText, costText] = await Promise.all([
         p.amountFile.text(),
         p.costFile.text(),
       ]);
-
-      // First file keeps its header; subsequent files have headers stripped
-      amountChunks.push(i === 0 ? amountText : stripHeader(amountText));
-      costChunks.push(i === 0 ? costText : stripHeader(costText));
+      amountChunks.push(amountText);
+      costChunks.push(costText);
     }
 
     const months = pairs.map((p) => p.month).sort();
@@ -136,8 +198,8 @@ export async function concatMonthlyCSVs(files: CsvLike[]): Promise<ConcatResult>
         : `${months[0]} ~ ${months[months.length - 1]}`;
 
     return {
-      amountText: amountChunks.join(""),
-      costText: costChunks.join(""),
+      amountText: normalizeCsvChunks(amountChunks),
+      costText: normalizeCsvChunks(costChunks),
       label,
       monthCount: pairs.length,
     };
@@ -155,13 +217,8 @@ export async function concatMonthlyCSVs(files: CsvLike[]): Promise<ConcatResult>
   const costTexts = await Promise.all(costFiles.map((f) => f.text()));
   const otherTexts = await Promise.all(otherCSVs.map((f) => f.text()));
 
-  const amountText = amountTexts
-    .map((t, i) => (i === 0 ? t : stripHeader(t)))
-    .join("");
-  const costText =
-    costTexts.length > 0
-      ? costTexts.map((t, i) => (i === 0 ? t : stripHeader(t))).join("")
-      : otherTexts.map((t, i) => (i === 0 ? t : stripHeader(t))).join("");
+  const amountText = normalizeCsvChunks(amountTexts);
+  const costText = normalizeCsvChunks(costTexts.length > 0 ? costTexts : otherTexts);
 
   const label = files.find((f) => f.name.includes("amount-"))?.name ?? files[0]?.name ?? "unknown";
 

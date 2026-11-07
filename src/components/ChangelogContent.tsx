@@ -21,6 +21,8 @@ import { useTranslation } from "@/i18n";
  * 此处提供版本概览供爬虫抓取，展示项目持续维护的活跃度。
  */
 const VERSION_SUMMARY = [
+  { version: "v0.12.0", date: "2026-11-07" },
+  { version: "v0.11.0", date: "2026-09-09" },
   { version: "v0.10.2", date: "2026-08-18" },
   { version: "v0.10.1", date: "2026-08-18" },
   { version: "v0.10.0", date: "2026-08-18" },
@@ -59,6 +61,8 @@ const VERSION_SUMMARY = [
  * 爬虫可通过此数据了解每次发布的范围和规模。
  */
 const VERSION_STATS = [
+  { version: "v0.12.0", added: 3, improved: 1, fixed: 3 },
+  { version: "v0.11.0", improved: 2 },
   { version: "v0.10.2", improved: 1, fixed: 2 },
   { version: "v0.10.1", improved: 2 },
   { version: "v0.10.0", added: 2, improved: 2 },

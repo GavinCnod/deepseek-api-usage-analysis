@@ -2,10 +2,10 @@
 
 import { createContext, useContext, useState, useCallback, useMemo, type ReactNode } from "react";
 import type { ParseResult, ParseError, ParseWarning } from "./types";
-import { parseDeepSeekData, computeKeyStats } from "./parser";
+import { parseDeepSeekData, computeKeyStats, summarizeDaily } from "./parser";
+import { ALL_MODELS } from "./dataKeys";
 
-/** Sentinel value for "show all models" */
-export const ALL_MODELS = "__all__";
+export { ALL_MODELS, WEB_TOOLS_MODEL } from "./dataKeys";
 
 function filterResult(result: ParseResult | null, model: string): ParseResult | null {
   if (!result) return null;
@@ -13,24 +13,15 @@ function filterResult(result: ParseResult | null, model: string): ParseResult | 
 
   const filteredDaily = result.daily.filter((d) => d.model === model);
   const keys = computeKeyStats(filteredDaily).sort((a, b) => b.totalCost - a.totalCost);
-  const totalCost = keys.reduce((s, k) => s + k.totalCost, 0);
-  const totalTokens = keys.reduce((s, k) => s + k.totalTokens, 0);
-  const totalCacheHit = keys.reduce((s, k) => s + k.inputCacheHitTokens, 0);
-  const totalCacheMiss = keys.reduce((s, k) => s + k.inputCacheMissTokens, 0);
-  const dates = [...new Set(filteredDaily.map((d) => d.date))].sort();
+  const summary = summarizeDaily(filteredDaily);
 
   return {
     daily: filteredDaily,
     keys,
     summary: {
-      totalCost,
-      totalTokens,
-      totalCacheHitTokens: totalCacheHit,
-      totalCacheMissTokens: totalCacheMiss,
-      cacheHitRate: totalCacheHit + totalCacheMiss > 0 ? totalCacheHit / (totalCacheHit + totalCacheMiss) : 0,
-      activeKeys: keys.length,
-      dateRange: dates.length > 0 ? { start: dates[0], end: dates[dates.length - 1] } : null,
-      models: result.summary.models, // keep original model list for filter UI
+      ...summary,
+      // Keep the original model list for the filter UI.
+      models: result.summary.models,
     },
     warnings: result.warnings,
   };

@@ -54,7 +54,7 @@ describe("buildFaqJsonLd", () => {
     const items = result.mainEntity as Array<Record<string, unknown>>;
 
     expect(result["@type"]).toBe("FAQPage");
-    expect(items).toHaveLength(9);
+    expect(items).toHaveLength(10);
     expect(items[1].name).toBe(translations.en.landing.qaQ2);
     expect((items[1].acceptedAnswer as Record<string, unknown>).text).toBe(
       translations.en.landing.qaA2

@@ -40,6 +40,7 @@ export default function Page() {
         meta={meta}
         content={{ en, zh }}
         prevPost={{ title: "GPT-5.6 Luna vs DeepSeek V4 Flash: 2026 Best-Value LLMs", slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions" }}
+        nextPost={{ title: "DeepSeek Search & Fetch API: Pricing, function_call CSV Rows, and 7 Real Use Cases", slug: "deepseek-search-fetch-api-billing" }}
       />
     </>
   );

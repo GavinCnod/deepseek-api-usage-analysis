@@ -2,8 +2,9 @@
 
 import { useMemo } from "react";
 import { useData } from "@/lib/DataContext";
+import { isWebToolModel } from "@/lib/dataKeys";
 import { useTranslation } from "@/i18n";
-import { formatCost, formatTokens, formatPercent } from "@/lib/format";
+import { formatCost, formatCostPrecise, formatTokens, formatPercent } from "@/lib/format";
 import { useTheme } from "@/lib/ThemeContext";
 import CopyButton from "@/components/CopyButton";
 
@@ -26,7 +27,7 @@ export default function KeyView() {
   const maxCost = Math.max(...(keys ?? []).map((k) => k.totalCost), 1);
 
   const modelCount = useMemo(
-    () => new Set((daily ?? []).map((d) => d.model)).size,
+    () => new Set((daily ?? []).filter((d) => !isWebToolModel(d.model)).map((d) => d.model)).size,
     [daily]
   );
 
@@ -102,6 +103,12 @@ export default function KeyView() {
               >
                 {t.keys.requests}
               </th>
+              <th
+                className="px-3 py-2.5 text-right text-[10px] font-semibold uppercase tracking-wider"
+                style={{ color: "var(--text-tertiary)" }}
+              >
+                {t.keys.tools}
+              </th>
               <th className="px-3 py-2.5 w-28"></th>
             </tr>
           </thead>
@@ -155,6 +162,16 @@ export default function KeyView() {
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {k.requestCount.toLocaleString()}
+                </td>
+                <td
+                  className="px-3 py-3 text-right text-xs"
+                  style={{ color: k.toolCost > 0 ? "var(--text-secondary)" : "var(--text-tertiary)" }}
+                >
+                  {k.toolCost > 0
+                    ? k.toolCallCount > 0
+                      ? `${k.toolCallCount.toLocaleString()} · ${formatCostPrecise(k.toolCost)}`
+                      : formatCostPrecise(k.toolCost)
+                    : "—"}
                 </td>
                 <td className="px-3 py-3">
                   <div

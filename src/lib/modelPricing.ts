@@ -33,6 +33,22 @@ export type ModelKey =
 /** 人民币兑美元参考汇率。 */
 export const CNY_PER_USD = 6.9;
 
+/**
+ * Search / Fetch 按次计费价格（2026-11-07 官方价）。
+ *
+ * 注意：CNY 与 USD 是两套独立官方标价，不要用汇率换算。
+ */
+export const TOOL_PRICING = {
+  search: { cnyPer1000: 5, usdPer1000: 0.75 },
+  fetch: { cnyPer1000: 5, usdPer1000: 0.75 },
+  updatedAt: "2026-11-07",
+} as const;
+
+/** 按月调用次数估算 Search / Fetch 费用。 */
+export function estimateToolCost(calls: number, pricePer1000: number): number {
+  return (calls / 1000) * pricePer1000;
+}
+
 /** 模型所属厂商与其官方定价页（JSON-LD 归因使用）。 */
 export const MODEL_VENDOR: Record<
   ModelKey,

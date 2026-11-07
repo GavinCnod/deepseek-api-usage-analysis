@@ -13,8 +13,9 @@
 import { useMemo, useState, useRef, useCallback, type DragEvent } from "react";
 import { useData } from "@/lib/DataContext";
 import { useTranslation } from "@/i18n";
-import { formatPercent, formatCostFull, formatTokensFull } from "@/lib/format";
+import { formatPercent, formatCostFull, formatCostPrecise, formatTokensFull } from "@/lib/format";
 import { useTheme } from "@/lib/ThemeContext";
+import { isWebToolModel } from "@/lib/dataKeys";
 import { useProjectConfig, UNCATEGORIZED, type ProjectDef } from "@/lib/ProjectConfigContext";
 import CopyButton from "@/components/CopyButton";
 
@@ -26,6 +27,8 @@ interface ProjectStats {
   name: string;
   totalTokens: number;
   totalCost: number;
+  toolCost: number;
+  toolCallCount: number;
   cacheHitTokens: number;
   cacheMissTokens: number;
   requestCount: number;
@@ -60,6 +63,8 @@ export default function ProjectView() {
       name: string;
       totalTokens: number;
       totalCost: number;
+      toolCost: number;
+      toolCallCount: number;
       cacheHitTokens: number;
       cacheMissTokens: number;
       requestCount: number;
@@ -70,6 +75,7 @@ export default function ProjectView() {
       map.set(p.name, {
         name: p.name,
         totalTokens: 0, totalCost: 0,
+        toolCost: 0, toolCallCount: 0,
         cacheHitTokens: 0, cacheMissTokens: 0,
         requestCount: 0, isUncategorized: false,
       });
@@ -77,6 +83,7 @@ export default function ProjectView() {
     map.set(UNCATEGORIZED, {
       name: t.projects.uncategorized,
       totalTokens: 0, totalCost: 0,
+      toolCost: 0, toolCallCount: 0,
       cacheHitTokens: 0, cacheMissTokens: 0,
       requestCount: 0, isUncategorized: true,
     });
@@ -91,6 +98,10 @@ export default function ProjectView() {
       entry.cacheHitTokens += d.inputCacheHitTokens;
       entry.cacheMissTokens += d.inputCacheMissTokens;
       entry.requestCount += d.requestCount;
+      if (isWebToolModel(d.model)) {
+        entry.toolCost += d.cost ?? 0;
+        entry.toolCallCount += d.toolCallCount;
+      }
     }
 
     return Array.from(map.values())
@@ -99,7 +110,7 @@ export default function ProjectView() {
         cacheHitRate: p.cacheHitTokens + p.cacheMissTokens > 0
           ? p.cacheHitTokens / (p.cacheHitTokens + p.cacheMissTokens) : 0,
       }))
-      .filter((p) => !p.isUncategorized || p.totalTokens > 0)
+      .filter((p) => !p.isUncategorized || p.totalTokens > 0 || p.totalCost > 0 || p.toolCallCount > 0)
       .sort((a, b) => {
         if (a.isUncategorized !== b.isUncategorized) return a.isUncategorized ? 1 : -1;
         return b.totalCost - a.totalCost;
@@ -186,6 +197,8 @@ export default function ProjectView() {
                 style={{ color: "var(--text-tertiary)" }}>{t.keys.cacheHit}</th>
               <th className="px-3 py-2.5 text-right text-[10px] font-semibold uppercase tracking-wider"
                 style={{ color: "var(--text-tertiary)" }}>{t.keys.requests}</th>
+              <th className="px-3 py-2.5 text-right text-[10px] font-semibold uppercase tracking-wider"
+                style={{ color: "var(--text-tertiary)" }}>{t.keys.tools}</th>
               <th className="px-3 py-2.5 w-28"></th>
             </tr>
           </thead>
@@ -217,6 +230,14 @@ export default function ProjectView() {
                 <td className="px-3 py-3 text-right"
                   style={{ color: p.isUncategorized ? "var(--text-tertiary)" : "var(--text-secondary)" }}>
                   {p.requestCount.toLocaleString()}
+                </td>
+                <td className="px-3 py-3 text-right text-xs"
+                  style={{ color: p.toolCost > 0 ? "var(--text-secondary)" : "var(--text-tertiary)" }}>
+                  {p.toolCost > 0
+                    ? p.toolCallCount > 0
+                      ? `${p.toolCallCount.toLocaleString()} · ${formatCostPrecise(p.toolCost)}`
+                      : formatCostPrecise(p.toolCost)
+                    : "—"}
                 </td>
                 <td className="px-3 py-3">
                   <div className="w-24 h-1 rounded-full overflow-hidden"

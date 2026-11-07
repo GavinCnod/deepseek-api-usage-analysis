@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useData, ALL_MODELS } from "@/lib/DataContext";
+import { useData, ALL_MODELS, WEB_TOOLS_MODEL } from "@/lib/DataContext";
 import { useTranslation } from "@/i18n";
 import { MAX_UPLOAD_SIZE_BYTES } from "@/lib/concatFiles";
 import { trackEvent } from "@/lib/analytics";
@@ -103,6 +103,9 @@ export default function Dashboard() {
   if (!result) {
     return <LandingPage />;
   }
+
+  const showModelFilter =
+    result.summary.models.length > 1 || result.summary.toolNames.length > 0;
 
   // 数据加载后：完整仪表盘
   return (
@@ -261,9 +264,9 @@ export default function Dashboard() {
         </nav>
 
         {/* 模型筛选 — Apple 风格分段控件 / 胶囊按钮 */}
-        {result.summary.models.length > 1 && (
+        {showModelFilter && (
           <div className="flex justify-center mb-8">
-            <div className="flex gap-1 p-1 rounded-full" style={{ background: "var(--border)" }}>
+            <div className="flex flex-wrap justify-center gap-1 p-1 rounded-full" style={{ background: "var(--border)" }}>
               <button
                 onClick={() => setSelectedModel(ALL_MODELS)}
                 className="px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200"
@@ -295,6 +298,26 @@ export default function Dashboard() {
                   {model}
                 </button>
               ))}
+              {result.summary.toolNames.length > 0 && (
+                <button
+                  onClick={() => setSelectedModel(WEB_TOOLS_MODEL)}
+                  className="px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200"
+                  style={{
+                    background: selectedModel === WEB_TOOLS_MODEL ? "var(--text-primary)" : "transparent",
+                    color: selectedModel === WEB_TOOLS_MODEL ? "var(--accent-inverse)" : "var(--text-tertiary)",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (selectedModel !== WEB_TOOLS_MODEL)
+                      (e.target as HTMLElement).style.color = "var(--text-secondary)";
+                  }}
+                  onMouseLeave={(e) => {
+                    if (selectedModel !== WEB_TOOLS_MODEL)
+                      (e.target as HTMLElement).style.color = "var(--text-tertiary)";
+                  }}
+                >
+                  {t.modelFilter.webTools}
+                </button>
+              )}
             </div>
           </div>
         )}

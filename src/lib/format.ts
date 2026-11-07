@@ -16,6 +16,18 @@ export function formatCost(yuan: number, locale: Locale): string {
 }
 
 /**
+ * Format small costs without rounding them away.
+ * Useful for per-call web tool charges (¥0.005) where formatCost would show ¥0.01.
+ */
+export function formatCostPrecise(yuan: number): string {
+  if (yuan === 0) return "¥0.00";
+  if (yuan < 0.01) {
+    return `¥${yuan.toFixed(4).replace(/0+$/, "").replace(/\.$/, "")}`;
+  }
+  return `¥${yuan.toFixed(2)}`;
+}
+
+/**
  * Format a token count.
  * EN: 1.2M / 1K / 123
  * ZH: 1.234亿 / 1.2万 / 123

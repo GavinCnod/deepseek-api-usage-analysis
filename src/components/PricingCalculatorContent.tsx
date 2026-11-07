@@ -10,6 +10,7 @@
 "use client";
 
 import { useTranslation } from "@/i18n";
+import { TOOL_PRICING } from "@/lib/modelPricing";
 
 export default function PricingCalculatorContent() {
   const { locale, t } = useTranslation();
@@ -65,6 +66,19 @@ export default function PricingCalculatorContent() {
             <p>{item.desc}</p>
           </div>
         ))}
+
+        <h2>{t.pricingCalculator.toolEstimateTitle}</h2>
+        <p>{t.pricingCalculator.toolEstimateDesc}</p>
+        <p>
+          {t.pricingCalculator.searchCostLabel}: {t.pricingCalculator.perThousandCalls} — ¥
+          {TOOL_PRICING.search.cnyPer1000} / ${TOOL_PRICING.search.usdPer1000}
+        </p>
+        <p>
+          {t.pricingCalculator.fetchCostLabel}: {t.pricingCalculator.perThousandCalls} — ¥
+          {TOOL_PRICING.fetch.cnyPer1000} / ${TOOL_PRICING.fetch.usdPer1000}
+        </p>
+        <p>{t.pricingCalculator.toolEstimateNote}</p>
+        <p>{t.pricingCalculator.modelPlusToolsNote}</p>
       </section>
     </noscript>
   );

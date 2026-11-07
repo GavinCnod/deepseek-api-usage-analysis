@@ -43,6 +43,10 @@ export default function ZhArticlePricingHistoryPage() {
           title: "2026 性价比之王：GPT-5.6 Luna vs DeepSeek V4 Flash",
           slug: "gpt-5.6-luna-vs-deepseek-v4-flash-value-champions",
         }}
+        nextPost={{
+          title: "DeepSeek Search & Fetch API：计费、CSV function_call 与 7 个真实场景",
+          slug: "deepseek-search-fetch-api-billing",
+        }}
       />
     </>
   );

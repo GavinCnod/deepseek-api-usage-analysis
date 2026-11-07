@@ -139,6 +139,7 @@ export default function LandingPage() {
     { q: t.landing.qaQ7, a: t.landing.qaA7 },
     { q: t.landing.qaQ8, a: t.landing.qaA8 },
     { q: t.landing.qaQ9, a: t.landing.qaA9 },
+    { q: t.landing.qaQ10, a: t.landing.qaA10 },
   ];
 
   return (

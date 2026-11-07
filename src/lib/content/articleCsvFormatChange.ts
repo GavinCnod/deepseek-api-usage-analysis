@@ -77,16 +77,21 @@ export const en: ArticleContent = {
       ],
     },
     {
-      heading: "What Stayed the Same",
+      heading: "What Stayed the Same (as of August 2026)",
       blocks: [
         {
           type: "ul",
           items: [
-            "The four <code>type</code> values are unchanged: <code>request_count</code>, <code>output_tokens</code>, <code>input_cache_hit_tokens</code>, <code>input_cache_miss_tokens</code>.",
+            "At the time of this format change, the four <code>type</code> values were unchanged: <code>request_count</code>, <code>output_tokens</code>, <code>input_cache_hit_tokens</code>, <code>input_cache_miss_tokens</code>.",
             "<code>request_count</code> rows still leave <code>price</code> empty.",
-            "<code>cost</code> semantics are unchanged (negative values still mean a charge).",
+            "<code>cost</code> can appear with a negative sign in some exports; the dashboard uses the absolute value as the charge.",
             "<code>price</code> and <code>amount</code> units are unchanged (per-token CNY prices, token / request counts).",
           ],
+        },
+        {
+          type: "p",
+          content:
+            "Since November 2026, newer exports also add a <code>name</code> column and a fifth <code>type</code> value: <code>function_call</code> for Web Search / Fetch charges. Those rows have an empty <code>model</code> and a <code>name</code> such as <code>tool-search</code> or <code>tool-fetch</code>. Read the <a href=\"/blog/deepseek-search-fetch-api-billing\">Search &amp; Fetch billing guide</a> for the full column breakdown and reconciliation rules.",
         },
       ],
     },
@@ -241,16 +246,21 @@ export const zh: ArticleContent = {
       ],
     },
     {
-      heading: "哪些保持不变",
+      heading: "哪些保持不变（截至 2026 年 8 月）",
       blocks: [
         {
           type: "ul",
           items: [
-            "四种 <code>type</code> 值不变：<code>request_count</code>、<code>output_tokens</code>、<code>input_cache_hit_tokens</code>、<code>input_cache_miss_tokens</code>。",
+            "在这次格式变更发生时，四种 <code>type</code> 值不变：<code>request_count</code>、<code>output_tokens</code>、<code>input_cache_hit_tokens</code>、<code>input_cache_miss_tokens</code>。",
             "<code>request_count</code> 行的 <code>price</code> 仍为空。",
-            "<code>cost</code> 语义不变（负数仍表示扣费）。",
+            "<code>cost</code> 在某些导出中带负号；仪表盘按绝对值作为扣费金额。",
             "<code>price</code> 与 <code>amount</code> 的单位不变（每 token 的人民币单价、token/请求数量）。",
           ],
+        },
+        {
+          type: "p",
+          content:
+            "2026 年 11 月起，新导出还会增加 <code>name</code> 列和第五种 <code>type</code> 值：<code>function_call</code>，对应 Web Search / Fetch 费用。这类行的 <code>model</code> 为空，<code>name</code> 为 <code>tool-search</code> 或 <code>tool-fetch</code>。完整列说明与对账规则见<a href=\"/blog/deepseek-search-fetch-api-billing\">《Search &amp; Fetch 计费指南》</a>。",
         },
       ],
     },

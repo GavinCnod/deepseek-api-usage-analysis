@@ -1,12 +1,16 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
-import { DataProvider, useData } from "@/lib/DataContext";
+import { DataProvider, useData, WEB_TOOLS_MODEL } from "@/lib/DataContext";
 
-// Mock the parser module
-vi.mock("@/lib/parser", () => ({
-  parseDeepSeekData: vi.fn(),
-  computeKeyStats: vi.fn(() => []),
-}));
+// Mock only the parser entry point; keep the real aggregation helpers so the
+// filter behavior can be tested without duplicating summary logic.
+vi.mock("@/lib/parser", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/parser")>("@/lib/parser");
+  return {
+    ...actual,
+    parseDeepSeekData: vi.fn(),
+  };
+});
 
 import { parseDeepSeekData } from "@/lib/parser";
 
@@ -84,6 +88,62 @@ describe("DataContext — loadFiles error handling", () => {
     expect(result.current.result?.summary.totalCost).toBe(0.1);
     expect(result.current.loading).toBe(false);
     expect(result.current.error).toBeNull();
+  });
+
+  it("filters real models and web tools separately", () => {
+    mockParseDeepSeekData.mockReturnValue({
+      daily: [
+        { date: "2026-11-07", model: "deepseek-chat", apiKeyName: "test-key", apiKey: "sk-xxx", requestCount: 10, outputTokens: 100, inputCacheHitTokens: 0, inputCacheMissTokens: 0, toolName: "", toolCallCount: 0, pricePerOutputToken: 0.001, pricePerInputToken: null, cost: 0.1 },
+        { date: "2026-11-07", model: WEB_TOOLS_MODEL, apiKeyName: "test-key", apiKey: "sk-xxx", requestCount: 0, outputTokens: 0, inputCacheHitTokens: 0, inputCacheMissTokens: 0, toolName: "search", toolCallCount: 14, pricePerOutputToken: 0, pricePerInputToken: null, cost: 0.007 },
+      ],
+      keys: [],
+      summary: {
+        totalCost: 0.107,
+        totalTokenCost: 0.1,
+        totalToolCost: 0.007,
+        totalToolCalls: 14,
+        totalTokens: 100,
+        totalCacheHitTokens: 0,
+        totalCacheMissTokens: 0,
+        cacheHitRate: 0,
+        activeKeys: 1,
+        dateRange: { start: "2026-11-07", end: "2026-11-07" },
+        models: ["deepseek-chat"],
+        toolNames: ["search"],
+      },
+      warnings: [],
+    });
+
+    const { result } = renderHook(() => useData(), { wrapper });
+
+    act(() => {
+      result.current.loadFiles("fake-amount", "fake-cost", "test.csv");
+    });
+    act(() => {
+      vi.advanceTimersByTime(0);
+    });
+
+    expect(result.current.filteredResult?.summary.totalCost).toBeCloseTo(0.107, 6);
+
+    act(() => {
+      result.current.setSelectedModel("deepseek-chat");
+    });
+
+    expect(result.current.filteredResult?.daily).toHaveLength(1);
+    expect(result.current.filteredResult?.summary.totalCost).toBeCloseTo(0.1, 6);
+    expect(result.current.filteredResult?.summary.totalToolCost).toBe(0);
+    expect(result.current.filteredResult?.summary.models).toEqual(["deepseek-chat"]);
+
+    act(() => {
+      result.current.setSelectedModel(WEB_TOOLS_MODEL);
+    });
+
+    expect(result.current.filteredResult?.daily).toHaveLength(1);
+    expect(result.current.filteredResult?.daily[0].model).toBe(WEB_TOOLS_MODEL);
+    expect(result.current.filteredResult?.summary.totalCost).toBeCloseTo(0.007, 6);
+    expect(result.current.filteredResult?.summary.totalToolCost).toBeCloseTo(0.007, 6);
+    expect(result.current.filteredResult?.summary.totalToolCalls).toBe(14);
+    expect(result.current.filteredResult?.summary.models).toEqual(["deepseek-chat"]);
   });
 
   it("sets error state when parseDeepSeekData returns an error", () => {

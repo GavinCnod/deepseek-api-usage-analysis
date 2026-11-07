@@ -647,3 +647,30 @@ export function buildArticlePricingHistoryMetadata(locale: Locale): Metadata {
     modifiedTime: article.modifiedTime,
   });
 }
+
+/**
+ * 构建文章《DeepSeek Search & Fetch API》的 metadata。
+ */
+export function buildArticleSearchFetchBillingMetadata(locale: Locale): Metadata {
+  const article = getBlogArticleLocaleMeta("deepseek-search-fetch-api-billing", locale);
+  const enArticle = getBlogArticleLocaleMeta("deepseek-search-fetch-api-billing", "en");
+  const zhArticle = getBlogArticleLocaleMeta("deepseek-search-fetch-api-billing", "zh");
+
+  return buildBlogArticleMetadata(locale, {
+    pathname: article.pathname,
+    title: {
+      en: enArticle.title,
+      zh: zhArticle.title,
+    },
+    description: {
+      en: enArticle.description,
+      zh: zhArticle.description,
+    },
+    keywords: {
+      en: enArticle.keywords,
+      zh: zhArticle.keywords,
+    },
+    publishedTime: article.publishedTime,
+    modifiedTime: article.modifiedTime,
+  });
+}

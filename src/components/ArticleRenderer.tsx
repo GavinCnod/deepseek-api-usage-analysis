@@ -173,6 +173,40 @@ export default function ArticleRenderer({ sections, pricingTable }: ArticleRende
                     {block.content}
                   </p>
                 );
+              case "table":
+                return (
+                  <div key={bi} className="overflow-x-auto mb-6">
+                    <table className="w-full text-xs" style={{ borderCollapse: "collapse" }}>
+                      <thead>
+                        <tr style={{ borderBottom: "2px solid var(--border)" }}>
+                          {block.headers.map((header, hi) => (
+                            <th
+                              key={hi}
+                              className={`py-2 ${hi === 0 ? "text-left pr-4" : "text-right px-3"}`}
+                              style={{ color: hi === 0 ? "var(--text-primary)" : "var(--text-secondary)" }}
+                            >
+                              {header}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {block.rows.map((row, ri) => (
+                          <tr key={ri} style={{ borderBottom: "1px solid var(--border)" }}>
+                            {row.map((cell, ci) => (
+                              <td
+                                key={ci}
+                                className={`py-2.5 ${ci === 0 ? "pr-4 font-semibold" : "px-3 text-right"}`}
+                                style={{ color: ci === 0 ? "var(--text-primary)" : "var(--text-secondary)" }}
+                                dangerouslySetInnerHTML={{ __html: formatRichHtml(cell, locale) }}
+                              />
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                );
               default:
                 return null;
             }

@@ -225,7 +225,11 @@ function buildCacheHitRateChart(
   daily: DailyUsage[],
   c: ReturnType<typeof themeColors>,
 ) {
-  const dates = [...new Set(daily.map((d) => d.date))].sort();
+  const dates = [...new Set(
+    daily
+      .filter((d) => d.inputCacheHitTokens + d.inputCacheMissTokens > 0)
+      .map((d) => d.date)
+  )].sort();
   const hitsByDate = new Map<string, number>();
   const missesByDate = new Map<string, number>();
   for (const d of daily) {

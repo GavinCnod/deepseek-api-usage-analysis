@@ -43,7 +43,8 @@ export type ContentBlock =
   | { type: "ul"; items: string[] }
   | { type: "ol"; items: string[] }
   | { type: "inline_code"; content: string }
-  | { type: "compare_note"; content: string };
+  | { type: "compare_note"; content: string }
+  | { type: "table"; headers: string[]; rows: string[][] };
 
 /** 文章的一个章节 */
 export interface ArticleSection {

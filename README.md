@@ -29,22 +29,23 @@ If you also analyze Agnes AI usage, check the companion open-source project in t
 - **Overview** — KPI big numbers (cost, tokens, cache rate, active keys) + daily cost bar chart + cost-by-key donut chart
 - **By Key** — Detailed table with per-key tokens, cost, color-coded cache hit rate (green > 40% / amber 20–40% / red < 20%), request counts, and inline usage bars
 - **Cache** — Large-format hit rate display, daily cache hit rate trend line, stacked hits-vs-misses bar chart by key with hit% labels and tooltip
-- **Trends** — Toggleable multi-metric line chart (cost / tokens / cache hit rate / requests) with dynamic hero number
+- **Trends** — Toggleable multi-metric line chart (cost / tokens / cache hit rate / requests / web tool calls) with dynamic hero number
 - **Dark mode** — Full light/dark dual-theme with CSS custom properties; auto-detects system preference, manual toggle persisted to localStorage
 - **Multi-language** — English and 中文, auto-detected from browser language; manual switch with localStorage persistence
 - **By Project** — Custom project grouping tab: drag-and-drop API keys into user-defined projects, per-project cost/token/cache aggregation, config persisted to localStorage; gear icon opens drag-and-drop config modal with keyboard-accessible dropdowns
-- **Model filter** — Segmented control (pill buttons) to filter all views by model; only shown when ≥2 models detected
+- **Model filter** — Segmented control (pill buttons) to filter all views by real model, all usage, or the dedicated Web Tools dimension; only shown when there is more than one model or web tool data is present
 - **One-click copy** — Reusable CopyButton component for clipboard copy of cost values across KeyView, ProjectView, and OverviewView; hover tooltip with i18n-aware toast
 - **Social share cards** — Generate 1200×630 infographic share images for each dashboard tab (Overview / Projects / Keys / Cache / Trends). Customizable "From XXX" signature, optional quote message, per-tab ECharts mini-charts, QR code to deepseek-usage.xyz, app logo watermark, one-click copy to clipboard (paste directly to WeChat / Feishu / DingTalk), and PNG download.
 - **Upload safety** — 50MB per-file size limit to prevent ZIP bomb attacks; user-facing error messages and dedicated FAQ entry
-- **Multi-month support** — Drag multiple months at once; files auto-pair by filename pattern (both `amount-{year}-{month}.csv` and date-range `amount-2026-08-01_2026-08-17.csv` naming) and concatenate. Also supports ZIP archives directly — no extraction needed; drag DeepSeek platform ZIP exports straight onto the page.
+- **Multi-month support** — Drag multiple months at once; files auto-pair by filename pattern (both `amount-{year}-{month}.csv` and date-range `amount-2026-08-01_2026-08-17.csv` naming) and concatenate. Mixed legacy/new headers are normalized by column name so the new `name` column cannot shift old exports. Also supports ZIP archives directly — no extraction needed; drag DeepSeek platform ZIP exports straight onto the page.
+- **Web tool billing** — Parses DeepSeek's `function_call` rows and the new `name` column for Web Search / Fetch charges (¥5 / $0.75 per 1,000 successful requests), attributes tool cost per API key, includes it in total cost exactly once, and adds a dedicated Web Tools filter, per-key table column, trend metric, and share-card support.
 - **Apple-minimalist design** — Cold gray paper-texture background, generous whitespace, "no-card" full-width modules, thin horizontal dividers, 5rem hero numbers, diffuse shadows
 - **100% private** — All CSV parsing (Papa Parse), ZIP extraction (JSZip), and cost computation runs client-side; project configuration stored in your browser's localStorage only
 - **SEO optimized** — Server-rendered metadata (canonical URLs, OpenGraph with `alternateLocale` en/zh, Twitter cards), JSON-LD structured data (`SoftwareApplication` + `FAQPage` + `Organization`, bilingual, rendered via reusable `<JsonLd />` component), robots.txt + sitemap.xml (bilingual en/zh entries per route), `<noscript>` crawler fallback content, anchor-linkable landing page sections, `llms.txt` for LLM-friendly site description
 - **Sister project cross-linking** — Centralized `sisterProjects.ts` module manages cross-links between the two sibling tools in the "API Usage Analyzer Series" product family (DeepSeek + Agnes). All cross-site URLs flow through a single config source with UTM tracking (`utm_source=agnes_site`, `utm_medium=referral`, per-location `utm_campaign`). Sister project links appear in the FooterBar ("Related Tools" row), LandingPage (dedicated section), and Organization JSON-LD schema.
-- **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (9 items, including file size limits and project grouping), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
+- **Landing page** — Complete pre-upload landing with theme-aware background images, "Recommended Tools We ARE USING" AffiliateWall commercial module (above the FAQ), How It Works steps, accordion FAQ (10 items, including file size limits, project grouping, and web tool billing), expanded multi-section About (project origin, privacy & tech, team, contact with email copy & social links + "View Changelog →" link), scroll-reveal animations, anchor-linkable sections with deferred rendering for performance
 - **User Guide** — Comprehensive bilingual user manual at `/guideline` with annotated screenshots, interactive table of contents, step-by-step dashboard navigation, CSV export instructions, chart interpretation guide, and troubleshooting section
-- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.11.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
+- **Changelog** — Dedicated `/changelog` page with complete version history (v0.1.0–v0.12.0) organized by category (Added/Improved/Fixed/Dependencies) with color-coded dots; Apple-minimalist bilingual design matching privacy/terms pages, JSON-LD WebPage schema, independent SEO metadata, linked from TitleBar, FooterBar, and LandingPage
 - **Privacy Policy & Terms** — `/privacy` and `/terms` pages with bilingual legal content, independent SEO metadata (canonical, OpenGraph, Twitter), JSON-LD WebPage schemas, and Apple-minimalist legal-text layout; linked from footer on every page
 - **Analytics** — Optional Google Analytics 4 integration via `NEXT_PUBLIC_GA_ID` env var; zero overhead when unset. Tracks page views, file uploads, share card generations, tab switches, and language switches — zero CSV data ever tracked.
 - **Enhanced SEO** — Twitter `summary_large_image` card with 1200×630 OG image, `Organization` JSON-LD schema for Google Knowledge Panel, differentiated sitemap `lastModified` dates, `keywords` + `author` + `twitter:site`/`creator` meta tags on all pages
@@ -58,27 +59,31 @@ Standard DeepSeek platform export. Newer exports use `start_time_iso`/`end_time_
 
 ### `amount-{year}-{month}.csv` (or date-range naming)
 
-| Column           | Description                                                                           |
-| ---------------- | ------------------------------------------------------------------------------------- |
-| `start_time_iso` | Period start (ISO 8601); the billing day is its date part (Beijing-local day)          |
-| `end_time_iso`   | Period end (ISO 8601)                                                                  |
-| `model`          | `deepseek-v4-pro`, `deepseek-v4-flash`, etc.                                           |
-| `api_key_name`   | Your key label                                                                         |
-| `api_key`        | Key (masked)                                                                           |
-| `type`           | `request_count`, `output_tokens`, `input_cache_hit_tokens`, `input_cache_miss_tokens` |
-| `price`          | Unit price in CNY (empty for `request_count`)                                          |
-| `amount`         | Token or request count                                                                 |
+| Column           | Description                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| `start_time_iso` | Period start (ISO 8601); the billing day is its date part (Beijing-local day)                                   |
+| `end_time_iso`   | Period end (ISO 8601)                                                                                           |
+| `model`          | `deepseek-flash`, `deepseek-v4-pro`, etc.; empty for `function_call` rows                                       |
+| `name`           | Billing item name; equals `model` for token rows, or `tool-search` / `tool-fetch` for Web tool rows             |
+| `api_key_name`   | Your key label                                                                                                  |
+| `api_key`        | Key (masked)                                                                                                    |
+| `type`           | `request_count`, `output_tokens`, `input_cache_hit_tokens`, `input_cache_miss_tokens`, `function_call`          |
+| `price`          | Unit price in CNY (empty for `request_count`; per-call price for `function_call`)                               |
+| `amount`         | Token count, request count, or tool call count                                                                  |
 
 ### `cost-{year}-{month}.csv` (or date-range naming)
 
-| Column           | Description                |
-| ---------------- | -------------------------- |
-| `start_time_iso` | Period start (ISO 8601)    |
-| `end_time_iso`   | Period end (ISO 8601)      |
-| `model`          | Model name                 |
-| `wallet_type`    | Wallet type (e.g. `Paid`)  |
-| `cost`           | Amount (negative = charge) |
-| `currency`       | CNY                        |
+| Column           | Description                                      |
+| ---------------- | ------------------------------------------------ |
+| `start_time_iso` | Period start (ISO 8601)                          |
+| `end_time_iso`   | Period end (ISO 8601)                            |
+| `model`          | Model name; empty for `function_call` rows       |
+| `name`           | Billing item name (same semantics as amount CSV) |
+| `wallet_type`    | Wallet type (e.g. `Paid`, `Granted`)             |
+| `cost`           | Amount in CNY                                    |
+| `currency`       | CNY                                              |
+
+> Web tool charges appear as `type=function_call` in the amount CSV and as an empty-`model` row in the cost CSV. The cost row is the authoritative charge; `price × amount` from the amount row is a cross-check, not an additional charge.
 
 ## Development
 
@@ -87,7 +92,7 @@ npm install
 npm run dev        # Dev server at localhost:3000
 npm run build      # Static export → out/
 npm run lint       # ESLint
-npm test           # Vitest (50 tests)
+npm test           # Vitest (63 tests)
 ```
 
 ### Tech Stack
@@ -146,7 +151,8 @@ src/
 │   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # Blog article 4
 │   │   │   ├── deepseek-csv-export-format-changed-aug-2026/page.tsx # Blog article 5
 │   │   │   ├── gpt-5.6-luna-vs-deepseek-v4-flash-value-champions/page.tsx # Blog article 6
-│   │   │   └── deepseek-api-price-history-2025-2026/page.tsx # Blog article 7
+│   │   │   ├── deepseek-api-price-history-2025-2026/page.tsx # Blog article 7
+│   │   │   └── deepseek-search-fetch-api-billing/page.tsx # Blog article 8
 │   │   └── author/
 │   │       └── page.tsx          # /author route with independent SEO metadata
 │   ├── zh/               # Chinese root layout group (mirrors all (site)/ routes)
@@ -166,7 +172,7 @@ src/
 │   ├── GuidelinePage.tsx    # Full interactive user guide (bilingual, annotated screenshots, ToC, scroll-reveal)
 │   ├── PrivacyPage.tsx      # Privacy policy (bilingual 7-section, JSON-LD WebPage, GitHub source links)
 │   ├── TermsPage.tsx        # Terms of use (bilingual 8-section, JSON-LD WebPage, MIT License reference)
-│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.11.0, category-grouped with colored dots, JSON-LD WebPage)
+│   ├── ChangelogPage.tsx     # Changelog (v0.1.0–v0.12.0, category-grouped with colored dots, JSON-LD WebPage)
 │   ├── CostTrackerPage.tsx    # SEO landing: DeepSeek API Cost Tracker (features + affiliate recommendations)
 │   ├── CostTrackerContent.tsx # <noscript> SEO fallback: bilingual cost tracker content for crawlers
 │   ├── CacheAnalyzerPage.tsx  # SEO landing: DeepSeek Cache Hit Rate Analyzer (caching education + MindRose CTA)
@@ -290,6 +296,20 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 - **Caching**: immutable caching for `/_next/static` and `/fonts` (1 year), stale-while-revalidate for `/landing` and `/guideline` images (1 week)
 
 ## Changelog
+
+### v0.12.0
+
+**Added:**
+
+- Web tool billing support — the parser understands `function_call` rows, the new `name` column, and `tool-search` / `tool-fetch` charges. Tool cost is attributed per API key, counted once, and surfaced through a dedicated Web Tools filter, Key/Project columns, a Trends metric, and share cards.
+- Search / Fetch monthly estimate in the Pricing Calculator — ¥5 / $0.75 per 1,000 successful requests, with independent call sliders and a combined tool-cost card.
+- New bilingual article — "DeepSeek Search & Fetch API: Pricing, function_call CSV Rows, and 7 Real Use Cases" (`/blog/deepseek-search-fetch-api-billing`), covering the October 17, 2026 launch, billing timeline, CSV columns, reconciliation, and practical agent/RAG scenarios.
+
+**Fixed:**
+
+- Issue #2 — ZIPs containing `function_call` rows no longer fail with `invalid type`. Cost CSV tool rows are authoritative; amount `price × amount` is a fallback/check, so tool fees are counted exactly once.
+- Unknown billing types are skipped with a warning instead of aborting the upload.
+- Mixed legacy/new headers across multiple months are normalized by column name before merging, so the new `name` column cannot shift old exports.
 
 ### v0.11.0
 

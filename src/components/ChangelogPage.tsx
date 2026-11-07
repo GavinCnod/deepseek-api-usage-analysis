@@ -51,6 +51,44 @@ interface VersionEntry {
 /** 所有版本的更新日志，按版本倒序排列 */
 const CHANGELOG_DATA: VersionEntry[] = [
   {
+    version: "v0.12.0",
+    date: "2026-11-07",
+    added: [
+      {
+        en: "Web tool billing support — the parser now understands `function_call` rows, the new `name` column, and the `tool-search` / `tool-fetch` charges that DeepSeek added to usage exports in November 2026. Tool calls are attributed per API key, included in total cost, and shown in a dedicated Web Tools filter.",
+        zh: "Web 工具计费支持 — 解析器现可识别 2026 年 11 月 DeepSeek 新增的 `function_call` 行、`name` 列以及 `tool-search` / `tool-fetch` 费用。工具调用按 API Key 归属，计入总费用，并新增独立的 Web Tools 筛选。",
+      },
+      {
+        en: "Pricing Calculator gains a Search / Fetch monthly estimate — ¥5 per 1,000 successful requests in CNY and $0.75 per 1,000 in USD, with independent call sliders and a combined tool-cost card.",
+        zh: "价格计算器新增 Search / Fetch 月度估算 — 人民币 ¥5 / 1,000 次成功请求、美元 $0.75 / 1,000 次，含独立调用量滑块与工具费用合计卡。",
+      },
+      {
+        en: "New bilingual article — \"DeepSeek Search & Fetch API: Pricing, function_call CSV Rows, and 7 Real Use Cases\" — covering the October 17, 2026 launch, billing timeline, CSV columns, reconciliation, and practical agent/RAG scenarios.",
+        zh: "新增中英双语文章——《DeepSeek Search & Fetch API：计费、CSV function_call 与 7 个真实场景》——讲清 2026 年 10 月 17 日上线、计费时间线、CSV 列、对账方法与 Agent/RAG 实战场景。",
+      },
+    ],
+    improved: [
+      {
+        en: "Web tool visibility across the dashboard — Overview stacks model vs. tool cost and adds a tool summary strip; Key and Project tables gain Web Tools columns; Trends adds a Web Tool Calls metric; Cache hides tool-only keys; share cards include tool spend.",
+        zh: "全仪表盘 Web 工具可见性 — 总览按模型 / 工具堆叠费用并新增工具摘要条；Key 与项目表新增 Web Tools 列；趋势新增网页工具调用指标；缓存视图隐藏纯工具 Key；分享卡片计入工具费用。",
+      },
+    ],
+    fixed: [
+      {
+        en: "Issue #2 — uploading a ZIP with `function_call` rows no longer fails with `invalid type`. Cost CSV tool rows are treated as the authoritative charge and amount `price × amount` is used only as a fallback/check, so tool fees are counted exactly once.",
+        zh: "Issue #2 — 上传含 `function_call` 行的 ZIP 不再报 `invalid type`。cost CSV 工具行作为权威费用，amount 的 `price × amount` 仅作兜底/校验，工具费用只计一次。",
+      },
+      {
+        en: "Unknown billing types are now skipped with a warning instead of aborting the whole upload, so future DeepSeek billing additions cannot take down the dashboard.",
+        zh: "未知计费类型现在会跳过并提示，而不是中断整次上传；未来 DeepSeek 再新增计费项不会让仪表盘崩溃。",
+      },
+      {
+        en: "Mixed legacy/new headers across multiple months are normalized by column name before merging — the new `name` column no longer shifts `api_key_name`, `type`, `price`, and `amount` when old and new exports are uploaded together.",
+        zh: "多月份新旧格式混传时按列名归一化表头 — 新增 `name` 列不再导致旧/新导出合并时 `api_key_name`、`type`、`price`、`amount` 整行列错位。",
+      },
+    ],
+  },
+  {
     version: "v0.11.0",
     date: "2026-09-09",
     improved: [

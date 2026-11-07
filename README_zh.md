@@ -29,22 +29,23 @@
 - **总览** — KPI 大数字展示（费用、Token 数、缓存命中率、活跃 Key）+ 每日费用柱状图 + 各 Key 费用环形图
 - **按 Key** — 详细表格，展示每个 Key 的 Token 数、费用、颜色标记的缓存命中率（绿色 > 40% / 琥珀色 20–40% / 红色 < 20%）、请求次数及内嵌用量条
 - **缓存** — 大字号命中率展示、每日缓存命中率趋势折线图、各 Key 缓存命中/未命中堆叠柱状图（含命中率标签和 tooltip）
-- **趋势** — 可切换多指标折线图（费用 / Token / 缓存命中率 / 请求次数），顶部大数字动态跟随指标切换
+- **趋势** — 可切换多指标折线图（费用 / Token / 缓存命中率 / 请求次数 / 网页工具调用），顶部大数字动态跟随指标切换
 - **深色模式** — 完整的浅色/深色双主题，基于 CSS 自定义属性；自动检测系统偏好，手动切换持久化至 localStorage
 - **多语言** — 英文和中文，根据浏览器语言自动检测；手动切换持久化至 localStorage
 - **按项目** — 自定义项目分组标签页：拖拽 API Key 到用户自定义项目中，按项目汇总费用/Token/缓存数据，配置持久化至 localStorage；齿轮图标打开拖拽式配置弹窗，支持键盘操作下拉菜单
-- **模型筛选** — 分段控件胶囊按钮，按模型过滤所有视图；仅在检测到 ≥2 个模型时显示
+- **模型筛选** — 分段控件胶囊按钮，可按真实模型、全部用量或独立 Web Tools 维度过滤所有视图；仅在模型数 > 1 或存在工具数据时显示
 - **一键复制** — 可复用的 CopyButton 组件，在 KeyView、ProjectView 和 OverviewView 中一键复制费用数值；悬浮提示含国际化成功消息
 - **社交媒体分享卡片** — 为每个仪表盘标签页（总览 / 项目 / Key / 缓存 / 趋势）生成 1200×630 信息图分享图片。支持自定义「From XXX」署名、可选引用文案、各标签页专属 ECharts 迷你图表、deepseek-usage.xyz 二维码、应用 Logo 水印、一键复制到剪贴板（直接粘贴至微信 / 飞书 / 钉钉）以及 PNG 下载。
 - **上传安全** — 单文件 50MB 大小限制，防止 ZIP 炸弹攻击；用户可见的错误提示及专属 FAQ 条目
-- **多月支持** — 一次拖入多个月份文件；根据文件名模式自动配对并拼接（兼容 `amount-{年份}-{月份}.csv` 与日期区间式 `amount-2026-08-01_2026-08-17.csv` 两种命名）。同时支持 ZIP 压缩包直接上传 — 无需解压，直接将 DeepSeek 平台导出的 ZIP 文件拖入页面即可。
+- **多月支持** — 一次拖入多个月份文件；根据文件名模式自动配对并拼接（兼容 `amount-{年份}-{月份}.csv` 与日期区间式 `amount-2026-08-01_2026-08-17.csv` 两种命名）。新旧格式混合上传时会按列名归一化表头，新增的 `name` 列不会让旧导出整行错位。同时支持 ZIP 压缩包直接上传 — 无需解压，直接将 DeepSeek 平台导出的 ZIP 文件拖入页面即可。
+- **网页工具计费** — 解析 DeepSeek 的 `function_call` 行与新增 `name` 列，支持 Web Search / Fetch 费用（每 1,000 次成功请求 ¥5 / $0.75），按 API Key 归属工具费用、只计入一次总费用，并提供 Web Tools 筛选、各 Key 工具列、趋势指标和分享卡片支持。
 - **Apple 极简设计** — 冷灰纸质感底、大量留白、「无卡片」通栏模块布局、细横线分割、5rem Hero 大数字、弥散阴影
 - **100% 隐私** — 所有 CSV 解析（Papa Parse）、ZIP 解压（JSZip）和费用计算均在浏览器客户端完成；项目配置仅存储于浏览器的 localStorage 中
 - **SEO 优化** — 服务端渲染元数据（规范 URL、OpenGraph 含 `alternateLocale` en/zh、Twitter 卡片）、JSON-LD 结构化数据（`SoftwareApplication` + `FAQPage` + `Organization`，双语，通过可复用 `<JsonLd />` 组件渲染）、robots.txt + sitemap.xml（每路由 en + zh 双语条目）、`<noscript>` 爬虫回退内容、支持锚点链接的落地页板块、`llms.txt` 面向 LLM 的站点描述
 - **姊妹项目交叉链接** — 集中化的 `sisterProjects.ts` 模块管理「API Usage Analyzer Series」产品矩阵中两个姐妹工具（DeepSeek + Agnes）之间的交叉链接。所有跨站 URL 均通过统一配置来源流转，并附带 UTM 追踪（`utm_source=agnes_site`、`utm_medium=referral`、按位置区分的 `utm_campaign`）。姊妹项目链接出现在 FooterBar（「姊妹工具」行）、LandingPage（专属区段）以及 Organization JSON-LD Schema 中。
-- **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（9 项，含文件大小限制和项目分组）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
+- **落地页** — 完整的上传前落地页，包含主题感知背景图片、「我们正在使用的好工具」AffiliateWall 商业化模块（位于常见问题之前）、使用说明步骤、手风琴常见问题（10 项，含文件大小限制、项目分组和网页工具计费）、多板块关于页面（项目起源、隐私与技术、团队介绍、商业合作含邮箱复制与社交链接 +「查看更新日志 →」链接）、滚动渐显动画、支持锚点链接的板块与延迟渲染性能优化
 - **用户操作手册** — 位于 `/guideline` 的完整双语使用指南，包含标注截图、交互式目录导航、分步仪表盘操作说明、CSV 导出指引、图表解读和故障排查章节
-- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.11.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
+- **更新日志** — 位于 `/changelog` 的专属页面，展示 v0.1.0 至 v0.12.0 的完整版本历史，按类别（新增/改进/修复/依赖变更）以彩色圆点分组；Apple 极简双语设计，与隐私政策/使用条款风格一致，含 JSON-LD WebPage 结构化数据、独立 SEO 元数据，可从 TitleBar、FooterBar 和落地页访问
 - **隐私政策与使用条款** — `/privacy` 和 `/terms` 页面，包含双语法务内容、独立 SEO 元数据（规范 URL、OpenGraph、Twitter 卡片）、JSON-LD WebPage Schema 以及 Apple 极简风格的法律文本布局；每页页脚均有导航链接
 - **数据分析** — 可选的 Google Analytics 4 集成，通过 `NEXT_PUBLIC_GA_ID` 环境变量控制；未设置时零开销。追踪页面浏览、文件上传、分享卡片生成、标签页切换和语言切换 — 绝不追踪任何 CSV 数据。
 - **增强 SEO** — Twitter `summary_large_image` 卡片含 1200×630 OG 图片、用于 Google 知识面板的 `Organization` JSON-LD Schema、差异化的站点地图 `lastModified` 日期、所有页面的 `keywords` + `author` + `twitter:site`/`creator` 元标签
@@ -58,27 +59,31 @@ DeepSeek 平台标准导出格式。新导出使用 `start_time_iso` / `end_time
 
 ### `amount-{年份}-{月份}.csv`（或日期区间命名）
 
-| 列名             | 说明                                                                                 |
-| -------------- | ---------------------------------------------------------------------------------- |
-| `start_time_iso` | 统计周期开始（ISO 8601）；账单日取其日期部分（北京时间当天）                                        |
-| `end_time_iso`   | 统计周期结束（ISO 8601）                                                               |
-| `model`        | 模型名称，如 `deepseek-v4-pro`、`deepseek-v4-flash`                                        |
-| `api_key_name` | API Key 标签                                                                         |
-| `api_key`      | Key（脱敏）                                                                            |
-| `type`         | `request_count`、`output_tokens`、`input_cache_hit_tokens`、`input_cache_miss_tokens` |
-| `price`        | 单价（人民币，`request_count` 类型为空）                                                        |
-| `amount`       | Token 或请求数量                                                                        |
+| 列名             | 说明                                                                                                    |
+| -------------- | ----------------------------------------------------------------------------------------------------- |
+| `start_time_iso` | 统计周期开始（ISO 8601）；账单日取其日期部分（北京时间当天）                                                       |
+| `end_time_iso`   | 统计周期结束（ISO 8601）                                                                                  |
+| `model`        | 模型名称，如 `deepseek-flash`、`deepseek-v4-pro`；`function_call` 行为空                                        |
+| `name`         | 计费项名称；普通行等于 `model`，Web 工具行为 `tool-search` / `tool-fetch`                                          |
+| `api_key_name` | API Key 标签                                                                                            |
+| `api_key`      | Key（脱敏）                                                                                               |
+| `type`         | `request_count`、`output_tokens`、`input_cache_hit_tokens`、`input_cache_miss_tokens`、`function_call`     |
+| `price`        | 单价（人民币；`request_count` 为空，`function_call` 为每次调用价格）                                                  |
+| `amount`       | Token 数、请求数或工具调用次数                                                                                    |
 
 ### `cost-{年份}-{月份}.csv`（或日期区间命名）
 
-| 列名           | 说明           |
-| ------------ | ------------ |
-| `start_time_iso` | 统计周期开始（ISO 8601） |
-| `end_time_iso`   | 统计周期结束（ISO 8601） |
-| `model`      | 模型名称         |
-| `wallet_type` | 钱包类型（如 `Paid`） |
-| `cost`       | 金额（负数为扣费）    |
-| `currency`   | 币种（CNY）      |
+| 列名           | 说明                           |
+| ------------ | ---------------------------- |
+| `start_time_iso` | 统计周期开始（ISO 8601）             |
+| `end_time_iso`   | 统计周期结束（ISO 8601）             |
+| `model`      | 模型名称；`function_call` 行为空       |
+| `name`       | 计费项名称（语义同 amount CSV）        |
+| `wallet_type` | 钱包类型（如 `Paid`、`Granted`）     |
+| `cost`       | 金额（人民币）                      |
+| `currency`   | 币种（CNY）                      |
+
+> Web 工具费用在 amount CSV 中表现为 `type=function_call`，在 cost CSV 中表现为 `model` 为空的行。cost 行是权威扣费；amount 的 `price × amount` 只用于交叉校验，不是第二笔费用。
 
 ## 本地开发
 
@@ -87,7 +92,7 @@ npm install
 npm run dev        # 开发服务器 → localhost:3000
 npm run build      # 静态导出 → out/
 npm run lint       # ESLint
-npm test           # Vitest（49 个测试用例）
+npm test           # Vitest（63 个测试用例）
 ```
 
 ### 技术栈
@@ -146,7 +151,8 @@ src/
 │   │   │   ├── opencode-go-cheapest-deepseek-v4-flash/page.tsx # 博客文章 4
 │   │   │   ├── deepseek-csv-export-format-changed-aug-2026/page.tsx # 博客文章 5
 │   │   │   ├── gpt-5.6-luna-vs-deepseek-v4-flash-value-champions/page.tsx # 博客文章 6
-│   │   │   └── deepseek-api-price-history-2025-2026/page.tsx # 博客文章 7
+│   │   │   ├── deepseek-api-price-history-2025-2026/page.tsx # 博客文章 7
+│   │   │   └── deepseek-search-fetch-api-billing/page.tsx # 博客文章 8
 │   │   └── author/
 │   │       └── page.tsx          # /author 路由，包含独立 SEO 元数据
 │   ├── zh/               # 中文根布局路由组（镜像所有 (site)/ 路由）
@@ -166,7 +172,7 @@ src/
 │   ├── GuidelinePage.tsx    # 完整交互式用户操作手册（双语、标注截图、目录导航、滚动渐显）
 │   ├── PrivacyPage.tsx      # 隐私政策页（双语 7 章节法律文本，JSON-LD WebPage Schema，GitHub 源码链接）
 │   ├── TermsPage.tsx        # 使用条款页（双语 8 章节法律文本，JSON-LD WebPage Schema，MIT 许可证引用）
-│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.11.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
+│   ├── ChangelogPage.tsx     # 更新日志页（v0.1.0–v0.12.0 完整版本历史，按类别以彩色圆点分组，JSON-LD WebPage Schema）
 │   ├── CostTrackerPage.tsx    # SEO 落地页：DeepSeek API 费用追踪器（功能 + 联盟推荐）
 │   ├── CostTrackerContent.tsx # <noscript> SEO 回退：双语费用追踪器内容供爬虫抓取
 │   ├── CacheAnalyzerPage.tsx  # SEO 落地页：DeepSeek 缓存命中率分析器（缓存教育 + MindRose CTA）
@@ -265,7 +271,7 @@ src/
 
 - **generateMetadata()** — 动态服务端渲染元数据：规范 URL、OpenGraph（标题、描述、图片）、Twitter 卡片、hreflang 语言标注（en/zh）、robots 指令
 - **JSON-LD 结构化数据** — `SoftwareApplication` + `FAQPage` + `Organization` 双语 Schema，构建时通过可复用 `<JsonLd />` 组件注入；`Organization` Schema 标识真实发布者（MindRose Team）并帮助 Google 建立品牌知识面板。程序化页面各自追加结构化数据：模型定价页输出 `Product` + `AggregateOffer` + `FAQPage`（含 `availableAtOrFrom` 厂商归属），Glossary 页输出 `Article` + `FAQPage`
-- **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含全部公开路由（首页、操作手册、隐私、条款、更新日志、3 个工具落地页、7 篇博客、作者、8 个模型定价页、3 个 Glossary 页），每路由 en + zh 双语条目并附 `alternates.languages`；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
+- **robots.txt + sitemap.xml** — 构建时通过 Next.js 16 `MetadataRoute` 约定生成；sitemap 包含全部公开路由（首页、操作手册、隐私、条款、更新日志、3 个工具落地页、8 篇博客、作者、8 个模型定价页、3 个 Glossary 页），每路由 en + zh 双语条目并附 `alternates.languages`；站点域名从 `NEXT_PUBLIC_SITE_URL` 环境变量读取
 - **程序化 SEO 页面** — 8 个单模型定价页（`/deepseek-v4-flash-pricing`、`/gpt-5.6-luna-pricing` 等）与 3 个 Glossary 页（`/what-is-deepseek-cache-hit-rate`、`/what-is-deepseek-context-caching`、`/what-is-deepseek-off-peak-pricing`），均双语镜像、含每页独立文案、FAQ 与 JSON-LD；模型定价页从共享 `MODEL_PRICING` 配置实时渲染价格表（唯一事实来源，与价格计算器不漂移）
 - **`<noscript>` 回退** — `LandingContent.tsx` 输出关键落地页内容（使用说明、常见问题、关于），供不执行 JavaScript 的爬虫抓取；`PrivacyContent.tsx`、`TermsContent.tsx`、`ChangelogContent.tsx`、`ModelPricingContent.tsx` 和 `GlossaryContent.tsx` 为各自页面提供双语 `<noscript>` 回退内容（EEAT 信任信号）
 - **`llms.txt`** — 面向 LLM 的站点描述，位于 `/llms.txt`，总结应用功能、特性与结构，供 AI 工具使用
@@ -290,6 +296,20 @@ npm run build
 - **缓存**：`/_next/static` 和 `/fonts` 永久缓存（1 年），`/landing` 和 `/guideline` 图片 stale-while-revalidate 缓存（1 周）
 
 ## 更新日志
+
+### v0.12.0
+
+**新增：**
+
+- Web 工具计费支持 — 解析器可识别 `function_call` 行、新增 `name` 列，以及 `tool-search` / `tool-fetch` 费用。工具费用按 API Key 归属、只计入一次，并提供 Web Tools 筛选、Key/项目工具列、趋势指标和分享卡片支持。
+- 价格计算器新增 Search / Fetch 月度估算 — 每 1,000 次成功请求 ¥5 / $0.75，含独立调用量滑块与工具费用合计卡。
+- 新增中英双语文章——《DeepSeek Search & Fetch API：计费、CSV function_call 与 7 个真实场景》（`/blog/deepseek-search-fetch-api-billing`），覆盖 2026 年 10 月 17 日上线、计费时间线、CSV 列、对账方法与 Agent/RAG 实战场景。
+
+**修复：**
+
+- Issue #2 — 含 `function_call` 行的 ZIP 不再报 `invalid type`。cost CSV 工具行作为权威费用，amount 的 `price × amount` 仅作兜底/校验，工具费用只计一次。
+- 未知计费类型会跳过并提示，不再中断整次上传。
+- 多月份新旧格式混传时按列名归一化表头，新增 `name` 列不会让旧导出整行错位。
 
 ### v0.11.0
 

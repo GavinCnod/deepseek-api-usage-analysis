@@ -3,9 +3,11 @@
 import { useMemo } from "react";
 import ReactECharts from "echarts-for-react";
 import { useData } from "@/lib/DataContext";
+import { isWebToolModel } from "@/lib/dataKeys";
 import { useTranslation } from "@/i18n";
 import { useTheme } from "@/lib/ThemeContext";
-import { formatCost } from "@/lib/format";
+import { formatCost, formatCostPrecise } from "@/lib/format";
+import { formatToolName } from "@/lib/toolNames";
 
 /**
  * 总览视图：每日费用柱状图 + 各 Key 费用环形图
@@ -27,22 +29,52 @@ export default function OverviewView() {
   const textColor = isDark ? "#98989D" : "#86868B";
   const gridColor = isDark ? "#2C2C2E" : "#E5E5EA";
 
-  // 每日费用柱状图
+  // 每日费用柱状图（模型 token 费用 + Web 工具费用堆叠）
+  const hasTools =
+    (summary?.totalToolCalls ?? 0) > 0 || (summary?.totalToolCost ?? 0) > 0;
   const dailyOption = useMemo(() => {
     if (!result || !daily) return {};
 
     const dates = [...new Set(daily.map((d) => d.date))].sort();
-    const byDate = new Map<string, number>();
+    const modelByDate = new Map<string, number>();
+    const toolByDate = new Map<string, number>();
     for (const d of daily) {
-      byDate.set(d.date, (byDate.get(d.date) ?? 0) + (d.cost ?? 0));
+      const target = isWebToolModel(d.model) ? toolByDate : modelByDate;
+      target.set(d.date, (target.get(d.date) ?? 0) + (d.cost ?? 0));
     }
+
+    const series = [
+      {
+        name: t.overview.modelCost,
+        type: "bar" as const,
+        stack: "cost",
+        data: dates.map((d) => +(modelByDate.get(d) ?? 0).toFixed(4)),
+        itemStyle: { color: isDark ? "#F5F5F7" : "#1D1D1F", borderRadius: [4, 4, 0, 0] },
+      },
+      ...(hasTools
+        ? [{
+            name: t.overview.webTools,
+            type: "bar" as const,
+            stack: "cost",
+            data: dates.map((d) => +(toolByDate.get(d) ?? 0).toFixed(4)),
+            itemStyle: { color: isDark ? "#98989D" : "#86868B", borderRadius: [4, 4, 0, 0] },
+          }]
+        : []),
+    ];
 
     return {
       tooltip: {
         trigger: "axis" as const,
         valueFormatter: (v: unknown) => `¥${(v as number).toFixed(2)}`,
       },
-      grid: { top: 8, right: 16, bottom: 24, left: 48 },
+      legend: hasTools
+        ? {
+            data: [t.overview.modelCost, t.overview.webTools],
+            bottom: 0,
+            textStyle: { fontSize: 10, color: textColor },
+          }
+        : undefined,
+      grid: { top: 8, right: 16, bottom: hasTools ? 44 : 24, left: 48 },
       xAxis: {
         type: "category" as const,
         data: dates,
@@ -54,15 +86,9 @@ export default function OverviewView() {
         axisLabel: { fontSize: 10, color: textColor, formatter: (v: number) => `¥${v}` },
         splitLine: { lineStyle: { color: gridColor } },
       },
-      series: [
-        {
-          type: "bar",
-          data: dates.map((d) => +(byDate.get(d) ?? 0).toFixed(4)),
-          itemStyle: { color: isDark ? "#F5F5F7" : "#1D1D1F", borderRadius: [4, 4, 0, 0] },
-        },
-      ],
+      series,
     };
-  }, [result, daily, isDark, textColor, gridColor]);
+  }, [result, daily, isDark, textColor, gridColor, hasTools, t.overview.modelCost, t.overview.webTools]);
 
   // 各 Key 费用环形图（donut）
   const donutOption = useMemo(() => {
@@ -161,6 +187,37 @@ export default function OverviewView() {
           </div>
         </div>
       </div>
+
+      {hasTools && (
+        <div
+          className="flex flex-wrap items-baseline gap-x-5 gap-y-2 pt-5"
+          style={{ borderTop: "1px solid var(--border)" }}
+        >
+          <span
+            className="text-[11px] font-semibold uppercase tracking-widest"
+            style={{ color: "var(--text-secondary)" }}
+          >
+            {t.overview.webTools}
+          </span>
+          <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            {t.overview.toolCalls.replace("{calls}", String(summary.totalToolCalls))}
+          </span>
+          <span className="text-sm font-semibold" style={{ color: "var(--text-primary)" }}>
+            {formatCostPrecise(summary.totalToolCost)}
+          </span>
+          {summary.totalToolCalls > 0 && (
+            <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+              {t.overview.avgPerCall.replace(
+                "{cost}",
+                formatCostPrecise(summary.totalToolCost / summary.totalToolCalls)
+              )}
+            </span>
+          )}
+          <span className="text-xs" style={{ color: "var(--text-tertiary)" }}>
+            {summary.toolNames.map((name) => formatToolName(name, locale)).join(" · ")}
+          </span>
+        </div>
+      )}
     </div>
   );
 }

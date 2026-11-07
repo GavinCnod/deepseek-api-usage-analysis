@@ -126,7 +126,7 @@ function extractProjectData(
   }
 
   const projects = Array.from(map.values())
-    .filter((p) => !p.isUncategorized || p.totalTokens > 0)
+    .filter((p) => !p.isUncategorized || p.totalTokens > 0 || p.totalCost > 0)
     .sort((a, b) => b.totalCost - a.totalCost);
 
   const activeCount = projects.filter((p) => !p.isUncategorized).length;

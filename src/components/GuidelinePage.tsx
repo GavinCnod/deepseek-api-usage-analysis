@@ -884,7 +884,7 @@ DeepSeek API 用量分析仪表盘是一款**纯浏览器端运行**的数据可
 
 当数据存在非致命问题时显示，每条警告为独立横幅：
 
-- 可能出现的警告类型：日期不匹配、缺少费用数据、缓存数据不完整、数据结构不一致
+- 可能出现的警告类型：日期不匹配、缺少费用数据、缓存数据不完整、数据结构不一致、未知计费类型、工具费用不一致
 
 视觉样式：淡黄色背景 + 黄色边框 + 琥珀色文字。
 
@@ -1172,12 +1172,13 @@ Apple 风格下划线标签，5 个标签页：
 |------|------|
 | \`start_time_iso\` | 周期开始时间（ISO 8601）；账单日取其日期部分（北京时间当天） |
 | \`end_time_iso\` | 周期结束时间（ISO 8601） |
-| \`model\` | 模型名称 |
+| \`model\` | 模型名称；\`function_call\` 行为空 |
+| \`name\` | 计费项名称；普通行等于 \`model\`，Web 工具行为 \`tool-search\` / \`tool-fetch\` |
 | \`api_key_name\` | API Key 名称 |
 | \`api_key\` | API Key 值 |
-| \`type\` | 类型枚举 |
-| \`price\` | 单价（request_count 类型为空） |
-| \`amount\` | 数量 |
+| \`type\` | 类型枚举（含 \`function_call\`） |
+| \`price\` | 单价（request_count 类型为空；function_call 为每次调用价格） |
+| \`amount\` | 数量（Token / 请求 / 工具调用次数） |
 
 > 兼容旧式导出：若文件使用 \`utc_date\` 列（UTC 日期）且文件名为 \`amount-YYYY-M.csv\`，同样可以正常解析。
 
@@ -1187,12 +1188,15 @@ Apple 风格下划线标签，5 个标签页：
 |------|------|
 | \`start_time_iso\` | 周期开始时间（ISO 8601） |
 | \`end_time_iso\` | 周期结束时间（ISO 8601） |
-| \`model\` | 模型名称 |
-| \`wallet_type\` | 钱包类型（如 Paid） |
+| \`model\` | 模型名称；\`function_call\` 行为空 |
+| \`name\` | 计费项名称（语义同 amount CSV） |
+| \`wallet_type\` | 钱包类型（如 Paid、Granted） |
 | \`cost\` | 费用（按日汇总） |
 | \`currency\` | 货币单位 |
 
 > 兼容旧式导出：若文件使用 \`utc_date\` 列且文件名为 \`cost-YYYY-M.csv\`，同样可以正常解析。
+
+> Web 工具费用在 amount CSV 中为 \`type=function_call\`，在 cost CSV 中为 \`model\` 空行。cost 行是权威扣费，amount 的 \`price × amount\` 只用于交叉校验，不要重复相加。
 
 ### 注意事项
 
@@ -1225,7 +1229,8 @@ Apple 风格下划线标签，5 个标签页：
 | 图表中某一天无数据 | 当天没有 API 调用 | 正常现象，不影响其他天数据 |
 | 缓存视图显示未检测到缓存使用 | API 调用未启用 prompt caching | 在调用 DeepSeek API 时开启提示缓存功能 |
 | 显示上传不完整 | 某个月份只有 amount 或只有 cost | 补充缺失的文件重新上传 |
-| 多月份合并后数据异常 | 文件命名不规范 | 确保 ZIP 内文件名或直接上传的 CSV 文件名为标准格式 |
+| 看不到 Web 工具费用 | 导出文件中没有 \`function_call\` 行，或只上传了 amount | 确认 ZIP 含同一月份的 amount + cost，且导出时间在 2026 年 11 月之后；然后选择 Web Tools 筛选 |
+| 多月份合并后数据异常 | 文件命名不规范 | 确保 ZIP 内文件名或直接上传的 CSV 文件名为标准格式；新旧格式混传时系统会按列名自动归一化表头 |
 `;
 }
 
@@ -1354,7 +1359,7 @@ Visual style: light red background + red border + red text.
 
 Displayed when data has non-critical issues, each warning shown as an independent banner:
 
-- Possible warning types: date mismatch, missing cost data, incomplete cache data, schema drift
+- Possible warning types: date mismatch, missing cost data, incomplete cache data, schema drift, unknown billing type, tool cost mismatch
 
 Visual style: light amber background + amber border + amber text.
 
@@ -1642,12 +1647,13 @@ Each dashboard tab can generate a 1200×630 infographic share image, ideal for s
 |--------|-------------|
 | \`start_time_iso\` | Period start (ISO 8601); the billing day is its date part (Beijing-local day) |
 | \`end_time_iso\` | Period end (ISO 8601) |
-| \`model\` | Model name |
+| \`model\` | Model name; empty for \`function_call\` rows |
+| \`name\` | Billing item name; equals \`model\` for token rows, \`tool-search\` / \`tool-fetch\` for Web tool rows |
 | \`api_key_name\` | API Key name |
 | \`api_key\` | API Key value |
-| \`type\` | Type enum |
-| \`price\` | Unit price (empty for request_count type) |
-| \`amount\` | Count |
+| \`type\` | Type enum, including \`function_call\` |
+| \`price\` | Unit price (empty for request_count; per-call price for function_call) |
+| \`amount\` | Token count, request count, or tool call count |
 
 > Legacy exports using a \`utc_date\` column (UTC date) and \`amount-YYYY-M.csv\` filenames are also supported.
 
@@ -1657,12 +1663,15 @@ Each dashboard tab can generate a 1200×630 infographic share image, ideal for s
 |--------|-------------|
 | \`start_time_iso\` | Period start (ISO 8601) |
 | \`end_time_iso\` | Period end (ISO 8601) |
-| \`model\` | Model name |
-| \`wallet_type\` | Wallet type (e.g. Paid) |
+| \`model\` | Model name; empty for \`function_call\` rows |
+| \`name\` | Billing item name (same semantics as amount CSV) |
+| \`wallet_type\` | Wallet type (e.g. Paid, Granted) |
 | \`cost\` | Cost (daily total) |
 | \`currency\` | Currency unit |
 
 > Legacy exports using a \`utc_date\` column and \`cost-YYYY-M.csv\` filenames are also supported.
+
+> Web tool charges are \`type=function_call\` in the amount CSV and an empty-\`model\` row in the cost CSV. The cost row is the authoritative charge; \`price × amount\` is only a cross-check, not a second charge.
 
 ### Notes
 
@@ -1695,7 +1704,8 @@ Each dashboard tab can generate a 1200×630 infographic share image, ideal for s
 | Missing data for a specific day | No API calls on that day | Normal behavior — does not affect other days' data |
 | Cache view shows "No Cache Usage Detected" | Prompt caching not enabled in API calls | Enable prompt caching in your DeepSeek API calls |
 | "Incomplete Upload" shown | A month has only amount or only cost file | Add the missing file and re-upload |
-| Data anomalies after multi-month merge | Non-standard filename format | Ensure filenames inside ZIP or directly uploaded CSVs follow the standard pattern |
+| Web tool fees are missing | The export has no \`function_call\` rows, or only the amount file was uploaded | Ensure the ZIP contains both amount and cost for the same month and was exported after November 2026; then select the Web Tools filter |
+| Data anomalies after multi-month merge | Non-standard filename format | Ensure filenames inside ZIP or directly uploaded CSVs follow the standard pattern; mixed legacy/new headers are normalized by column name automatically |
 `;
 }
 

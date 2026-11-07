@@ -10,8 +10,10 @@ import { formatTokens } from "@/lib/format";
 import {
   CNY_PER_USD,
   effectivePrice,
+  estimateToolCost,
   MODEL_PRICING,
   MODEL_PRICING_PATHS,
+  TOOL_PRICING,
   type ModelKey,
 } from "@/lib/modelPricing";
 import TitleBar from "./TitleBar";
@@ -68,6 +70,8 @@ export function PricingCalculatorPage() {
   const [cacheHitRate, setCacheHitRate] = useState(40); // 40%
   const [peakShare, setPeakShare] = useState(40); // 40% 高峰占比
   const [currency, setCurrency] = useState<"CNY" | "USD">("CNY");
+  const [searchCalls, setSearchCalls] = useState(1_000);
+  const [fetchCalls, setFetchCalls] = useState(1_000);
 
   const inputM = inputTokens / 1_000_000;
   const outputM = outputTokens / 1_000_000;
@@ -81,6 +85,14 @@ export function PricingCalculatorPage() {
     const outputCost = outputM * effectivePrice(p.output, share);
     return cachedInput + uncachedInput + outputCost;
   };
+
+  const searchPricePer1000 =
+    currency === "CNY" ? TOOL_PRICING.search.cnyPer1000 : TOOL_PRICING.search.usdPer1000;
+  const fetchPricePer1000 =
+    currency === "CNY" ? TOOL_PRICING.fetch.cnyPer1000 : TOOL_PRICING.fetch.usdPer1000;
+  const searchToolCost = estimateToolCost(searchCalls, searchPricePer1000);
+  const fetchToolCost = estimateToolCost(fetchCalls, fetchPricePer1000);
+  const toolCostTotal = searchToolCost + fetchToolCost;
 
   const modelsData = [
     { key: "v4Flash", name: t.pricingCalculator.deepseekV4Flash, pricing: MODEL_PRICING.v4Flash, color: "var(--positive)", notes: t.pricingCalculator.peakWindowNote },
@@ -358,6 +370,106 @@ export function PricingCalculatorPage() {
 
             <p className="text-[11px] mt-2" style={{ color: "var(--text-tertiary)" }}>
               {t.pricingCalculator.peakShareHint}
+            </p>
+          </div>
+
+          {/* Search / Fetch 按次费用估算 */}
+          <div className="p-6 rounded-subtle mb-8" style={{ border: "1px solid var(--border)" }}>
+            <h3 className="text-sm font-semibold mb-1" style={{ color: "var(--text-primary)" }}>
+              {t.pricingCalculator.toolEstimateTitle}
+            </h3>
+            <p className="text-[11px] mb-5" style={{ color: "var(--text-tertiary)" }}>
+              {t.pricingCalculator.toolEstimateDesc}
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {[
+                {
+                  key: "search",
+                  label: t.pricingCalculator.searchCallsLabel,
+                  value: searchCalls,
+                  setValue: setSearchCalls,
+                  price: searchPricePer1000,
+                },
+                {
+                  key: "fetch",
+                  label: t.pricingCalculator.fetchCallsLabel,
+                  value: fetchCalls,
+                  setValue: setFetchCalls,
+                  price: fetchPricePer1000,
+                },
+              ].map((tool) => (
+                <div key={tool.key}>
+                  <div className="flex justify-between items-center mb-2">
+                    <label
+                      htmlFor={`${tool.key}-calls-range`}
+                      className="block text-xs font-semibold"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {tool.label}
+                    </label>
+                    <input
+                      type="number"
+                      min={0}
+                      max={100000}
+                      step={1}
+                      value={tool.value}
+                      onChange={(e) => {
+                        const next = Number(e.target.value);
+                        tool.setValue(Number.isFinite(next) ? Math.max(0, Math.min(100000, next)) : 0);
+                      }}
+                      className="text-xs px-2 py-1 rounded border outline-none w-24 text-right font-mono"
+                      style={{ background: "var(--bg)", borderColor: "var(--border)", color: "var(--text-primary)" }}
+                    />
+                  </div>
+                  <input
+                    id={`${tool.key}-calls-range`}
+                    type="range"
+                    min={0}
+                    max={100000}
+                    step={100}
+                    value={tool.value}
+                    onChange={(e) => tool.setValue(Number(e.target.value))}
+                    className="w-full h-1.5 appearance-none rounded-full cursor-pointer"
+                    style={{ accentColor: "var(--text-primary)", background: "var(--border)" }}
+                  />
+                  <div className="flex justify-between text-[10px] mt-1" style={{ color: "var(--text-tertiary)" }}>
+                    <span>0</span>
+                    <span>{formatMoney(tool.price, currency, currency, locale)} {t.pricingCalculator.perThousandCalls}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-3 gap-3 mt-6">
+              <div className="p-3 rounded-subtle text-center" style={{ border: "1px solid var(--border)" }}>
+                <span className="block text-[10px] uppercase tracking-wider mb-1" style={{ color: "var(--text-tertiary)" }}>
+                  {t.pricingCalculator.searchCostLabel}
+                </span>
+                <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
+                  {formatMoney(searchToolCost, currency, currency, locale)}
+                </span>
+              </div>
+              <div className="p-3 rounded-subtle text-center" style={{ border: "1px solid var(--border)" }}>
+                <span className="block text-[10px] uppercase tracking-wider mb-1" style={{ color: "var(--text-tertiary)" }}>
+                  {t.pricingCalculator.fetchCostLabel}
+                </span>
+                <span className="text-sm font-bold" style={{ color: "var(--text-primary)" }}>
+                  {formatMoney(fetchToolCost, currency, currency, locale)}
+                </span>
+              </div>
+              <div className="p-3 rounded-subtle text-center" style={{ border: "1px solid var(--border)" }}>
+                <span className="block text-[10px] uppercase tracking-wider mb-1" style={{ color: "var(--text-tertiary)" }}>
+                  {t.pricingCalculator.toolEstimateTotal}
+                </span>
+                <span className="text-sm font-bold" style={{ color: "var(--positive)" }}>
+                  {formatMoney(toolCostTotal, currency, currency, locale)}
+                </span>
+              </div>
+            </div>
+
+            <p className="text-[11px] mt-4" style={{ color: "var(--text-tertiary)" }}>
+              {t.pricingCalculator.toolEstimateNote} {t.pricingCalculator.modelPlusToolsNote}
             </p>
           </div>
 

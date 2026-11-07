@@ -25,12 +25,17 @@ export default function CacheView() {
 
     const hasCache =
         (summary?.totalCacheHitTokens ?? 0) + (summary?.totalCacheMissTokens ?? 0) > 0;
+    const hasTokenUsage = (summary?.totalTokens ?? 0) > 0;
 
     // 每日缓存命中率趋势
     const trendOption = useMemo(() => {
         if (!result || !daily) return {};
 
-        const dates = [...new Set(daily.map((d) => d.date))].sort();
+        const dates = [...new Set(
+          daily
+            .filter((d) => d.inputCacheHitTokens + d.inputCacheMissTokens > 0)
+            .map((d) => d.date)
+        )].sort();
         const hitsByDate = new Map<string, number>();
         const missesByDate = new Map<string, number>();
         for (const d of daily) {
@@ -83,7 +88,11 @@ export default function CacheView() {
     const byKeyOption = useMemo(() => {
         if (!result || !daily) return {};
 
-        const keyNames = [...new Set(daily.map((d) => d.apiKeyName))];
+        const keyNames = [...new Set(daily.map((d) => d.apiKeyName))].filter((key) =>
+          daily.some(
+            (d) => d.apiKeyName === key && d.inputCacheHitTokens + d.inputCacheMissTokens > 0
+          )
+        );
         const hits = keyNames.map((k) =>
             daily.filter((d) => d.apiKeyName === k).reduce((s, d) => s + d.inputCacheHitTokens, 0)
         );
@@ -163,10 +172,10 @@ export default function CacheView() {
             <div className="py-16 text-center">
                 <div className="text-2xl mb-4 opacity-40">💡</div>
                 <p className="font-semibold text-base mb-1" style={{ color: "var(--text-primary)" }}>
-                    {t.cache.noCacheTitle}
+                    {hasTokenUsage ? t.cache.noCacheTitle : t.cache.noTokenTitle}
                 </p>
                 <p className="text-sm" style={{ color: "var(--text-secondary)" }}>
-                    {t.cache.noCacheHint}
+                    {hasTokenUsage ? t.cache.noCacheHint : t.cache.noTokenHint}
                 </p>
             </div>
         );
