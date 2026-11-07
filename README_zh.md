@@ -301,7 +301,7 @@ npm run build
 
 **新增：**
 
-- Web 工具计费支持 — 解析器可识别 `function_call` 行、新增 `name` 列，以及 `tool-search` / `tool-fetch` 费用。工具费用按 API Key 归属、只计入一次，并提供 Web Tools 筛选、Key/项目工具列、趋势指标和分享卡片支持。
+- Web 工具计费支持 ( 感谢 @ef-umbra )  — 解析器可识别 `function_call` 行、新增 `name` 列，以及 `tool-search` / `tool-fetch` 费用。工具费用按 API Key 归属、只计入一次，并提供 Web Tools 筛选、Key/项目工具列、趋势指标和分享卡片支持。
 - 价格计算器新增 Search / Fetch 月度估算 — 每 1,000 次成功请求 ¥5 / $0.75，含独立调用量滑块与工具费用合计卡。
 - 新增中英双语文章——《DeepSeek Search & Fetch API：计费、CSV function_call 与 7 个真实场景》（`/blog/deepseek-search-fetch-api-billing`），覆盖 2026 年 10 月 17 日上线、计费时间线、CSV 列、对账方法与 Agent/RAG 实战场景。
 
