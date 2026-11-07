@@ -301,7 +301,7 @@ The repo includes `vercel.json` with pre-configured security headers and caching
 
 **Added:**
 
-- Web tool billing support ( Huge thanks to @ef-umbra ) — the parser understands `function_call` rows, the new `name` column, and `tool-search` / `tool-fetch` charges. Tool cost is attributed per API key, counted once, and surfaced through a dedicated Web Tools filter, Key/Project columns, a Trends metric, and share cards.
+- Web tool billing support ( Huge thanks to [@ef-umbra](https://github.com/ef-umbra) — the parser understands `function_call` rows, the new `name` column, and `tool-search` / `tool-fetch` charges. Tool cost is attributed per API key, counted once, and surfaced through a dedicated Web Tools filter, Key/Project columns, a Trends metric, and share cards.
 - Search / Fetch monthly estimate in the Pricing Calculator — ¥5 / $0.75 per 1,000 successful requests, with independent call sliders and a combined tool-cost card.
 - New bilingual article — "DeepSeek Search & Fetch API: Pricing, function_call CSV Rows, and 7 Real Use Cases" (`/blog/deepseek-search-fetch-api-billing`), covering the October 17, 2026 launch, billing timeline, CSV columns, reconciliation, and practical agent/RAG scenarios.
 
